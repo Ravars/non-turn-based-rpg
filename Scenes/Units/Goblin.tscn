@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctjkrsxjkogxj"]
+
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_564fj"]
+
+[node name="Goblin" instance=ExtResource("1_564fj")]
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)

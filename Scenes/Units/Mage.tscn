@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7vh5n4px2cnv"]
+
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_r3b7i"]
+
+[node name="Mage" instance=ExtResource("1_r3b7i")]
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(0.901961, 0, 0, 1)
