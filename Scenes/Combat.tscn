@@ -1,25 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://8rjewcj1qibu"]
+[gd_scene load_steps=7 format=3 uid="uid://8rjewcj1qibu"]
 
-[ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="1_jr68y"]
 [ext_resource type="PackedScene" uid="uid://7vh5n4px2cnv" path="res://Scenes/Units/Mage.tscn" id="2_rq8dt"]
-[ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="3_0dhp0"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="3_snhto"]
+[ext_resource type="Script" path="res://Scripts/CombatManager.gd" id="4_abcde"]
+[ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="6_k8hyy"]
+[ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="6_xd0fh"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/SwordAttack.tres" id="7_xd0fh"]
 
 [node name="Combat" type="Node2D"]
+script = ExtResource("4_abcde")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.458405, 0.458405, 0.458405, 1)
 metadata/_edit_lock_ = true
 
-[node name="Mage" parent="." instance=ExtResource("2_rq8dt")]
-position = Vector2(210, 263)
+[node name="PlayerLanes" type="Node2D" parent="."]
+position = Vector2(250, 0)
 
-[node name="Goblin" parent="." instance=ExtResource("3_0dhp0")]
-position = Vector2(906, 279)
+[node name="Lane1" type="Node2D" parent="PlayerLanes"]
+position = Vector2(0, 250)
 
-[node name="Goblin2" parent="." instance=ExtResource("3_0dhp0")]
-position = Vector2(905, 352)
+[node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane1"]
 
-[node name="Warrior" parent="." instance=ExtResource("1_jr68y")]
-position = Vector2(368, 276)
+[node name="Lane2" type="Node2D" parent="PlayerLanes"]
+position = Vector2(0, 400)
+
+[node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane2"]
+
+[node name="Mage" parent="PlayerLanes/Lane2/UnitPosition" groups=["heroes"] instance=ExtResource("2_rq8dt")]
+position = Vector2(0, -150)
+
+[node name="Warrior" parent="PlayerLanes/Lane2/UnitPosition" groups=["heroes"] instance=ExtResource("6_xd0fh")]
+skills = Array[ExtResource("3_snhto")]([ExtResource("7_xd0fh"), ExtResource("7_xd0fh"), ExtResource("7_xd0fh")])
+
+[node name="Lane3" type="Node2D" parent="PlayerLanes"]
+position = Vector2(0, 550)
+
+[node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane3"]
+
+[node name="EnemyLanes" type="Node2D" parent="."]
+position = Vector2(950, 0)
+
+[node name="Lane1" type="Node2D" parent="EnemyLanes"]
+position = Vector2(0, 250)
+
+[node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane1"]
+
+[node name="Goblin" parent="EnemyLanes/Lane1/UnitPosition" groups=["enemies"] instance=ExtResource("6_k8hyy")]
+is_enemy = true
+skills = Array[ExtResource("3_snhto")]([ExtResource("7_xd0fh"), ExtResource("7_xd0fh")])
+
+[node name="Lane2" type="Node2D" parent="EnemyLanes"]
+position = Vector2(0, 400)
+
+[node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane2"]
+
+[node name="Lane3" type="Node2D" parent="EnemyLanes"]
+position = Vector2(0, 550)
+
+[node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane3"]

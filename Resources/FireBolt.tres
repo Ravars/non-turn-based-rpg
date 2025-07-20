@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://cjplw62slvhk2"]
+
+[ext_resource type="Texture2D" uid="uid://ch4d6oeecrhhw" path="res://Icons/line_vertical.png" id="1_0eurg"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="1_bu23q"]
+
+[resource]
+script = ExtResource("1_bu23q")
+skill_name = "Fire Bolt"
+skill_description = "A Fire Bolt"
+damage = 20
+cast_time = 2.0
+cooldown = 3.0
+icon = ExtResource("1_0eurg")
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

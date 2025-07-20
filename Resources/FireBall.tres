@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://bk14aot6jtncu"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="1_gybf2"]
+
+[resource]
+script = ExtResource("1_gybf2")
+skill_name = "Fire Ball"
+skill_description = "Description Skill"
+damage = 10
+cast_time = 4.0
+cooldown = 1.0
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dedvm26vfptj3"]
 
 [ext_resource type="PackedScene" uid="uid://bbp0som1xstur" path="res://Scenes/AbilityButton.tscn" id="1_4t1g0"]
-[ext_resource type="Script" uid="uid://ccmncbujsmd4k" path="res://Scripts/Timeline.gd" id="1_n5ev4"]
+[ext_resource type="Script" uid="uid://ccmncbujsmd4k" path="res://Scripts/TimelineUI.gd" id="1_n5ev4"]
 
 [node name="Timeline" type="Control"]
 layout_mode = 3

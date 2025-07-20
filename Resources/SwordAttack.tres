@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://c2bipukebnffg"]
+
+[ext_resource type="Texture2D" uid="uid://eeaydf545xd3" path="res://Icons/tool_sword_a.png" id="1_v5f1t"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="1_vyscx"]
+
+[resource]
+script = ExtResource("1_vyscx")
+skill_name = "Sword Attack"
+skill_description = "Uses a Sword to Attack"
+damage = 5
+cast_time = 1.0
+cooldown = 2.0
+icon = ExtResource("1_v5f1t")
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

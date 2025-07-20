@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bet4frdrva7or"]
+[gd_scene load_steps=5 format=3 uid="uid://bet4frdrva7or"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_jnkdd"]
+[ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Warrior.tres" id="2_60m18"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="3_wxa1f"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/SwordAttack.tres" id="4_q8au6"]
 
 [node name="Warrior" instance=ExtResource("1_jnkdd")]
+characterStats = ExtResource("2_60m18")
+skills = Array[ExtResource("3_wxa1f")]([ExtResource("4_q8au6")])
 
 [node name="ColorRect" parent="." index="0"]
 color = Color(0.133948, 0.357655, 0.939612, 1)
