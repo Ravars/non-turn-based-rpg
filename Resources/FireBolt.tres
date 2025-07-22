@@ -7,8 +7,8 @@
 script = ExtResource("1_bu23q")
 skill_name = "Fire Bolt"
 skill_description = "A Fire Bolt"
-damage = 20
-cast_time = 2.0
+damage = 5
+cast_time = 4.0
 cooldown = 3.0
 icon = ExtResource("1_0eurg")
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"
