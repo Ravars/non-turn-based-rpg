@@ -1,6 +1,9 @@
 extends Node2D
 class_name Unit
 
+signal unit_died(Unit)
+#signal unit_ready(Unit)
+
 @export var is_enemy := false
 
 var max_hp: int = 100
@@ -17,17 +20,21 @@ func _ready() -> void:
 	max_hp = characterStats.health
 	current_hp = max_hp
 	$Label.text = str(current_hp)
-	timeline_id = TimelineManager.add_character_timeline(self)
-	var time: int = 0
-	for i in range(skills.size()):
-		var hero = get_tree().get_first_node_in_group("heroes")
-		var enemie = get_tree().get_first_node_in_group("enemies")
-		if is_enemy:
-			TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, hero, time)	
-		else:
-			TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, enemie, time)
-		
-		time += skills[i].calculate_skill_total_time()
+	
+	#For testing only
+	#timeline_id = TimelineManager.add_character_timeline(self)
+	#var time: int = 0
+	#
+	#for i in range(skills.size()):
+		#var hero = get_tree().get_first_node_in_group("heroes")
+		#var enemie = get_tree().get_first_node_in_group("enemies")
+		#print("{0} Time: {1}".format({0:name, 1: time}))
+		#if is_enemy:
+			#TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, hero, time)	
+		#else:
+			#TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, enemie, time)
+		#
+		#time += skills[i].calculate_skill_total_time()
 	
 	#print(TimelineManager.planned_actions)
 
@@ -38,6 +45,7 @@ func take_damage(amount: int):
 	if current_hp <= 0:
 		print("{0} foi derrotado!".format({0:name}))
 		is_dead = true
+		unit_died.emit(self)
 
 ## Adiciona uma ação à timeline interna da unidade
 #func add_action(action_data: Dictionary):
