@@ -12,14 +12,16 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
-[node name="Timeline" parent="." instance=ExtResource("1_u2ofk")]
+[node name="Timeline" parent="." node_paths=PackedStringArray("timeline_ui") instance=ExtResource("1_u2ofk")]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 0
+timeline_ui = NodePath("../TimelineUi")
 
 [node name="TimelineUi" parent="." instance=ExtResource("2_orym3")]
 layout_mode = 1

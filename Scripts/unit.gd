@@ -2,7 +2,7 @@ extends Node2D
 class_name Unit
 
 signal unit_died(Unit)
-#signal unit_ready(Unit)
+signal unit_clicked(unit: Unit)
 
 @export var is_enemy := false
 
@@ -13,30 +13,33 @@ var is_dead: bool = false
 @export var characterStats: CharacterStats
 @export var skills: Array[SkillData] = []
 
-# A timeline interna para esta unidade
-#var action_timeline: Array = []
-
 func _ready() -> void:
 	max_hp = characterStats.health
 	current_hp = max_hp
 	$Label.text = str(current_hp)
 	
-	#For testing only
-	#timeline_id = TimelineManager.add_character_timeline(self)
-	#var time: int = 0
-	#
-	#for i in range(skills.size()):
-		#var hero = get_tree().get_first_node_in_group("heroes")
-		#var enemie = get_tree().get_first_node_in_group("enemies")
-		#print("{0} Time: {1}".format({0:name, 1: time}))
-		#if is_enemy:
-			#TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, hero, time)	
-		#else:
-			#TimelineManager._on_player_dropped_skill(timeline_id, skills[i], self, enemie, time)
-		#
-		#time += skills[i].calculate_skill_total_time()
+	# Cria uma área clicável programaticamente
+	var clickable_area = Area2D.new()
+	var collision_shape = CollisionShape2D.new()
+	var rectangle = RectangleShape2D.new()
 	
-	#print(TimelineManager.planned_actions)
+	# Tenta usar o tamanho de um nó de Sprite2D se existir
+	if has_node("Sprite2D"):
+		rectangle.size = get_node("Sprite2D").texture.get_size()
+	else:
+		rectangle.size = Vector2(50, 100) # Tamanho padrão
+	
+	collision_shape.shape = rectangle
+	clickable_area.add_child(collision_shape)
+	add_child(clickable_area)
+	
+	# Conecta o sinal de input da área criada à nossa função de clique
+	clickable_area.input_event.connect(_on_input_event)
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		unit_clicked.emit(self)
+		get_viewport().set_input_as_handled() # Impede que o clique se propague mais
 
 func take_damage(amount: int):
 	current_hp = max(0, current_hp-amount)
@@ -46,17 +49,3 @@ func take_damage(amount: int):
 		print("{0} foi derrotado!".format({0:name}))
 		is_dead = true
 		unit_died.emit(self)
-
-## Adiciona uma ação à timeline interna da unidade
-#func add_action(action_data: Dictionary):
-	## No futuro, podemos adicionar validações aqui
-	#action_timeline.append(action_data)
-	#print(name, " adicionou a ação: ", action_data["ability_name"])
-#
-## Limpa todas as ações da timeline
-#func clear_timeline():
-	#action_timeline.clear()
-#
-## Permite que outros scripts leiam a timeline de forma segura
-#func get_action_timeline() -> Array:
-	#return action_timeline

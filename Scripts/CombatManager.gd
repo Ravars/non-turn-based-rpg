@@ -23,11 +23,11 @@ func process_action(current_time: float):
 			if not action.target.is_dead:
 				actions_to_perform.append(action)
 			else:
-				print("Ação {0} cancelada por alvo inválido.".format({0: action.skill_data.skill_name}))
+				print("Ação {0} cancelada por alvo inválido.".format([action.skill_data.skill_name]))
 			timelineActions.remove_at(i)
 
 	for action_to_perform in actions_to_perform:
-		print("Personagem {2} executando {0} no tempo {1}".format({0: action_to_perform.skill_data.skill_name, 1: current_time, 2: action_to_perform.caster.name}))
+		print("Personagem {caster_name} executando {skill_name} no tempo {time}".format({"caster_name": action_to_perform.caster.name, "skill_name": action_to_perform.skill_data.skill_name, "time": current_time}))
 		execute_action(action_to_perform)
 		
 	if timelineActions.size() == 0:

@@ -24,4 +24,4 @@ func _physics_process(delta: float) -> void:
 func add_planed_action(action: TimelineAction):
 	planned_actions.append(action)
 	planned_actions.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.get_execution_time() < b.get_execution_time())
-	print("added")
+	print("Ação '{skill_name}' adicionada à timeline.".format({"skill_name": action.skill_data.skill_name}))
