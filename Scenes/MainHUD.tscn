@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgshm43j5t54n"]
+
+[ext_resource type="PackedScene" uid="uid://dedvm26vfptj3" path="res://Scenes/Timeline.tscn" id="1_u2ofk"]
+[ext_resource type="PackedScene" uid="uid://of55w5nk6rnu" path="res://Scenes/TimelineUI.tscn" id="2_orym3"]
+
+[node name="MainHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timeline" parent="." instance=ExtResource("1_u2ofk")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 0
+
+[node name="TimelineUi" parent="." instance=ExtResource("2_orym3")]
+layout_mode = 1
+anchors_preset = 9
+anchor_right = 0.0
+grow_horizontal = 1

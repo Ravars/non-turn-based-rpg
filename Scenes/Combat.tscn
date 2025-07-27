@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://8rjewcj1qibu"]
+[gd_scene load_steps=6 format=3 uid="uid://8rjewcj1qibu"]
 
 [ext_resource type="PackedScene" uid="uid://7vh5n4px2cnv" path="res://Scenes/Units/Mage.tscn" id="2_rq8dt"]
 [ext_resource type="Script" path="res://Scripts/CombatManager.gd" id="4_abcde"]
 [ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="6_k8hyy"]
 [ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="6_xd0fh"]
-[ext_resource type="PackedScene" uid="uid://of55w5nk6rnu" path="res://Scenes/TimelineUI.tscn" id="7_vet15"]
 [ext_resource type="Script" uid="uid://t6mm8hwbwhs8" path="res://Scenes/CombatSceneController.gd" id="8_xd0fh"]
 
 [node name="Combat" type="Node2D"]
@@ -18,7 +17,7 @@ color = Color(0.458405, 0.458405, 0.458405, 1)
 metadata/_edit_lock_ = true
 
 [node name="PlayerLanes" type="Node2D" parent="."]
-position = Vector2(250, 0)
+position = Vector2(256, -163)
 
 [node name="Lane1" type="Node2D" parent="PlayerLanes"]
 position = Vector2(0, 250)
@@ -26,17 +25,17 @@ position = Vector2(0, 250)
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane1"]
 
 [node name="Lane2" type="Node2D" parent="PlayerLanes"]
-position = Vector2(0, 400)
+position = Vector2(0, 340)
 
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane2"]
 
 [node name="Lane3" type="Node2D" parent="PlayerLanes"]
-position = Vector2(0, 550)
+position = Vector2(0, 435)
 
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane3"]
 
 [node name="EnemyLanes" type="Node2D" parent="."]
-position = Vector2(950, 0)
+position = Vector2(956, -163)
 
 [node name="Lane1" type="Node2D" parent="EnemyLanes"]
 position = Vector2(0, 250)
@@ -44,20 +43,14 @@ position = Vector2(0, 250)
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane1"]
 
 [node name="Lane2" type="Node2D" parent="EnemyLanes"]
-position = Vector2(0, 400)
+position = Vector2(0, 343)
 
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane2"]
 
 [node name="Lane3" type="Node2D" parent="EnemyLanes"]
-position = Vector2(0, 550)
+position = Vector2(0, 441)
 
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane3"]
-
-[node name="TimelineUi" parent="." instance=ExtResource("7_vet15")]
-offset_left = 1.0
-offset_top = 4.0
-offset_right = 1281.0
-offset_bottom = 724.0
 
 [node name="CombatSceneController" type="Node" parent="." node_paths=PackedStringArray("player_spawn_points", "enemie_spawn_points")]
 script = ExtResource("8_xd0fh")

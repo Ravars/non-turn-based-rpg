@@ -1,4 +1,6 @@
 extends Panel
+class_name TimelineLane
+var hero_owner: Unit
 
 # --- Variáveis de Configuração ---
 @export var pixels_per_second := 182.0
@@ -13,6 +15,7 @@ var ghost_block: Panel = null # Variável para o bloco fantasma
 #==============================================================================
 
 func _ready():
+	print(name)
 	# Conectamos o sinal 'mouse_exited' do próprio Panel a uma função de limpeza.
 	# Você precisa fazer isso no editor do Godot:
 	# 1. Selecione o nó do Panel da Timeline.
@@ -25,61 +28,55 @@ func _ready():
 # Funções de Drag-and-Drop
 #==============================================================================
 
-func _can_drop_data(position: Vector2, data: Variant) -> bool:
-	var is_valid_data = typeof(data) == TYPE_DICTIONARY and data.has("cast_time")
-	if not is_valid_data:
+func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	if not data["skill_data"] is SkillData:
+		return false
+	
+	if not data["hero_owner"] == hero_owner:
 		return false
 
-	# Se não houver um bloco fantasma, crie um.
 	if not is_instance_valid(ghost_block):
-		ghost_block = _create_action_block_visual(data)
-		ghost_block.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		ghost_block.modulate.a = 0.5 # Deixa semi-transparente
+		ghost_block = _create_action_block_visual(data["skill_data"])
+		ghost_block.modulate.a = 0.5
 		add_child(ghost_block)
 
-	# Atualiza a posição do fantasma
-	var snapped_x = _snap_position_x(position.x)
-	ghost_block.position = Vector2(snapped_x, 15)
+	var snapped_x = _snap_position_x(at_position.x)
+	ghost_block.position.x = snapped_x
+	ghost_block.position.y = (size.y - ghost_block.size.y) / 2
 
-	# Calcula o intervalo de tempo e verifica a sobreposição
-	var new_start_time = position.x / pixels_per_second
-	var duration = data.get("cast_time", 0.0) + data.get("recovery_time", 0.0)
-	var new_end_time = new_start_time + duration
+	return true
+
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	if not hero_owner:
+		return
 	
-	var is_valid_position = not is_overlapping(new_start_time, new_end_time)
+	if is_instance_valid(ghost_block):
+		ghost_block.queue_free()
+		ghost_block = null
 	
-	# Muda a cor do fantasma para dar feedback visual
-	if is_valid_position:
-		ghost_block.self_modulate = Color.GREEN
+	
+	var start_time: float = _snap_position_x(at_position.x) / pixels_per_second
+	
+	var enemie = get_tree().get_first_node_in_group("enemies")
+	var hero = get_tree().get_first_node_in_group("heroes")
+	var target: Node2D = null
+	if hero_owner.is_enemy:
+		target = hero
 	else:
-		ghost_block.self_modulate = Color.RED
-		
-	return is_valid_position
+		target = enemie
+	var new_action = TimelineAction.new(data["skill_data"], hero_owner, target, start_time)
+	TimelineManager.add_planed_action(new_action)
 
-func _drop_data(position: Vector2, data: Variant) -> void:
-	if not is_instance_valid(ghost_block):
-		return # Não deveria acontecer, mas é uma boa segurança
-
-	# Torna o bloco fantasma permanente
-	ghost_block.modulate.a = 1.0 # Opacidade total
-	ghost_block.self_modulate = Color.WHITE # Cor normal
+	var real_block = _create_action_block_visual(data["skill_data"])
+	real_block.position.x = _snap_position_x(at_position.x)
+	real_block.position.y = (size.y - real_block.size.y) / 2.0
+	add_child(real_block)
 	
-	# Armazena os dados da ação
-	var start_time = ghost_block.position.x / pixels_per_second
-	var duration = data.get("cast_time", 0.0) + data.get("recovery_time", 0.0)
-	var end_time = start_time + duration
+	placed_actions.append({
+		"action_data": new_action,
+		"visual_block": real_block
+	})
 	
-	var new_action_data = {
-		"start_time": start_time,
-		"end_time": end_time,
-		"node": ghost_block,
-		"details": data
-	}
-	placed_actions.append(new_action_data)
-	print("Ação adicionada: ", new_action_data)
-	
-	# Limpa a referência para que um novo fantasma possa ser criado
-	ghost_block = null
 
 #==============================================================================
 # Funções de Lógica e Auxiliares
@@ -93,43 +90,47 @@ func is_overlapping(new_start_time: float, new_end_time: float) -> bool:
 
 # Função auxiliar para criar o NÓ visual do bloco de ação.
 # Isso evita código duplicado entre o fantasma e o bloco final.
-func _create_action_block_visual(data: Dictionary) -> Panel:
+func _create_action_block_visual(data: SkillData) -> Panel:
 	var action_block = Panel.new()
 	action_block.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	action_block.self_modulate = Color(1, 1, 1, 0.8)
 	
 	var hbox = HBoxContainer.new()
+	hbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	action_block.add_child(hbox)
 	
-	var cast_width = data.get("cast_time", 0.5) * pixels_per_second
+	var cast_width = data.cast_time * pixels_per_second
 	var impact_width = 4
-	var recovery_width = data.get("recovery_time", 0.0) * pixels_per_second
+	# var recovery_width = data.get("recovery_time", 0.0) * pixels_per_second
 	
 	var cast_rect = ColorRect.new()
 	cast_rect.color = Color("e6db74") # Amarelo
 	cast_rect.custom_minimum_size = Vector2(cast_width, 30)
+	cast_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hbox.add_child(cast_rect)
 	
 	var impact_rect = ColorRect.new()
 	impact_rect.color = Color("f92672") # Rosa/Vermelho
 	impact_rect.custom_minimum_size = Vector2(impact_width, 30)
+	impact_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hbox.add_child(impact_rect)
 	
-	if recovery_width > 0:
-		var recovery_rect = ColorRect.new()
-		recovery_rect.color = Color("ae81ff") # Roxo
-		recovery_rect.custom_minimum_size = Vector2(recovery_width, 30)
-		hbox.add_child(recovery_rect)
+	# if recovery_width > 0:
+	# 	var recovery_rect = ColorRect.new()
+	# 	recovery_rect.color = Color("ae81ff") # Roxo
+	# 	recovery_rect.custom_minimum_size = Vector2(recovery_width, 30)
+	# 	hbox.add_child(recovery_rect)
 		
 	var texto = Label.new()
-	texto.text = data["ability_name"]
+	texto.text = data.skill_name
 	texto.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	texto.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	texto.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	texto.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	action_block.add_child(texto)
 	
-	var total_width = cast_width + impact_width + recovery_width
+	var total_width = cast_width + impact_width
 	action_block.size = Vector2(total_width, 30)
 	
 	return action_block
@@ -140,6 +141,7 @@ func _create_action_block_visual(data: Dictionary) -> Panel:
 
 # Chamado quando o mouse sai da área do Panel da timeline.
 func _on_mouse_exited():
+	print("mouse exited")
 	# Se houver um bloco fantasma, destrua-o para limpar a tela.
 	if is_instance_valid(ghost_block):
 		ghost_block.queue_free()
@@ -155,4 +157,7 @@ func _snap_position_x(x_pos: float) -> float:
 		return x_pos
 	var snapped_x = round(x_pos / snap_interval_pixels) * snap_interval_pixels
 	return snapped_x
-			
+
+func set_hero_owner(hero: Unit) -> void:
+	self.hero_owner = hero
+	$Label.text = hero.name

@@ -1,17 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckit00xypn1v1"]
 
 [ext_resource type="PackedScene" uid="uid://8rjewcj1qibu" path="res://Scenes/Combat.tscn" id="1_tr2i4"]
-[ext_resource type="PackedScene" uid="uid://dedvm26vfptj3" path="res://Scenes/Timeline.tscn" id="2_nhkr4"]
+[ext_resource type="PackedScene" uid="uid://bgshm43j5t54n" path="res://Scenes/MainHUD.tscn" id="2_tr2i4"]
 
 [node name="MainScene" type="Node2D"]
 
-[node name="Combat" parent="." instance=ExtResource("1_tr2i4")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Timeline" parent="." instance=ExtResource("2_nhkr4")]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_right = 0.0
-offset_top = 720.0
-offset_bottom = 720.0
-grow_horizontal = 1
-grow_vertical = 0
+[node name="MainHud" parent="CanvasLayer" instance=ExtResource("2_tr2i4")]
+
+[node name="Combat" parent="." instance=ExtResource("1_tr2i4")]

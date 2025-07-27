@@ -1,25 +1,23 @@
 @tool
 extends Button
+class_name Ability_button
 
-@export var ability_name: String
-@export var damage: int
-@export var cast_time: float
-@export var recovery_time: float
+var skill_data: SkillData
+var hero_owner: Unit
 
-func _ready():
-	var label = $Label
-	label.text = ability_name
-	
-
-
-func _get_drag_data(at_position: Vector2) -> Variant:
+func _get_drag_data(_at_position: Vector2) -> Variant:
 	var preview = Label.new()
-	preview.text = ability_name
-	print(at_position)
+	preview.text = skill_data.skill_name
+	preview.set_size(Vector2(100,30))
 	set_drag_preview(preview)
 	return {
-		"ability_name": ability_name,
-		"damage": damage,
-		"cast_time": cast_time,
-		"recovery_time": recovery_time
+		"skill_data": skill_data,
+		"hero_owner": hero_owner
 	}
+
+
+func set_skill(p_skill_data: SkillData):
+	self.skill_data = p_skill_data
+	
+func set_hero_owner(hero: Unit):
+	self.hero_owner = hero

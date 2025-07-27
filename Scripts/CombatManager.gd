@@ -12,30 +12,25 @@ func execute_action(action: TimelineAction):
 	var damage_amount: int = action.skill_data.damage
 	action.target.take_damage(damage_amount)
 
-func batata(current_time: float):
-	var character_timelines: Array[TimelineCharacter] = TimelineManager.characters
-	
-	var total_actions_remaning: int = 0
+func process_action(current_time: float):
+	var timelineActions: Array[TimelineAction] = TimelineManager.planned_actions
 	var actions_to_perform: Array[TimelineAction] = []
-	
-	for timeline in character_timelines:
-		if timeline.character.is_dead:
+	for i in range(timelineActions.size()-1,-1,-1):
+		var action = timelineActions[i]
+		if action.caster.is_dead:
 			continue
-		total_actions_remaning += timeline.actions.size()
-		for i in range(timeline.actions.size()-1,-1,-1):
-			var action = timeline.actions[i]
-			if current_time >= action.get_execution_time():
-				if not action.target.is_dead:
-					actions_to_perform.append(action)
-				else:
-					print("Ação {0} cancelada por alvo inválido.".format({0: action.skill_data.skill_name}))
-				timeline.actions.remove_at(i)
+		if current_time >= action.get_execution_time():
+			if not action.target.is_dead:
+				actions_to_perform.append(action)
+			else:
+				print("Ação {0} cancelada por alvo inválido.".format({0: action.skill_data.skill_name}))
+			timelineActions.remove_at(i)
 
 	for action_to_perform in actions_to_perform:
 		print("Personagem {2} executando {0} no tempo {1}".format({0: action_to_perform.skill_data.skill_name, 1: current_time, 2: action_to_perform.caster.name}))
 		execute_action(action_to_perform)
 		
-	if total_actions_remaning == 0:
+	if timelineActions.size() == 0:
 		TimelineManager.pause_game()
 
 func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedScene], setup_node: CombatSceneController) -> void:
@@ -49,6 +44,7 @@ func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedSc
 		
 		var new_hero: Unit = hero_data[i].instantiate()
 		spawn_point.add_child(new_hero)
+		new_hero.add_to_group("heroes")
 		new_hero.global_position = spawn_point.global_position + offset
 		active_heroes.append(new_hero)
 		setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
@@ -59,11 +55,12 @@ func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedSc
 		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
 		
 		var new_enemy: Unit = enemy_data[i].instantiate()
+		new_enemy.add_to_group("enemies")
 		spawn_point.add_child(new_enemy)
 		new_enemy.global_position = spawn_point.global_position + offset
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
-	
+	print("Emit")	
 	battle_initialized.emit(active_heroes)
 
 #
