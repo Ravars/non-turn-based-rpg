@@ -1,7 +1,8 @@
 extends Control
-
+class_name TimelineUI
 var selected_char: Unit
 var action_awaiting_target: TimelineAction = null
+var is_selecting_target: bool = false
 
 func _ready():
 	print("Ready TimelineUI")
@@ -33,11 +34,16 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		enemy.unit_clicked.connect(_on_unit_clicked)
 
 func _on_button_press(unidade: Unit):
+	if is_selecting_target:
+		print("Termine de selecionar o alvo antes")
+		return
 	selected_char = unidade
 	render_skill()
 	print(unidade.name)
 
 func _on_play_button_pressed():
+	if is_selecting_target:
+		return
 	TimelineManager.play_game()
 	
 func _on_pause_button_pressed():
@@ -53,6 +59,7 @@ func render_skill():
 		botao.text = skill.skill_name
 		botao.set_skill(skill)
 		botao.set_hero_owner(selected_char)
+		botao.timeline_ui = self
 		skills_container.add_child(botao)
 
 # --- Novas Funções para Seleção de Alvo ---
@@ -63,13 +70,19 @@ func setup_lane_connections(lanes_container: Node):
 			lane.target_selection_requested.connect(_on_target_selection_requested)
 
 func _on_target_selection_requested(action: TimelineAction):
+	if is_selecting_target:
+		return
 	print("UI: Entrando em modo de seleção de alvo para a skill: {skill_name}".format({"skill_name": action.skill_data.skill_name}))
+	is_selecting_target = true
 	action_awaiting_target = action
 	# Feedback visual: pode adicionar um brilho nos inimigos aqui.
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.RED # Exemplo de destaque
 
 func _on_unit_clicked(unit: Unit):
+	if not is_selecting_target:
+		return
+		
 	# Se não estamos esperando por um alvo, o clique não faz nada de especial aqui.
 	if action_awaiting_target == null:
 		return
@@ -81,6 +94,7 @@ func _on_unit_clicked(unit: Unit):
 	action_awaiting_target.target = unit
 	
 	# Reseta o estado e o feedback visual
+	is_selecting_target = false
 	action_awaiting_target = null
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.WHITE # Remove o destaque

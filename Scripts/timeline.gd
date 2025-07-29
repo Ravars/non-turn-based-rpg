@@ -35,7 +35,7 @@ func _on_battle_initialized(heroes: Array[Unit]):
 
 func _on_time_updated(new_time: float):
 	playhead.position.x = new_time * pixels_per_second
-	time_label.text = "{time}".format({"time": new_time})
+	time_label.text = "%.2f" % new_time
 	var target_scroll: int = playhead.position.x - (scroll_container.size.x / 2)
 	scroll_container.scroll_horizontal = lerp(scroll_container.scroll_horizontal, target_scroll, 0.1)
 	
