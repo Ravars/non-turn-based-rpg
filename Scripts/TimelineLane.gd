@@ -2,7 +2,7 @@ extends Panel
 class_name TimelineLane
 
 signal target_selection_requested(action: TimelineAction)
-
+signal action_added(action: TimelineAction)
 var hero_owner: Unit
 
 # --- Variáveis de Configuração ---
@@ -61,7 +61,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 
 	# Emite o sinal para que a UI saiba que esta ação precisa de um alvo.
 	target_selection_requested.emit(new_action)
-
+	action_added.emit(new_action)
 	var real_block = _create_action_block_visual(data["skill_data"])
 	real_block.position.x = _snap_position_x(at_position.x)
 	real_block.position.y = (size.y - real_block.size.y) / 2.0

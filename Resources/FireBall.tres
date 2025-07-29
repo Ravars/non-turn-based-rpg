@@ -7,6 +7,6 @@ script = ExtResource("1_gybf2")
 skill_name = "Fire Ball"
 skill_description = "Description Skill"
 damage = 10
-cast_time = 4.0
+cast_time = 2.0
 cooldown = 1.0
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

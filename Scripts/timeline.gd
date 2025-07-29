@@ -5,12 +5,15 @@ extends Control
 # A CORREÇÃO: Exporte a variável para que possamos conectá-la no editor.
 # Usamos o tipo "Control" para garantir que só possamos arrastar nós de UI aqui.
 @export var timeline_ui: Control 
-
-var lanes_container: VBoxContainer
+@export var pixels_per_second := 182.0
+@onready var playhead = $ColorRect/Playhead
+@onready var lanes_container = $ColorRect/ScrollContainer/VBoxContainer
+@onready var scroll_container = $ColorRect/ScrollContainer
+@onready var time_label = $ColorRect/Time
 
 func _ready() -> void:
 	CombatManager.battle_initialized.connect(_on_battle_initialized)
-	lanes_container = $ColorRect/VBoxContainer
+	TimelineManager.time_updated.connect(_on_time_updated)
 	
 func _on_battle_initialized(heroes: Array[Unit]):
 	# Limpa lanes antigas
@@ -21,6 +24,7 @@ func _on_battle_initialized(heroes: Array[Unit]):
 		var new_lane: TimelineLane = timeline_lane_scene.instantiate()
 		new_lane.set_hero_owner(hero)
 		lanes_container.add_child(new_lane)
+		new_lane.action_added.connect(_on_action_added)
 	
 	# Esta linha agora funcionará, porque a variável timeline_ui
 	# será preenchida pelo editor.
@@ -28,3 +32,14 @@ func _on_battle_initialized(heroes: Array[Unit]):
 		timeline_ui.setup_lane_connections(lanes_container)
 	else:
 		print("ERRO em timeline.gd: A referência para timeline_ui não foi definida no Inspetor!")
+
+func _on_time_updated(new_time: float):
+	playhead.position.x = new_time * pixels_per_second
+	time_label.text = "{time}".format({"time": new_time})
+	var target_scroll: int = playhead.position.x - (scroll_container.size.x / 2)
+	scroll_container.scroll_horizontal = lerp(scroll_container.scroll_horizontal, target_scroll, 0.1)
+	
+func _on_action_added(action: TimelineAction):
+	var required_width = action.get_execution_time() * pixels_per_second
+	if required_width > lanes_container.custom_minimum_size.x:
+		lanes_container.custom_minimum_size.x = required_width

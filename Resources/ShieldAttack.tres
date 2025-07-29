@@ -6,7 +6,7 @@
 script = ExtResource("1_qa6hw")
 skill_name = "Shield Attack"
 skill_description = "Description Shield"
-damage = 1
+damage = 15
 cast_time = 2.0
 cooldown = 1.0
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

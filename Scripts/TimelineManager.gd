@@ -4,6 +4,7 @@ extends Node
 var planned_actions: Array[TimelineAction] = []
 var current_time: float = 0.0
 var is_paused: bool = false
+signal time_updated(current_time: float)
 
 func pause_game():
 	if not is_paused:
@@ -20,6 +21,7 @@ func _physics_process(delta: float) -> void:
 		return
 	current_time += delta / 5
 	CombatManager.process_action(current_time)
+	time_updated.emit(current_time)
 
 func add_planed_action(action: TimelineAction):
 	planned_actions.append(action)
