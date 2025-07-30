@@ -1,11 +1,11 @@
 extends Control
-class_name TimelineUI
+class_name PlayerActionPanel
 var selected_char: Unit
 var action_awaiting_target: TimelineAction = null
 var is_selecting_target: bool = false
 
 func _ready():
-	print("Ready TimelineUI")
+	print("Ready PlayerActionPanel")
 	CombatManager.battle_initialized.connect(instantiate_button)
 	$ColorRect3/VBoxContainer/PlayButton.connect("pressed", Callable(self, "_on_play_button_pressed"))
 	$ColorRect3/VBoxContainer/PauseButton.connect("pressed", Callable(self, "_on_pause_button_pressed"))

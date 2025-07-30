@@ -4,7 +4,7 @@ class_name Ability_button
 
 var skill_data: SkillData
 var hero_owner: Unit
-@export var timeline_ui: TimelineUI
+@export var timeline_ui: PlayerActionPanel
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
 	if timeline_ui and timeline_ui.is_selecting_target:

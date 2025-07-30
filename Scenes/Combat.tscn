@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/CombatManager.gd" id="4_abcde"]
 [ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="6_k8hyy"]
 [ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="6_xd0fh"]
-[ext_resource type="Script" uid="uid://t6mm8hwbwhs8" path="res://Scenes/CombatSceneController.gd" id="8_xd0fh"]
+[ext_resource type="Script" uid="uid://t6mm8hwbwhs8" path="res://Scripts/Controllers/BattleSetup.gd" id="8_xd0fh"]
 
 [node name="Combat" type="Node2D"]
 script = ExtResource("4_abcde")

@@ -33,7 +33,7 @@ func process_action(current_time: float):
 	if timelineActions.size() == 0:
 		TimelineManager.pause_game()
 
-func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedScene], setup_node: CombatSceneController) -> void:
+func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedScene], setup_node: BattleSetup) -> void:
 	active_heroes.clear()
 	active_enemies.clear()
 	

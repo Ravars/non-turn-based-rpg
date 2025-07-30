@@ -1,5 +1,5 @@
 extends Node
-class_name CombatSceneController
+class_name BattleSetup
 
 @export var hero_scenes: Array[PackedScene]
 @export var enemy_scenes: Array[PackedScene]
