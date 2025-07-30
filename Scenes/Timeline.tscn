@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dedvm26vfptj3"]
 
 [ext_resource type="PackedScene" uid="uid://bf7hkkbryugsr" path="res://Scenes/TimelineLane.tscn" id="1_4t1g0"]
-[ext_resource type="Script" uid="uid://dyq37iul6pitr" path="res://Scripts/timeline.gd" id="1_n5ev4"]
+[ext_resource type="Script" uid="uid://dyq37iul6pitr" path="res://Scripts/UI/timeline.gd" id="1_n5ev4"]
 
 [node name="Timeline" type="Control"]
 layout_mode = 3

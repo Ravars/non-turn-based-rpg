@@ -1,6 +1,5 @@
 extends Node
 
-# var characters: Array[TimelineCharacter] = []
 var planned_actions: Array[TimelineAction] = []
 var current_time: float = 0.0
 var is_paused: bool = false

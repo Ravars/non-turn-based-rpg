@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-TimelineManager="*res://Scripts/TimelineManager.gd"
-CombatManager="*res://Scripts/CombatManager.gd"
+TimelineManager="*res://Scripts/Managers/TimelineManager.gd"
+CombatManager="*res://Scripts/Managers/CombatManager.gd"
 
 [display]
 

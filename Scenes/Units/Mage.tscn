@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_r3b7i"]
 [ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Mage.tres" id="2_ea1sq"]
-[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/SkillData.gd" id="3_l0i51"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_l0i51"]
 [ext_resource type="Resource" uid="uid://cjplw62slvhk2" path="res://Resources/FireBolt.tres" id="4_f3stt"]
 [ext_resource type="Resource" uid="uid://bk14aot6jtncu" path="res://Resources/FireBall.tres" id="5_f3stt"]
 
