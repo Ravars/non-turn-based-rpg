@@ -5,6 +5,9 @@ signal battle_initialized(heroes: Array)
 var active_heroes: Array[Unit] = []
 var active_enemies: Array[Unit] = []
 
+func _ready() -> void:
+	TimelineManager.tick.connect(process_action)
+
 func execute_action(action: TimelineAction):
 	if not is_instance_valid(action):
 		print("Ação cancelada. Alvo inválido.")
@@ -55,14 +58,24 @@ func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedSc
 		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
 		
 		var new_enemy: Unit = enemy_data[i].instantiate()
+		new_enemy.is_enemy = true
 		new_enemy.add_to_group("enemies")
 		spawn_point.add_child(new_enemy)
 		new_enemy.global_position = spawn_point.global_position + offset
+		
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
 	print("Emit")	
 	battle_initialized.emit(active_heroes)
 
+func get_random_hero_target():
+	if active_heroes.is_empty(): return
+	var alive_heroes = []
+	for hero in active_heroes:
+		if not hero.is_dead:
+			alive_heroes.append(hero)
+	if alive_heroes.is_empty(): return null
+	return alive_heroes.pick_random()
 #
 #@onready var player_lanes = $PlayerLanes
 #@onready var enemy_lanes = $EnemyLanes

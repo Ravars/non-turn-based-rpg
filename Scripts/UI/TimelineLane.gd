@@ -19,7 +19,6 @@ var ghost_block: Panel = null # Variável para o bloco fantasma
 
 func _ready():
 	print(name)
-	mouse_exited.connect(_on_mouse_exited)
 
 #==============================================================================
 # Funções de Drag-and-Drop
@@ -57,7 +56,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	var new_action = TimelineAction.new(data["skill_data"], hero_owner, null, start_time)
 	
 	# Adiciona a ação (ainda sem alvo) ao manager.
-	TimelineManager.add_planed_action(new_action)
+	TimelineManager.add_planned_action(new_action)
 
 	# Emite o sinal para que a UI saiba que esta ação precisa de um alvo.
 	target_selection_requested.emit(new_action)
