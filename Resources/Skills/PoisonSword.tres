@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://xyw5bcy281i7"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_cc53l"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_rjhyn"]
+[ext_resource type="Resource" uid="uid://txctliyjfneq" path="res://Resources/Effects/Poison.tres" id="3_rjhyn"]
+
+[resource]
+script = ExtResource("1_cc53l")
+skill_name = "Poison Sword"
+skill_description = "Description Skill"
+damage = 5
+cast_time = 1.0
+cooldown = 1.0
+status_effects = Array[ExtResource("2_rjhyn")]([ExtResource("3_rjhyn")])
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"
