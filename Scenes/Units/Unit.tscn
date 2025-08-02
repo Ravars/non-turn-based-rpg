@@ -14,3 +14,6 @@ offset_top = -24.0
 offset_right = 40.0
 offset_bottom = -1.0
 text = "100"
+
+[node name="ActionIndicator" type="Sprite2D" parent="."]
+position = Vector2(16, -40)

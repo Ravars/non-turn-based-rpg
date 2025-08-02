@@ -5,13 +5,16 @@ var current_state: State = State.IDLE
 
 var unit_owner: Unit
 var cooldown_timer: float = 0.0
-
 var pending_action: TimelineAction = null
+var waiting_texture = preload("res://Icons/busy_hourglass_outline_detail.png")
+var atacking_texture = preload("res://Icons/tool_sword_a.png")
+var action_indicator_image: Sprite2D
 
 func _ready() -> void:
 	unit_owner = get_parent()
 	current_state = State.COOLDOWN
 	cooldown_timer = randf_range(0.5, 1.5)
+	action_indicator_image = get_parent().get_node("ActionIndicator")
 
 func _process(delta: float) -> void:
 	if unit_owner.is_dead or TimelineManager.is_paused:
@@ -24,6 +27,7 @@ func _process(delta: float) -> void:
 				current_state = State.COOLDOWN
 				cooldown_timer = randf_range(2.0, 4.0)
 				pending_action = null
+				action_indicator_image.texture = waiting_texture
 				print("IA {name} executou a ação e entrou em cooldown".format({"name": name}))
 		State.COOLDOWN:
 			cooldown_timer -= delta
@@ -44,4 +48,5 @@ func decide_next_action():
 	
 	pending_action = new_action
 	current_state = State.WAITING_FOR_EXECUTION
+	action_indicator_image.texture = atacking_texture
 	print("IA: {name} planejou usar {skill}".format({"name": name, "skill": skill_to_use.skill_name}))

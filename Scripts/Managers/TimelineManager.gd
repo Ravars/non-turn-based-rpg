@@ -4,7 +4,7 @@ var planned_actions: Array[TimelineAction] = []
 var current_time: float = 0.0
 var is_paused: bool = false
 signal time_updated(current_time: float)
-signal tick(current_time: float)
+signal tick(current_time: float, delta: float)
 
 func pause_game():
 	if not is_paused:
@@ -16,12 +16,12 @@ func play_game():
 		is_paused = false
 		print("Jogo iniciado")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(p_delta: float) -> void:
 	if is_paused:
 		return
-	current_time += delta / 5
+	current_time += p_delta / 5
 	# CombatManager.process_action(current_time)
-	tick.emit(current_time)
+	tick.emit(current_time, p_delta)
 	time_updated.emit(current_time)
 
 func add_planned_action(action: TimelineAction):

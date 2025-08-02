@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bet4frdrva7or"]
+[gd_scene load_steps=7 format=3 uid="uid://bet4frdrva7or"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_jnkdd"]
-[ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Warrior.tres" id="2_60m18"]
+[ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Warrior.tres" id="2_60m18"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_wxa1f"]
-[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/SwordAttack.tres" id="4_q8au6"]
-[ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/ShieldAttack.tres" id="5_q8au6"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="4_q8au6"]
+[ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="5_q8au6"]
+[ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="6_1nrda"]
 
 [node name="Warrior" instance=ExtResource("1_jnkdd")]
 characterStats = ExtResource("2_60m18")
-skills = Array[ExtResource("3_wxa1f")]([ExtResource("4_q8au6"), ExtResource("5_q8au6")])
+skills = Array[ExtResource("3_wxa1f")]([ExtResource("4_q8au6"), ExtResource("5_q8au6"), ExtResource("6_1nrda")])
 
 [node name="ColorRect" parent="." index="0"]
 color = Color(0.133948, 0.357655, 0.939612, 1)

@@ -8,7 +8,7 @@ class_name  SkillData
 @export var damage: int = 1
 @export var cast_time: float = 1.0
 @export var cooldown: float = 1.0
-
+@export var status_effects: Array[StatusEffect] = []
 
 @export_group("Visuals")
 @export var icon: Texture2D
