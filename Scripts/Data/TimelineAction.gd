@@ -5,6 +5,7 @@ var skill_data: SkillData
 var caster: Unit
 var target: Unit
 var start_time: float
+var cast_progress: float = 0.0
 
 func _init(p_skill_data: SkillData, p_caster: Unit, p_target: Unit, p_start_time: float) -> void:
 	self.skill_data = p_skill_data

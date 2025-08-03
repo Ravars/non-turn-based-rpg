@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://c2bipukebnffg"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://c2bipukebnffg"]
 
 [ext_resource type="Texture2D" uid="uid://eeaydf545xd3" path="res://Icons/tool_sword_a.png" id="1_v5f1t"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_vyscx"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="3_55t2w"]
 
 [resource]
 script = ExtResource("1_vyscx")
 skill_name = "Sword Attack"
 skill_description = "Uses a Sword to Attack"
 damage = 5
-cast_time = 1.0
+cast_time = 2.0
 cooldown = 2.0
+status_effects = Array[ExtResource("3_55t2w")]([])
 icon = ExtResource("1_v5f1t")
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

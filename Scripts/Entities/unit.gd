@@ -13,15 +13,19 @@ var current_hp: float = 100
 var timeline_id: int = 0
 var is_dead: bool = false
 var is_stunned: bool = false
+var is_casting: bool = false
 @export var characterStats: CharacterStats
 @export var skills: Array[SkillData] = []
 @export var active_status_effects: Dictionary = {}
-
-
+var stun_texture = preload("res://Icons/busy_hourglass.png")
+var action_indicator_image: Sprite2D
+var action_queue: Array[TimelineAction] = []
+var current_cast_progress: float = 0.0
 func _ready() -> void:
 	max_hp = characterStats.health
 	current_hp = max_hp
 	$Label.text = str(current_hp)
+	action_indicator_image = $ActionIndicator
 	
 	# Cria uma área clicável programaticamente
 	var clickable_area = Area2D.new()
@@ -44,7 +48,11 @@ func _ready() -> void:
 		ai_node.name = "AIController"
 		ai_node.set_script(AIController)
 		add_child(ai_node)
-	TimelineManager.tick.connect(process_status_effect)
+	TimelineManager.tick.connect(internal_process)
+
+func internal_process(_current_time: float, delta: float):
+	process_action_queue(_current_time, delta)
+	process_status_effect(_current_time, delta)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -78,7 +86,31 @@ func apply_status_effect(effect:StatusEffect):
 	}
 	
 	# TODO: Apply instant effects
+	if effect.type == StatusEffect.EffectType.STUN:
+		is_stunned = true
+		action_indicator_image.texture = stun_texture
+		print("EFFECT {0} está ATORDOADO".format({0: name}))
 
+func add_action_to_queue(action: TimelineAction):
+	action_queue.append(action)
+	action_queue.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.start_time < b.start_time)
+
+func process_action_queue(_current_time: float, game_delta: float) -> void:
+	if is_dead or action_queue.is_empty(): return
+
+	if is_stunned: return
+	if is_casting:
+		current_cast_progress += game_delta
+		var current_action = action_queue[0]
+		if current_cast_progress >= current_action.skill_data.cast_time:
+			CombatManager.execute_action(current_action)
+			action_queue.pop_front()
+			is_casting = false
+			current_cast_progress = 0
+		return
+	var next_action = action_queue[0]
+	if _current_time >= next_action.start_time:
+		is_casting = true
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
@@ -94,7 +126,6 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 
 		match effect.type:
 			StatusEffect.EffectType.STUN:
-				print("")
 				pass
 			StatusEffect.EffectType.DAMAGE_OVER_TIME:
 				effect_data.tick_timer += delta
@@ -111,6 +142,7 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 	for effect in effects_to_remove:
 		_on_effect_expired(effect)
 		active_status_effects.erase(effect)
+		action_indicator_image.texture = null
 		print("EFFECT '{0}' expirou em {1}".format({"0": effect.effect_name, "1": name}))
 	# TODO: revert effects
 

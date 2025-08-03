@@ -15,23 +15,25 @@ func _ready() -> void:
 	current_state = State.COOLDOWN
 	cooldown_timer = randf_range(0.5, 1.5)
 	action_indicator_image = get_parent().get_node("ActionIndicator")
+	TimelineManager.tick.connect(my_process)
 
-func _process(delta: float) -> void:
+func my_process(current_time: float, delta: float) -> void:
 	if unit_owner.is_dead or TimelineManager.is_paused:
 		return
 	match current_state:
 		State.IDLE:
 			decide_next_action()
 		State.WAITING_FOR_EXECUTION:
-			if not TimelineManager.planned_actions.has(pending_action):
+			if not unit_owner.action_queue.has(pending_action):
 				current_state = State.COOLDOWN
 				cooldown_timer = randf_range(2.0, 4.0)
 				pending_action = null
 				action_indicator_image.texture = waiting_texture
-				print("IA {name} executou a ação e entrou em cooldown".format({"name": name}))
+				print("IA {name} executou a ação e entrou em cooldown em {1}".format({"name": name, 1: current_time}))
 		State.COOLDOWN:
 			cooldown_timer -= delta
 			if cooldown_timer <= 0:
+				print("IA {name} saiu do cooldown em {1}".format({"name": name, 1: current_time}))
 				current_state = State.IDLE
 		
 func decide_next_action():
@@ -44,7 +46,8 @@ func decide_next_action():
 	var start_time = TimelineManager.current_time
 	var new_action = TimelineAction.new(skill_to_use, unit_owner, target, start_time)
 	
-	TimelineManager.add_planned_action(new_action)
+	unit_owner.add_action_to_queue(new_action)
+	#TimelineManager.add_planned_action(new_action)
 	
 	pending_action = new_action
 	current_state = State.WAITING_FOR_EXECUTION

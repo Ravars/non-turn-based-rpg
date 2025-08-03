@@ -1,14 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctjkrsxjkogxj"]
+[gd_scene load_steps=5 format=3 uid="uid://ctjkrsxjkogxj"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_564fj"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_jxonx"]
 [ext_resource type="Resource" uid="uid://6ani4ruco48d" path="res://Resources/Units/Goblin.tres" id="2_py4g4"]
-[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="3_py4g4"]
-[ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="5_q5ay8"]
+[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="4_py4g4"]
 
 [node name="Goblin" instance=ExtResource("1_564fj")]
 characterStats = ExtResource("2_py4g4")
-skills = Array[ExtResource("2_jxonx")]([ExtResource("3_py4g4"), ExtResource("5_q5ay8")])
+skills = Array[ExtResource("2_jxonx")]([ExtResource("4_py4g4")])
 
 [node name="ColorRect" parent="." index="0"]
 color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)

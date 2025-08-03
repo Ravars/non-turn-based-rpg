@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://dti1u7071o8ja"]
+
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_j5iya"]
+
+[resource]
+script = ExtResource("1_j5iya")
+effect_name = "Stun"
+type = 0
+duration = 4.0
+value = 0.0
+target_stat = 0
+is_percentage = false
+metadata/_custom_type_script = "uid://chslrfvmeqbqa"

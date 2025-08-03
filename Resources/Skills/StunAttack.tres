@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://cnvbsyktnbxg1"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_lgp8d"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_gb12t"]
+[ext_resource type="Resource" uid="uid://dti1u7071o8ja" path="res://Resources/Effects/Stun.tres" id="3_gb12t"]
+
+[resource]
+script = ExtResource("1_lgp8d")
+skill_name = "Stun Attack"
+skill_description = "Description Shield"
+damage = 2
+cast_time = 2.0
+cooldown = 1.0
+status_effects = Array[ExtResource("2_gb12t")]([ExtResource("3_gb12t")])
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

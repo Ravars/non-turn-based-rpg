@@ -6,7 +6,8 @@ var active_heroes: Array[Unit] = []
 var active_enemies: Array[Unit] = []
 
 func _ready() -> void:
-	TimelineManager.tick.connect(process_action)
+	pass
+	#TimelineManager.tick.connect(process_action)
 
 func execute_action(action: TimelineAction):
 	if not is_instance_valid(action):
@@ -20,26 +21,34 @@ func execute_action(action: TimelineAction):
 	for effect in action.skill_data.status_effects:
 		action.target.apply_status_effect(effect)
 
-func process_action(current_time: float, _delta: float):
-	var timelineActions: Array[TimelineAction] = TimelineManager.planned_actions
-	var actions_to_perform: Array[TimelineAction] = []
-	for i in range(timelineActions.size()-1,-1,-1):
-		var action = timelineActions[i]
-		if action.caster.is_dead:
-			continue
-		if current_time >= action.get_execution_time():
-			if not action.target.is_dead:
-				actions_to_perform.append(action)
-			else:
-				print("Ação {0} cancelada por alvo inválido.".format([action.skill_data.skill_name]))
-			timelineActions.remove_at(i)
-
-	for action_to_perform in actions_to_perform:
-		print("Personagem {caster_name} executando {skill_name} no tempo {time}".format({"caster_name": action_to_perform.caster.name, "skill_name": action_to_perform.skill_data.skill_name, "time": current_time}))
-		execute_action(action_to_perform)
-		
-	if timelineActions.size() == 0:
-		TimelineManager.pause_game()
+#func process_action(current_time: float, _delta: float):
+	#var timelineActions: Array[TimelineAction] = TimelineManager.planned_actions
+	#var actions_to_perform: Array[TimelineAction] = []
+	#for i in range(timelineActions.size()-1,-1,-1):
+		#var action = timelineActions[i]
+		#var caster = action.caster
+#
+		#if caster.is_dead:
+			#timelineActions.remove_at(i)
+			#continue
+		#if action.caster.is_stunned:
+			#continue
+		#
+		#action.cast_progress += _delta
+		##print("CAST: {0}".format({0: action.cast_progress}))
+		#if current_time >= action.get_execution_time():
+			#if not action.target.is_dead:
+				#actions_to_perform.append(action)
+			#else:
+				#print("Ação {0} cancelada por alvo inválido.".format([action.skill_data.skill_name]))
+			#timelineActions.remove_at(i)
+#
+	#for action_to_perform in actions_to_perform:
+		#print("Personagem {caster_name} executando {skill_name} no tempo {time}".format({"caster_name": action_to_perform.caster.name, "skill_name": action_to_perform.skill_data.skill_name, "time": current_time}))
+		#execute_action(action_to_perform)
+		#
+	#if timelineActions.size() == 0:
+		#TimelineManager.pause_game()
 
 func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedScene], setup_node: BattleSetup) -> void:
 	active_heroes.clear()
