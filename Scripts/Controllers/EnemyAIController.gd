@@ -26,7 +26,7 @@ func my_process(current_time: float, delta: float) -> void:
 		State.WAITING_FOR_EXECUTION:
 			if not unit_owner.action_queue.has(pending_action):
 				current_state = State.COOLDOWN
-				cooldown_timer = randf_range(2.0, 4.0)
+				cooldown_timer = randf_range(1.0, 3.0)
 				pending_action = null
 				action_indicator_image.texture = waiting_texture
 				print("IA {name} executou a ação e entrou em cooldown em {1}".format({"name": name, 1: current_time}))
@@ -43,7 +43,7 @@ func decide_next_action():
 	var target = CombatManager.get_random_hero_target()
 	if not is_instance_valid(target): return
 	
-	var start_time = TimelineManager.current_time
+	var start_time = TimelineManager.current_time + randf_range(0.1, 0.5)
 	var new_action = TimelineAction.new(skill_to_use, unit_owner, target, start_time)
 	
 	unit_owner.add_action_to_queue(new_action)

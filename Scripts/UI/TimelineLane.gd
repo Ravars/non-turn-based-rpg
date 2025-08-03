@@ -4,10 +4,15 @@ class_name TimelineLane
 signal target_selection_requested(action: TimelineAction)
 signal action_added(action: TimelineAction)
 var hero_owner: Unit
-
+@onready var indicator_image: Sprite2D = $Indicator
 # --- Variáveis de Configuração ---
 @export var pixels_per_second := 182.0
 @export var time_snap_interval := 0.1
+var progress_empty = preload("res://Icons/progress_empty.png")
+var progress_25 = preload("res://Icons/progress_CCW_25.png")
+var progress_50 = preload("res://Icons/progress_CCW_50.png")
+var progress_75 = preload("res://Icons/progress_CCW_75.png")
+var progress_full = preload("res://Icons/progress_full.png")
 
 # --- Estado Interno ---
 var placed_actions: Array = []
@@ -139,3 +144,24 @@ func _snap_position_x(x_pos: float) -> float:
 func set_hero_owner(hero: Unit) -> void:
 	self.hero_owner = hero
 	$Label.text = hero.name
+	self.hero_owner.action_executed.connect(action_executed)
+	self.hero_owner.action_started.connect(action_started)
+	self.hero_owner.action_tick.connect(action_tick)
+
+func action_executed(action: TimelineAction) -> void:
+	if action.caster == hero_owner:
+		indicator_image.texture = progress_full
+		
+func action_started(action: TimelineAction) -> void:
+	if action.caster == hero_owner:
+		indicator_image.texture = progress_empty
+
+func action_tick(percent: float) -> void:
+	if percent == 0:
+		indicator_image.texture = progress_empty
+	elif percent >= 75:
+		indicator_image.texture = progress_75
+	elif percent >= 50:
+		indicator_image.texture = progress_50
+	elif percent >= 25:
+		indicator_image.texture = progress_25

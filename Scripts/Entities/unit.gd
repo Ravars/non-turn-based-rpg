@@ -3,7 +3,9 @@ class_name Unit
 
 signal unit_died(Unit)
 signal unit_clicked(unit: Unit)
-
+signal action_executed(action: TimelineAction)
+signal action_started(action: TimelineAction)
+signal action_tick(percent: float)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -21,6 +23,7 @@ var stun_texture = preload("res://Icons/busy_hourglass.png")
 var action_indicator_image: Sprite2D
 var action_queue: Array[TimelineAction] = []
 var current_cast_progress: float = 0.0
+
 func _ready() -> void:
 	max_hp = characterStats.health
 	current_hp = max_hp
@@ -66,12 +69,6 @@ func take_damage(amount: float):
 	if current_hp <= 0:
 		_die()
 
-func take_damage_over_time(amount: float):
-	current_hp = max(0, current_hp-amount)
-	$Label.text = str(current_hp)
-	if current_hp <= 0:
-		_die()
-
 func _die():
 	print("{0} foi derrotado!".format({0:name}))
 	is_dead = true
@@ -101,9 +98,13 @@ func process_action_queue(_current_time: float, game_delta: float) -> void:
 	if is_stunned: return
 	if is_casting:
 		current_cast_progress += game_delta
-		var current_action = action_queue[0]
+		var current_action: TimelineAction = action_queue[0]
+		
+		var percent = (current_cast_progress * 100) / current_action.skill_data.cast_time
+		action_tick.emit(percent)
 		if current_cast_progress >= current_action.skill_data.cast_time:
 			CombatManager.execute_action(current_action)
+			action_executed.emit(current_action)
 			action_queue.pop_front()
 			is_casting = false
 			current_cast_progress = 0
@@ -111,6 +112,7 @@ func process_action_queue(_current_time: float, game_delta: float) -> void:
 	var next_action = action_queue[0]
 	if _current_time >= next_action.start_time:
 		is_casting = true
+		action_started.emit(next_action)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
