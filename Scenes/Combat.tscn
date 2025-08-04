@@ -17,7 +17,7 @@ color = Color(0.458405, 0.458405, 0.458405, 1)
 metadata/_edit_lock_ = true
 
 [node name="PlayerLanes" type="Node2D" parent="."]
-position = Vector2(256, -163)
+position = Vector2(266, -77)
 
 [node name="Lane1" type="Node2D" parent="PlayerLanes"]
 position = Vector2(0, 250)
@@ -35,7 +35,7 @@ position = Vector2(0, 435)
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane3"]
 
 [node name="EnemyLanes" type="Node2D" parent="."]
-position = Vector2(956, -163)
+position = Vector2(966, -77)
 
 [node name="Lane1" type="Node2D" parent="EnemyLanes"]
 position = Vector2(0, 250)

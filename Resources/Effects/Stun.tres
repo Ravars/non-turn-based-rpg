@@ -6,7 +6,7 @@
 script = ExtResource("1_j5iya")
 effect_name = "Stun"
 type = 0
-duration = 4.0
+duration = 2.0
 value = 0.0
 target_stat = 0
 is_percentage = false
