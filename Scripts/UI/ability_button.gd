@@ -5,6 +5,12 @@ class_name Ability_button
 var skill_data: SkillData
 var hero_owner: Unit
 @export var timeline_ui: PlayerActionPanel
+@export var tooltip_scene: PackedScene
+var current_tooltip = null
+
+func _ready():
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
 	if timeline_ui and timeline_ui.is_selecting_target:
@@ -27,3 +33,18 @@ func set_skill(p_skill_data: SkillData):
 	
 func set_hero_owner(hero: Unit):
 	self.hero_owner = hero
+
+func _on_mouse_entered():
+	if is_instance_valid(current_tooltip):
+		current_tooltip.queue_free()
+
+	current_tooltip = tooltip_scene.instantiate()
+	current_tooltip.update_info(skill_data)
+	timeline_ui.add_child(current_tooltip)
+	# get_tree().root.add_child(current_tooltip)
+	current_tooltip.global_position = get_global_mouse_position() + Vector2(20, 20)
+
+func _on_mouse_exited():
+	if is_instance_valid(current_tooltip):
+		current_tooltip.queue_free()
+		current_tooltip = null

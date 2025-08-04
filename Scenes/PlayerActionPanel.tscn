@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://of55w5nk6rnu"]
+[gd_scene load_steps=3 format=3 uid="uid://of55w5nk6rnu"]
 
 [ext_resource type="Script" uid="uid://dj741o7ag76cu" path="res://Scripts/UI/player_action_panel.gd" id="1_14yrx"]
+[ext_resource type="PackedScene" uid="uid://bbp0som1xstur" path="res://Scenes/AbilityButton.tscn" id="2_g7jcn"]
 
 [node name="PlayerActionPanel" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_14yrx")
+ability_button_scene = ExtResource("2_g7jcn")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0

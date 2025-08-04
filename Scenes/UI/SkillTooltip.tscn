@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://4j6m8yck0tuw"]
+
+[ext_resource type="Script" uid="uid://b880q8jace6kx" path="res://Scripts/UI/skill_tooltip.gd" id="1_7ra15"]
+
+[node name="SkillTooltip" type="PanelContainer"]
+offset_right = 1.0
+offset_bottom = 104.0
+size_flags_horizontal = 4
+script = ExtResource("1_7ra15")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CastTimeLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2

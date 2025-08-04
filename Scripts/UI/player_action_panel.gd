@@ -3,7 +3,7 @@ class_name PlayerActionPanel
 var selected_char: Unit
 var action_awaiting_target: TimelineAction = null
 var is_selecting_target: bool = false
-
+@export var ability_button_scene: PackedScene
 func _ready():
 	print("Ready PlayerActionPanel")
 	CombatManager.battle_initialized.connect(instantiate_button)
@@ -55,7 +55,8 @@ func render_skill():
 		child.queue_free()
 		
 	for skill in selected_char.skills:
-		var botao = Ability_button.new()
+		# var botao = Ability_button.new()
+		var botao = ability_button_scene.instantiate()
 		botao.text = skill.skill_name
 		botao.set_skill(skill)
 		botao.set_hero_owner(selected_char)

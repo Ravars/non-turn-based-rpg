@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbp0som1xstur"]
+[gd_scene load_steps=3 format=3 uid="uid://bbp0som1xstur"]
 
 [ext_resource type="Script" uid="uid://b0lkmp38eoyrt" path="res://Scripts/UI/ability_button.gd" id="1_xcdh0"]
+[ext_resource type="PackedScene" uid="uid://4j6m8yck0tuw" path="res://Scenes/UI/SkillTooltip.tscn" id="2_r5a5u"]
 
 [node name="AbilityButton" type="Button"]
 script = ExtResource("1_xcdh0")
+tooltip_scene = ExtResource("2_r5a5u")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
