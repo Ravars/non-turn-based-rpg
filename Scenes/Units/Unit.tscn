@@ -17,3 +17,7 @@ text = "100"
 
 [node name="ActionIndicator" type="Sprite2D" parent="."]
 position = Vector2(16, -40)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, -3)
+scale = Vector2(2.875, 2.875)

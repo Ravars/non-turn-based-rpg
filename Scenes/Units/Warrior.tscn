@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bet4frdrva7or"]
+[gd_scene load_steps=14 format=3 uid="uid://bet4frdrva7or"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_jnkdd"]
 [ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Warrior.tres" id="2_60m18"]
@@ -7,10 +7,52 @@
 [ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="5_q8au6"]
 [ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="6_1nrda"]
 [ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="7_6qodk"]
+[ext_resource type="Texture2D" uid="uid://pxrsrqy50bqe" path="res://Assets/MiniShieldMan.png" id="8_dbvx5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7jpf"]
+atlas = ExtResource("8_dbvx5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouo20"]
+atlas = ExtResource("8_dbvx5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqxsf"]
+atlas = ExtResource("8_dbvx5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1m8q"]
+atlas = ExtResource("8_dbvx5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rq4df"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7jpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouo20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqxsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1m8q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Warrior" instance=ExtResource("1_jnkdd")]
 characterStats = ExtResource("2_60m18")
 skills = Array[ExtResource("3_wxa1f")]([ExtResource("4_q8au6"), ExtResource("5_q8au6"), ExtResource("6_1nrda"), ExtResource("7_6qodk")])
 
 [node name="ColorRect" parent="." index="0"]
+visible = false
 color = Color(0.133948, 0.357655, 0.939612, 1)
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = SubResource("SpriteFrames_rq4df")
+autoplay = "default"
