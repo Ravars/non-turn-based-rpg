@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvk0w8pgmx31t"]
+
+[ext_resource type="Script" uid="uid://dw5d0dty8ewtk" path="res://Scripts/UI/timeline_action_block.gd" id="1_wg22q"]
+
+[node name="TimelineActionBlock" type="Panel"]
+script = ExtResource("1_wg22q")
+
+[node name="SkillName" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

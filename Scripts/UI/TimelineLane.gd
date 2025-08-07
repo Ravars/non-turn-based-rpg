@@ -2,6 +2,7 @@ extends Panel
 class_name TimelineLane
 
 signal target_selection_requested(action: TimelineAction)
+signal target_selection_stoped()
 signal action_added(action: TimelineAction)
 var hero_owner: Unit
 @onready var indicator_image: Sprite2D = $Indicator
@@ -13,6 +14,8 @@ var progress_25 = preload("res://Icons/progress_CCW_25.png")
 var progress_50 = preload("res://Icons/progress_CCW_50.png")
 var progress_75 = preload("res://Icons/progress_CCW_75.png")
 var progress_full = preload("res://Icons/progress_full.png")
+
+@export var timeline_action_block_scene: PackedScene
 
 # --- Estado Interno ---
 var placed_actions: Array = []
@@ -66,11 +69,18 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	# Emite o sinal para que a UI saiba que esta ação precisa de um alvo.
 	target_selection_requested.emit(new_action)
 	action_added.emit(new_action)
-	var real_block = _create_action_block_visual(data["skill_data"])
+
+	if not timeline_action_block_scene:
+		print("ERRO: Timeline block nao definido")
+		return
+	var real_block:TimelineActionBlock = timeline_action_block_scene.instantiate()
+	real_block.setup_block(new_action, pixels_per_second)
+
+	# var real_block = _create_action_block_visual(data["skill_data"])
 	real_block.position.x = _snap_position_x(at_position.x)
 	real_block.position.y = (size.y - real_block.size.y) / 2.0
 	add_child(real_block)
-	
+	real_block.removed.connect(_on_action_block_removed)
 	placed_actions.append({
 		"action_data": new_action,
 		"visual_block": real_block
@@ -165,3 +175,15 @@ func action_tick(percent: float) -> void:
 		indicator_image.texture = progress_50
 	elif percent >= 25:
 		indicator_image.texture = progress_25
+
+
+func _on_action_block_removed(action_to_remove: TimelineAction):
+	hero_owner.remove_action_from_queue(action_to_remove)
+	for i in range(placed_actions.size()-1, -1, -1):
+		if placed_actions[i].action_data == action_to_remove:
+			target_selection_stoped.emit()
+			var block_node = placed_actions[i].visual_block
+			if is_instance_valid(block_node):
+				block_node.queue_free()
+			placed_actions.remove_at(i)
+			break

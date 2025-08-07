@@ -152,3 +152,10 @@ func _on_effect_expired(effect: StatusEffect):
 	if effect.type == StatusEffect.EffectType.STUN:
 		is_stunned = false
 		print("EFFECT {0} NÃO está mais atordoado.".format({0: name}))
+
+func remove_action_from_queue(action_to_remove: TimelineAction):
+	if action_queue.has(action_to_remove):
+		action_queue.erase(action_to_remove)
+		print("Ação '{0}' removida da fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
+	else:
+		print("Ação '{0}' não encontrada na fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))

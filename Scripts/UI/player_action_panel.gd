@@ -69,6 +69,7 @@ func setup_lane_connections(lanes_container: Node):
 	for lane in lanes_container.get_children():
 		if lane is TimelineLane:
 			lane.target_selection_requested.connect(_on_target_selection_requested)
+			lane.target_selection_stoped.connect(_on_target_selection_stoped)
 
 func _on_target_selection_requested(action: TimelineAction):
 	if is_selecting_target:
@@ -79,6 +80,14 @@ func _on_target_selection_requested(action: TimelineAction):
 	# Feedback visual: pode adicionar um brilho nos inimigos aqui.
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.RED # Exemplo de destaque
+
+func _on_target_selection_stoped():
+	if not is_selecting_target:
+		return
+	is_selecting_target = false
+	action_awaiting_target = null
+	for enemy in CombatManager.active_enemies:
+		enemy.modulate = Color(1, 1, 1, 1)
 
 func _on_unit_clicked(unit: Unit):
 	if not is_selecting_target:

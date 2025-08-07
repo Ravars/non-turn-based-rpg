@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf7hkkbryugsr"]
+[gd_scene load_steps=3 format=3 uid="uid://bf7hkkbryugsr"]
 
 [ext_resource type="Script" uid="uid://ccmncbujsmd4k" path="res://Scripts/UI/TimelineLane.gd" id="1_n3jkw"]
+[ext_resource type="PackedScene" uid="uid://dvk0w8pgmx31t" path="res://Scenes/UI/TimelineActionBlock.tscn" id="2_nwqrt"]
 
 [node name="TimelineLane" type="Panel"]
 custom_minimum_size = Vector2(0, 80)
 script = ExtResource("1_n3jkw")
+timeline_action_block_scene = ExtResource("2_nwqrt")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
