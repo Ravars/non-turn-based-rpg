@@ -10,6 +10,7 @@ extends Control
 @onready var lanes_container = $ColorRect/ScrollContainer/VBoxContainer
 @onready var scroll_container = $ColorRect/ScrollContainer
 @onready var time_label = $ColorRect/Time
+@onready var targeting_line: TargetingLine = $ColorRect/TargetingLine
 
 func _ready() -> void:
 	CombatManager.battle_initialized.connect(_on_battle_initialized)
@@ -23,8 +24,9 @@ func _on_battle_initialized(heroes: Array[Unit]):
 	for hero in heroes:
 		var new_lane: TimelineLane = timeline_lane_scene.instantiate()
 		new_lane.set_hero_owner(hero)
-		lanes_container.add_child(new_lane)
 		new_lane.action_added.connect(_on_action_added)
+		new_lane.set_dependencies(targeting_line)
+		lanes_container.add_child(new_lane)
 	
 	# Esta linha agora funcionará, porque a variável timeline_ui
 	# será preenchida pelo editor.

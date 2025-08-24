@@ -22,6 +22,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 0
 timeline_ui = NodePath("../PlayerActionPanel")
+pixels_per_second = 182.0
 
 [node name="PlayerActionPanel" parent="." instance=ExtResource("2_orym3")]
 layout_mode = 1

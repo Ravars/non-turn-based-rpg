@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dedvm26vfptj3"]
+[gd_scene load_steps=4 format=3 uid="uid://dedvm26vfptj3"]
 
 [ext_resource type="PackedScene" uid="uid://bf7hkkbryugsr" path="res://Scenes/TimelineLane.tscn" id="1_4t1g0"]
 [ext_resource type="Script" uid="uid://dyq37iul6pitr" path="res://Scripts/UI/timeline.gd" id="1_n5ev4"]
+[ext_resource type="PackedScene" uid="uid://duht8jlv73bu3" path="res://Scenes/UI/TargetingLine.tscn" id="3_a8x12"]
 
 [node name="Timeline" type="Control"]
 layout_mode = 3
@@ -111,3 +112,5 @@ layout_mode = 0
 offset_top = -91.0
 offset_right = 40.0
 offset_bottom = -68.0
+
+[node name="TargetingLine" parent="ColorRect" instance=ExtResource("3_a8x12")]

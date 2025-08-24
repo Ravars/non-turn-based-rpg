@@ -14,9 +14,9 @@ var progress_25 = preload("res://Icons/progress_CCW_25.png")
 var progress_50 = preload("res://Icons/progress_CCW_50.png")
 var progress_75 = preload("res://Icons/progress_CCW_75.png")
 var progress_full = preload("res://Icons/progress_full.png")
+var targeting_line: TargetingLine
 
 @export var timeline_action_block_scene: PackedScene
-
 # --- Estado Interno ---
 var placed_actions: Array = []
 var ghost_block: Panel = null # Variável para o bloco fantasma
@@ -81,6 +81,9 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	real_block.position.y = (size.y - real_block.size.y) / 2.0
 	add_child(real_block)
 	real_block.removed.connect(_on_action_block_removed)
+	if is_instance_valid(targeting_line):
+		real_block.show_target_line.connect(targeting_line.update_and_show_line)
+		real_block.hide_target_line.connect(targeting_line.clear_line)
 	placed_actions.append({
 		"action_data": new_action,
 		"visual_block": real_block
@@ -187,3 +190,7 @@ func _on_action_block_removed(action_to_remove: TimelineAction):
 				block_node.queue_free()
 			placed_actions.remove_at(i)
 			break
+
+
+func set_dependencies(p_targeting_line: TargetingLine) -> void:
+	self.targeting_line = p_targeting_line
