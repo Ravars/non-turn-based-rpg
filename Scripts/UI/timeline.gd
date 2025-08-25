@@ -1,10 +1,7 @@
 extends Control
 
 @export var timeline_lane_scene: PackedScene
-
-# A CORREÇÃO: Exporte a variável para que possamos conectá-la no editor.
-# Usamos o tipo "Control" para garantir que só possamos arrastar nós de UI aqui.
-@export var timeline_ui: Control 
+@export var player_action_panel: Control 
 @export var pixels_per_second := 182.0
 @onready var playhead = $ColorRect/Playhead
 @onready var lanes_container = $ColorRect/ScrollContainer/VBoxContainer
@@ -25,15 +22,13 @@ func _on_battle_initialized(heroes: Array[Unit]):
 		var new_lane: TimelineLane = timeline_lane_scene.instantiate()
 		new_lane.set_hero_owner(hero)
 		new_lane.action_added.connect(_on_action_added)
-		new_lane.set_dependencies(targeting_line)
+		new_lane.set_dependencies(targeting_line, player_action_panel)
 		lanes_container.add_child(new_lane)
 	
-	# Esta linha agora funcionará, porque a variável timeline_ui
-	# será preenchida pelo editor.
-	if timeline_ui:
-		timeline_ui.setup_lane_connections(lanes_container)
+	if player_action_panel:
+		player_action_panel.setup_lane_connections(lanes_container)
 	else:
-		print("ERRO em timeline.gd: A referência para timeline_ui não foi definida no Inspetor!")
+		print("ERRO em timeline.gd: A referência para player_action_panel não foi definida no Inspetor!")
 
 func _on_time_updated(new_time: float):
 	playhead.position.x = new_time * pixels_per_second

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgshm43j5t54n"]
+[gd_scene load_steps=5 format=3 uid="uid://bgshm43j5t54n"]
 
 [ext_resource type="PackedScene" uid="uid://dedvm26vfptj3" path="res://Scenes/Timeline.tscn" id="1_u2ofk"]
 [ext_resource type="PackedScene" uid="uid://of55w5nk6rnu" path="res://Scenes/PlayerActionPanel.tscn" id="2_orym3"]
+[ext_resource type="Script" uid="uid://t43s4hldhv0v" path="res://Scripts/UI/vfx_manager.gd" id="3_orym3"]
+[ext_resource type="PackedScene" uid="uid://ff6gpfqwg3wf" path="res://Scenes/UI/FloatingText.tscn" id="4_u0a2b"]
 
 [node name="MainHud" type="Control"]
 layout_mode = 3
@@ -14,18 +16,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Timeline" parent="." node_paths=PackedStringArray("timeline_ui") instance=ExtResource("1_u2ofk")]
+[node name="Timeline" parent="." node_paths=PackedStringArray("player_action_panel") instance=ExtResource("1_u2ofk")]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 0
-timeline_ui = NodePath("../PlayerActionPanel")
-pixels_per_second = 182.0
+player_action_panel = NodePath("../PlayerActionPanel")
 
-[node name="PlayerActionPanel" parent="." instance=ExtResource("2_orym3")]
+[node name="PlayerActionPanel" parent="." node_paths=PackedStringArray("vfx_manager") instance=ExtResource("2_orym3")]
 layout_mode = 1
 anchors_preset = 9
 anchor_right = 0.0
 grow_horizontal = 1
+vfx_manager = NodePath("../VFXManager")
+
+[node name="VFXManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_orym3")
+floating_text_scene = ExtResource("4_u0a2b")

@@ -3,6 +3,7 @@ class_name TimelineActionBlock
 
 signal removed(action: TimelineAction)
 signal target_changed(action: TimelineAction)
+signal target_change_requested(action: TimelineAction)
 signal show_target_line(start_pos: Vector2, end_pos: Vector2)
 signal hide_target_line()
 
@@ -30,6 +31,8 @@ func _on_gui_input(event:  InputEvent):
 		if event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				print("Bloco de ação clicado Left: {0}".format({0: action_data.skill_data.skill_name}))
+				target_change_requested.emit(action_data)
+				get_viewport().set_input_as_handled()
 			elif  event.button_index == MOUSE_BUTTON_RIGHT:
 				print("Bloco de ação clicado Right: {0}".format({0: action_data.skill_data.skill_name}))
 				removed.emit(action_data)

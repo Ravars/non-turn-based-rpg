@@ -6,6 +6,7 @@ signal unit_clicked(unit: Unit)
 signal action_executed(action: TimelineAction)
 signal action_started(action: TimelineAction)
 signal action_tick(percent: float)
+signal damage_taken(amount: float, position: Vector2)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -66,6 +67,7 @@ func take_damage(amount: float):
 	current_hp = max(0, current_hp-amount)
 	$Label.text = str(current_hp)
 	print("DAMAGE {0} sofreu {1} de dano, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
+	damage_taken.emit(amount, self.global_position)
 	if current_hp <= 0:
 		_die()
 

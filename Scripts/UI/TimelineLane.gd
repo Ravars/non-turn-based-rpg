@@ -15,6 +15,7 @@ var progress_50 = preload("res://Icons/progress_CCW_50.png")
 var progress_75 = preload("res://Icons/progress_CCW_75.png")
 var progress_full = preload("res://Icons/progress_full.png")
 var targeting_line: TargetingLine
+var player_action_panel: PlayerActionPanel
 
 @export var timeline_action_block_scene: PackedScene
 # --- Estado Interno ---
@@ -81,6 +82,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	real_block.position.y = (size.y - real_block.size.y) / 2.0
 	add_child(real_block)
 	real_block.removed.connect(_on_action_block_removed)
+	real_block.target_change_requested.connect(player_action_panel._on_target_selection_requested)
 	if is_instance_valid(targeting_line):
 		real_block.show_target_line.connect(targeting_line.update_and_show_line)
 		real_block.hide_target_line.connect(targeting_line.clear_line)
@@ -192,5 +194,6 @@ func _on_action_block_removed(action_to_remove: TimelineAction):
 			break
 
 
-func set_dependencies(p_targeting_line: TargetingLine) -> void:
+func set_dependencies(p_targeting_line: TargetingLine, p_player_action_panel: PlayerActionPanel) -> void:
 	self.targeting_line = p_targeting_line
+	self.player_action_panel = p_player_action_panel

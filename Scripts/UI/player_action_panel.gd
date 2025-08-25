@@ -4,6 +4,8 @@ var selected_char: Unit
 var action_awaiting_target: TimelineAction = null
 var is_selecting_target: bool = false
 @export var ability_button_scene: PackedScene
+@export var vfx_manager: VFXManager
+
 func _ready():
 	print("Ready PlayerActionPanel")
 	CombatManager.battle_initialized.connect(instantiate_button)
@@ -25,6 +27,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		botao.name = character.name
 		botao.connect("pressed", Callable(self, "_on_button_press").bind(character))
 		buttons_container.add_child(botao)
+		character.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 		
 		# Conecta ao sinal de clique de cada unidade
 		character.unit_clicked.connect(_on_unit_clicked)
@@ -32,6 +35,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 	# Conecta aos inimigos também
 	for enemy in CombatManager.active_enemies:
 		enemy.unit_clicked.connect(_on_unit_clicked)
+		enemy.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 
 func _on_button_press(unidade: Unit):
 	if is_selecting_target:
