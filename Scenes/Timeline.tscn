@@ -112,5 +112,14 @@ layout_mode = 0
 offset_top = -91.0
 offset_right = 40.0
 offset_bottom = -68.0
+text = "Current Time:"
+
+[node name="TimeScale" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -32.0
+offset_right = 46.0
+offset_bottom = -9.0
+text = "Time Scale: 1x"
 
 [node name="TargetingLine" parent="ColorRect" instance=ExtResource("3_a8x12")]

@@ -7,11 +7,13 @@ extends Control
 @onready var lanes_container = $ColorRect/ScrollContainer/VBoxContainer
 @onready var scroll_container = $ColorRect/ScrollContainer
 @onready var time_label = $ColorRect/Time
+@onready var time_scale_label = $ColorRect/TimeScale
 @onready var targeting_line: TargetingLine = $ColorRect/TargetingLine
 
 func _ready() -> void:
 	CombatManager.battle_initialized.connect(_on_battle_initialized)
 	TimelineManager.time_updated.connect(_on_time_updated)
+	TimelineManager.time_scale_changed.connect(_on_time_scale_changed)
 	
 func _on_battle_initialized(heroes: Array[Unit]):
 	# Limpa lanes antigas
@@ -32,7 +34,8 @@ func _on_battle_initialized(heroes: Array[Unit]):
 
 func _on_time_updated(new_time: float):
 	playhead.position.x = new_time * pixels_per_second
-	time_label.text = "%.2f" % new_time
+	time_label.text = "Current Time: %.2f s" % new_time
+	#time_label.text = "%.2f" % new_time
 	var target_scroll: int = playhead.position.x - (scroll_container.size.x / 2)
 	scroll_container.scroll_horizontal = lerp(scroll_container.scroll_horizontal, target_scroll, 0.1)
 	
@@ -40,3 +43,6 @@ func _on_action_added(action: TimelineAction):
 	var required_width = action.get_execution_time() * pixels_per_second
 	if required_width > lanes_container.custom_minimum_size.x:
 		lanes_container.custom_minimum_size.x = required_width
+
+func _on_time_scale_changed(time_scale: float):
+	time_scale_label.text = "Time Scale: {0}x".format({0: str(snapped((1/time_scale),0.1))}) 

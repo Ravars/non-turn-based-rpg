@@ -11,6 +11,10 @@ func _ready():
 	CombatManager.battle_initialized.connect(instantiate_button)
 	$ColorRect3/VBoxContainer/PlayButton.connect("pressed", Callable(self, "_on_play_button_pressed"))
 	$ColorRect3/VBoxContainer/PauseButton.connect("pressed", Callable(self, "_on_pause_button_pressed"))
+	$"ColorRect4/VBoxContainer/0_1xButton".connect("pressed", Callable(self, "_on_01x_button_pressed"))
+	$"ColorRect4/VBoxContainer/0_5xButton".connect("pressed", Callable(self, "_on_05x_button_pressed"))
+	$"ColorRect4/VBoxContainer/1xButton".connect("pressed", Callable(self, "_on_1x_button_pressed"))
+	$"ColorRect4/VBoxContainer/2xButton".connect("pressed", Callable(self, "_on_2x_button_pressed"))
 	
 	# Conecta ao sinal da lane (isso precisa ser feito depois que as lanes são criadas)
 	# Vamos mover essa lógica para _on_battle_initialized
@@ -112,3 +116,19 @@ func _on_unit_clicked(unit: Unit):
 	action_awaiting_target = null
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.WHITE # Remove o destaque
+		
+func _on_2x_button_pressed():
+	TimelineManager.set_time_scale(0.5)
+	pass
+	
+func _on_1x_button_pressed():
+	TimelineManager.set_time_scale(1)
+	pass
+
+func _on_05x_button_pressed():
+	TimelineManager.set_time_scale(2)
+	pass
+
+func _on_01x_button_pressed():
+	TimelineManager.set_time_scale(10)
+	pass

@@ -3,8 +3,10 @@ extends Node
 # var planned_actions: Array[TimelineAction] = []
 var current_time: float = 0.0
 var is_paused: bool = true
+var time_scale: float = 1
 signal time_updated(current_time: float)
 signal tick(current_time: float, delta: float)
+signal time_scale_changed(time_scale: float)
 
 func pause_game():
 	if not is_paused:
@@ -19,10 +21,13 @@ func play_game():
 func _physics_process(p_delta: float) -> void:
 	if is_paused:
 		return
-	current_time += p_delta / 5
-	tick.emit(current_time, p_delta/5)
+	current_time += p_delta / time_scale
+	tick.emit(current_time, p_delta / time_scale)
 	time_updated.emit(current_time)
 
+func set_time_scale(p_time_scale: float):
+	self.time_scale = p_time_scale
+	time_scale_changed.emit(p_time_scale)
 # func add_planned_action(action: TimelineAction):
 # 	planned_actions.append(action)
 # 	planned_actions.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.get_execution_time() < b.get_execution_time())
