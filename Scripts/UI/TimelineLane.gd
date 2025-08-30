@@ -7,8 +7,8 @@ signal action_added(action: TimelineAction)
 var hero_owner: Unit
 @onready var indicator_image: Sprite2D = $Indicator
 # --- Variáveis de Configuração ---
-@export var pixels_per_second := 182.0
 @export var time_snap_interval := 0.1
+var pixels_per_second := 0.0
 var progress_empty = preload("res://Icons/progress_empty.png")
 var progress_25 = preload("res://Icons/progress_CCW_25.png")
 var progress_50 = preload("res://Icons/progress_CCW_50.png")

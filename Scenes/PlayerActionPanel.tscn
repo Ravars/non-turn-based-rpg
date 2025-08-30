@@ -52,6 +52,7 @@ layout_mode = 2
 text = "Pause"
 
 [node name="ColorRect4" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = 454.0
 offset_right = 534.0
 offset_bottom = 120.0

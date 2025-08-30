@@ -2,7 +2,7 @@ extends Control
 
 @export var timeline_lane_scene: PackedScene
 @export var player_action_panel: Control 
-@export var pixels_per_second := 182.0
+@export var pixels_per_second := 50.0
 @onready var playhead = $ColorRect/Playhead
 @onready var lanes_container = $ColorRect/ScrollContainer/VBoxContainer
 @onready var scroll_container = $ColorRect/ScrollContainer
@@ -23,6 +23,7 @@ func _on_battle_initialized(heroes: Array[Unit]):
 	for hero in heroes:
 		var new_lane: TimelineLane = timeline_lane_scene.instantiate()
 		new_lane.set_hero_owner(hero)
+		new_lane.pixels_per_second = pixels_per_second
 		new_lane.action_added.connect(_on_action_added)
 		new_lane.set_dependencies(targeting_line, player_action_panel)
 		lanes_container.add_child(new_lane)
