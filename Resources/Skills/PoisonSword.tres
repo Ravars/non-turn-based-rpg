@@ -9,6 +9,7 @@ script = ExtResource("1_cc53l")
 skill_name = "Poison Sword"
 skill_description = "Description Skill"
 damage = 5
+damage_type = 2
 cast_time = 1.0
 cooldown = 1.0
 status_effects = Array[ExtResource("2_rjhyn")]([ExtResource("3_rjhyn")])

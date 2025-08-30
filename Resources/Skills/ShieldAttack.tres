@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://0o544yhnkuqp"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://0o544yhnkuqp"]
 
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_qa6hw"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_io2r3"]
 
 [resource]
 script = ExtResource("1_qa6hw")
 skill_name = "Shield Attack"
 skill_description = "Description Shield"
 damage = 15
+damage_type = 0
 cast_time = 2.0
 cooldown = 1.0
+status_effects = Array[ExtResource("2_io2r3")]([])
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

@@ -6,6 +6,7 @@ class_name  SkillData
 
 @export_group("Combat")
 @export var damage: int = 1
+@export var damage_type: CombatManager.DamageType = CombatManager.DamageType.PHYSICAL
 @export var cast_time: float = 1.0
 @export var cooldown: float = 1.0
 @export var status_effects: Array[StatusEffect] = []

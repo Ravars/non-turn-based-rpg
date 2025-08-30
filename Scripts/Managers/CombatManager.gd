@@ -1,5 +1,13 @@
 extends Node2D
 
+enum DamageType {
+	PHYSICAL,
+	FIRE,
+	POISON,
+	LIGHTNING,
+	HOLY,
+}
+
 signal battle_initialized(heroes: Array)
 
 var active_heroes: Array[Unit] = []
@@ -16,7 +24,7 @@ func execute_action(action: TimelineAction):
 	
 	var damage_amount: int = action.skill_data.damage
 	if damage_amount > 0:
-		action.target.take_damage(damage_amount)
+		action.target.take_damage(damage_amount, action.skill_data.damage_type)
 
 	for effect in action.skill_data.status_effects:
 		action.target.apply_status_effect(effect)

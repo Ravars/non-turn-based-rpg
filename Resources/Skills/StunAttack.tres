@@ -9,6 +9,7 @@ script = ExtResource("1_lgp8d")
 skill_name = "Stun Attack"
 skill_description = "Description Shield"
 damage = 2
+damage_type = 0
 cast_time = 2.0
 cooldown = 1.0
 status_effects = Array[ExtResource("2_gb12t")]([ExtResource("3_gb12t")])

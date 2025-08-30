@@ -6,7 +6,7 @@ signal unit_clicked(unit: Unit)
 signal action_executed(action: TimelineAction)
 signal action_started(action: TimelineAction)
 signal action_tick(percent: float)
-signal damage_taken(amount: float, position: Vector2)
+signal damage_taken(amount: float, position: Vector2, damage_type: CombatManager.DamageType)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -63,11 +63,11 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		unit_clicked.emit(self)
 		get_viewport().set_input_as_handled()
 
-func take_damage(amount: float):
+func take_damage(amount: float, damage_type: CombatManager.DamageType):
 	current_hp = max(0, current_hp-amount)
 	$Label.text = str(current_hp)
 	print("DAMAGE {0} sofreu {1} de dano, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
-	damage_taken.emit(amount, self.global_position)
+	damage_taken.emit(amount, self.global_position, damage_type)
 	if current_hp <= 0:
 		_die()
 
@@ -135,7 +135,7 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 				effect_data.tick_timer += delta
 				if effect_data.tick_timer >= 1.0:
 					print("EFFECT! {0} sofre {1} de dano do efeito {2}".format({0: name, 1: effect.value, 2: effect.effect_name}))
-					take_damage(effect.value)
+					take_damage(effect.value, CombatManager.DamageType.POISON)
 					effect_data.tick_timer -= 1.0
 				pass
 			StatusEffect.EffectType.HEAL_OVER_TIME:

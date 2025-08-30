@@ -9,6 +9,7 @@ script = ExtResource("1_vyscx")
 skill_name = "Sword Attack"
 skill_description = "Uses a Sword to Attack"
 damage = 5
+damage_type = 0
 cast_time = 2.0
 cooldown = 2.0
 status_effects = Array[ExtResource("3_55t2w")]([])

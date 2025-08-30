@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://c34hfgd1njese"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_mj1ej"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_xg68f"]
+
+[resource]
+script = ExtResource("1_mj1ej")
+skill_name = "Divine Smite"
+skill_description = "Description Skill"
+damage = 20
+damage_type = 4
+cast_time = 2.0
+cooldown = 2.0
+status_effects = Array[ExtResource("2_xg68f")]([])
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"
