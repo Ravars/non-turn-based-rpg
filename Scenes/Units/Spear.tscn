@@ -1,0 +1,58 @@
+[gd_scene load_steps=13 format=3 uid="uid://jrod0m38irh2"]
+
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_1f8ol"]
+[ext_resource type="Resource" uid="uid://www1p6ux2rc3" path="res://Resources/Units/Spear.tres" id="2_1f8ol"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_4artb"]
+[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="4_uyvf5"]
+[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="5_4artb"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="6_uyvf5"]
+[ext_resource type="Texture2D" uid="uid://bi68jf7qnxwk1" path="res://Assets/MiniSpearMan.png" id="7_uyvf5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64th6"]
+atlas = ExtResource("7_uyvf5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhlg5"]
+atlas = ExtResource("7_uyvf5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhw5a"]
+atlas = ExtResource("7_uyvf5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wqpg"]
+atlas = ExtResource("7_uyvf5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hs06u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64th6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhlg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhw5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wqpg")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Spear" instance=ExtResource("1_1f8ol")]
+characterStats = ExtResource("2_1f8ol")
+skills = Array[ExtResource("3_4artb")]([ExtResource("4_uyvf5"), ExtResource("5_4artb"), ExtResource("6_uyvf5")])
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(1, 1, 1, 0)
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = SubResource("SpriteFrames_hs06u")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.850244

@@ -39,7 +39,7 @@ func _on_mouse_entered():
 		current_tooltip.queue_free()
 
 	current_tooltip = tooltip_scene.instantiate()
-	current_tooltip.update_info(skill_data)
+	current_tooltip.update_info(skill_data, hero_owner)
 	timeline_ui.add_child(current_tooltip)
 	# get_tree().root.add_child(current_tooltip)
 	current_tooltip.global_position = get_global_mouse_position() + Vector2(20, 20)

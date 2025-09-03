@@ -161,3 +161,13 @@ func remove_action_from_queue(action_to_remove: TimelineAction):
 		print("Ação '{0}' removida da fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
 	else:
 		print("Ação '{0}' não encontrada na fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
+
+func get_final_strength() -> int:
+	var final_value = float(characterStats.strength)
+	for effect: StatusEffect in active_status_effects:
+		if effect.type == StatusEffect.EffectType.STAT_MODIFIER and effect.target_stat == StatusEffect.Stat.STRENGTH:
+			if effect.is_percentage:
+				final_value *= (1.0 + effect.value/100)
+			else:
+				final_value += effect.value
+	return max(0, int(final_value))

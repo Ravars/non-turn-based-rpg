@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://8rjewcj1qibu"]
+[gd_scene load_steps=7 format=3 uid="uid://8rjewcj1qibu"]
 
 [ext_resource type="PackedScene" uid="uid://7vh5n4px2cnv" path="res://Scenes/Units/Mage.tscn" id="2_rq8dt"]
 [ext_resource type="Script" path="res://Scripts/Managers/CombatManager.gd" id="4_abcde"]
 [ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="6_k8hyy"]
+[ext_resource type="PackedScene" uid="uid://jrod0m38irh2" path="res://Scenes/Units/Spear.tscn" id="6_vet15"]
 [ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="6_xd0fh"]
 [ext_resource type="Script" uid="uid://t6mm8hwbwhs8" path="res://Scripts/Controllers/BattleSetup.gd" id="8_xd0fh"]
 
@@ -54,7 +55,7 @@ position = Vector2(0, 441)
 
 [node name="CombatSceneController" type="Node" parent="." node_paths=PackedStringArray("player_spawn_points", "enemie_spawn_points")]
 script = ExtResource("8_xd0fh")
-hero_scenes = Array[PackedScene]([ExtResource("2_rq8dt"), ExtResource("6_xd0fh"), ExtResource("6_k8hyy")])
+hero_scenes = Array[PackedScene]([ExtResource("2_rq8dt"), ExtResource("6_xd0fh"), ExtResource("6_k8hyy"), ExtResource("6_vet15")])
 enemy_scenes = Array[PackedScene]([ExtResource("6_k8hyy"), ExtResource("2_rq8dt")])
 player_spawn_points = [NodePath("../PlayerLanes/Lane1/UnitPosition"), NodePath("../PlayerLanes/Lane2/UnitPosition"), NodePath("../PlayerLanes/Lane3/UnitPosition")]
 enemie_spawn_points = [NodePath("../EnemyLanes/Lane1/UnitPosition"), NodePath("../EnemyLanes/Lane2/UnitPosition"), NodePath("../EnemyLanes/Lane3/UnitPosition")]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://dmgfjn6xctexm"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_shdvh"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_qf54u"]
+[ext_resource type="Resource" uid="uid://cuwf140g8ocv1" path="res://Resources/Effects/ArmorBreakEffect.tres" id="3_qf54u"]
+
+[resource]
+script = ExtResource("1_shdvh")
+skill_name = "Quebra Armadura"
+skill_description = "Description Skill"
+damage = 5
+damage_type = 0
+cast_time = 1.5
+cooldown = 1.0
+status_effects = Array[ExtResource("2_qf54u")]([ExtResource("3_qf54u")])
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

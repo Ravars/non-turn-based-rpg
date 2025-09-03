@@ -22,9 +22,11 @@ func execute_action(action: TimelineAction):
 		print("Ação cancelada. Alvo inválido.")
 		return
 	
-	var damage_amount: int = action.skill_data.damage
-	if damage_amount > 0:
-		action.target.take_damage(damage_amount, action.skill_data.damage_type)
+	var base_damage: int = action.skill_data.damage
+	var final_strength = action.caster.get_final_strength()
+	var total_damage = base_damage + (final_strength * 2)
+	if total_damage > 0:
+		action.target.take_damage(total_damage, action.skill_data.damage_type)
 
 	for effect in action.skill_data.status_effects:
 		action.target.apply_status_effect(effect)
