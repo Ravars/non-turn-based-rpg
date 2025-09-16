@@ -118,7 +118,7 @@ func _on_unit_clicked(unit: Unit):
 		enemy.modulate = Color.WHITE # Remove o destaque
 		
 func _on_2x_button_pressed():
-	TimelineManager.set_time_scale(0.5)
+	TimelineManager.set_time_scale(2)
 	pass
 	
 func _on_1x_button_pressed():
@@ -126,9 +126,9 @@ func _on_1x_button_pressed():
 	pass
 
 func _on_05x_button_pressed():
-	TimelineManager.set_time_scale(2)
+	TimelineManager.set_time_scale(0.5)
 	pass
 
 func _on_01x_button_pressed():
-	TimelineManager.set_time_scale(10)
+	TimelineManager.set_time_scale(0.1)
 	pass

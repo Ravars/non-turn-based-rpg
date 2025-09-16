@@ -13,24 +13,36 @@ const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 var max_hp: int = 100
 var current_hp: float = 100
+
 var timeline_id: int = 0
 var is_dead: bool = false
 var is_stunned: bool = false
 var is_casting: bool = false
+var archetype: CharacterArchetype
+
 @export var characterStats: CharacterStats
-@export var skills: Array[SkillData] = []
+var skills: Array[SkillData] = []
 @export var active_status_effects: Dictionary = {}
 var stun_texture = preload("res://Icons/busy_hourglass.png")
 var action_indicator_image: Sprite2D
 var action_queue: Array[TimelineAction] = []
 var current_cast_progress: float = 0.0
 
-func _ready() -> void:
-	max_hp = characterStats.health
-	current_hp = max_hp
-	$Label.text = str(current_hp)
-	action_indicator_image = $ActionIndicator
+# func _ready() -> void:
+# 	# max_hp = characterStats.health
+# 	# current_hp = max_hp
+# 	# $Label.text = str(current_hp)
 	
+
+func initialize(p_archetype: CharacterArchetype, p_current_health: float = -1.0):
+	self.archetype = p_archetype
+	self.name = archetype.character_name
+	self.skills = archetype.starting_skills.duplicate()
+	if p_current_health < 0:
+		self.current_hp = archetype.base_stats.health
+	else:
+		self.current_hp = p_current_health
+	$Label.text = str(current_hp)
 	# Cria uma área clicável programaticamente
 	var clickable_area = Area2D.new()
 	var collision_shape = CollisionShape2D.new()
@@ -52,6 +64,7 @@ func _ready() -> void:
 		ai_node.name = "AIController"
 		ai_node.set_script(AIController)
 		add_child(ai_node)
+	action_indicator_image = $ActionIndicator
 	TimelineManager.tick.connect(internal_process)
 
 func internal_process(_current_time: float, delta: float):

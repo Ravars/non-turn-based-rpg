@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://df161rj25jbt7"]
+
+[ext_resource type="Script" uid="uid://gmes0o8m8s3s" path="res://Scripts/UI/archetype_card.gd" id="1_xa3yc"]
+
+[node name="ArchetypeCard" type="Button"]
+offset_right = 234.0
+offset_bottom = 310.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+flat = true
+script = ExtResource("1_xa3yc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 91.0
+offset_bottom = 131.0
+
+[node name="CharacterNameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StatsHBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StatsTitleLabel" type="Label" parent="VBoxContainer/StatsHBoxContainer"]
+layout_mode = 2
+text = "Status"
+
+[node name="SkillsHBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillsTitleLabel" type="Label" parent="VBoxContainer/SkillsHBoxContainer"]
+layout_mode = 2
+text = "Habilidades"

@@ -1,15 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bet4frdrva7or"]
+[gd_scene load_steps=9 format=3 uid="uid://bet4frdrva7or"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_jnkdd"]
 [ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Warrior.tres" id="2_60m18"]
-[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_wxa1f"]
-[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="4_q8au6"]
-[ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="5_q8au6"]
-[ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="6_1nrda"]
-[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="7_6qodk"]
 [ext_resource type="Texture2D" uid="uid://pxrsrqy50bqe" path="res://Assets/MiniShieldMan.png" id="8_dbvx5"]
-[ext_resource type="Resource" uid="uid://dmgfjn6xctexm" path="res://Resources/Skills/ArmorBreakSkill.tres" id="8_ouo20"]
-[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="9_fqxsf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7jpf"]
 atlas = ExtResource("8_dbvx5")
@@ -49,7 +42,6 @@ animations = [{
 
 [node name="Warrior" instance=ExtResource("1_jnkdd")]
 characterStats = ExtResource("2_60m18")
-skills = Array[ExtResource("3_wxa1f")]([ExtResource("4_q8au6"), ExtResource("5_q8au6"), ExtResource("6_1nrda"), ExtResource("7_6qodk"), ExtResource("8_ouo20"), ExtResource("9_fqxsf")])
 
 [node name="ColorRect" parent="." index="0"]
 visible = false

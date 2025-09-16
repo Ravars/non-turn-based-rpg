@@ -31,36 +31,7 @@ func execute_action(action: TimelineAction):
 	for effect in action.skill_data.status_effects:
 		action.target.apply_status_effect(effect)
 
-#func process_action(current_time: float, _delta: float):
-	#var timelineActions: Array[TimelineAction] = TimelineManager.planned_actions
-	#var actions_to_perform: Array[TimelineAction] = []
-	#for i in range(timelineActions.size()-1,-1,-1):
-		#var action = timelineActions[i]
-		#var caster = action.caster
-#
-		#if caster.is_dead:
-			#timelineActions.remove_at(i)
-			#continue
-		#if action.caster.is_stunned:
-			#continue
-		#
-		#action.cast_progress += _delta
-		##print("CAST: {0}".format({0: action.cast_progress}))
-		#if current_time >= action.get_execution_time():
-			#if not action.target.is_dead:
-				#actions_to_perform.append(action)
-			#else:
-				#print("Ação {0} cancelada por alvo inválido.".format([action.skill_data.skill_name]))
-			#timelineActions.remove_at(i)
-#
-	#for action_to_perform in actions_to_perform:
-		#print("Personagem {caster_name} executando {skill_name} no tempo {time}".format({"caster_name": action_to_perform.caster.name, "skill_name": action_to_perform.skill_data.skill_name, "time": current_time}))
-		#execute_action(action_to_perform)
-		#
-	#if timelineActions.size() == 0:
-		#TimelineManager.pause_game()
-
-func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedScene], setup_node: BattleSetup) -> void:
+func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[CharacterArchetype], setup_node: BattleSetup) -> void:
 	active_heroes.clear()
 	active_enemies.clear()
 	
@@ -68,8 +39,9 @@ func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedSc
 		var spawn_point = setup_node.player_spawn_points[randi() % setup_node.player_spawn_points.size()]
 		var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
 		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
-		
-		var new_hero: Unit = hero_data[i].instantiate()
+		var archetype = hero_data[i].archetype
+		var new_hero: Unit = archetype.scene.instantiate()
+		new_hero.initialize(archetype, hero_data[i].current_hp)
 		spawn_point.add_child(new_hero)
 		new_hero.add_to_group("heroes")
 		new_hero.global_position = spawn_point.global_position + offset
@@ -80,15 +52,18 @@ func initialize_battle(hero_data: Array[PackedScene], enemy_data: Array[PackedSc
 		var spawn_point = setup_node.enemie_spawn_points[randi() % setup_node.enemie_spawn_points.size()]
 		var occupant_count = setup_node.enemy_lane_occupancy.get(spawn_point, 0)
 		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
+		var archetype = enemy_data[i]
 		
-		var new_enemy: Unit = enemy_data[i].instantiate()
+		var new_enemy: Unit = enemy_data[i].scene.instantiate()
 		new_enemy.is_enemy = true
+		new_enemy.initialize(archetype)
 		new_enemy.add_to_group("enemies")
 		spawn_point.add_child(new_enemy)
 		new_enemy.global_position = spawn_point.global_position + offset
 		
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
+	
 	battle_initialized.emit(active_heroes)
 
 func get_random_hero_target():

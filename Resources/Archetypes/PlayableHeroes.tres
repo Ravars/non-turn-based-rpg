@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayableArchetypes" load_steps=7 format=3 uid="uid://mbspm2xyuoy7"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_dyo02"]
+[ext_resource type="Script" uid="uid://c1cbq3g3phfgl" path="res://Scripts/Data/PlayableArchetypes.gd" id="1_vesp2"]
+[ext_resource type="Resource" uid="uid://bk2h6atmt0umj" path="res://Resources/Archetypes/BasicMage.tres" id="2_odque"]
+[ext_resource type="Resource" uid="uid://decmcf6bstinw" path="res://Resources/Archetypes/BasicWarrior.tres" id="3_pq26u"]
+[ext_resource type="Resource" uid="uid://bxjyp2do4lqed" path="res://Resources/Archetypes/BasicPaladin.tres" id="4_odque"]
+[ext_resource type="Resource" uid="uid://bxkxbgjh1ekam" path="res://Resources/Archetypes/BasicSpear.tres" id="5_pq26u"]
+
+[resource]
+script = ExtResource("1_vesp2")
+available_heroes = Array[ExtResource("1_dyo02")]([ExtResource("2_odque"), ExtResource("3_pq26u"), ExtResource("4_odque"), ExtResource("5_pq26u")])
+metadata/_custom_type_script = "uid://c1cbq3g3phfgl"

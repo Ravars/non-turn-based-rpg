@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=7 format=3 uid="uid://bk2h6atmt0umj"]
+
+[ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Units/Mage.tres" id="1_6ae03"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_vmhcc"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_bx7w6"]
+[ext_resource type="PackedScene" uid="uid://7vh5n4px2cnv" path="res://Scenes/Units/Mage.tscn" id="2_lqbib"]
+[ext_resource type="Resource" uid="uid://cjplw62slvhk2" path="res://Resources/Skills/FireBolt.tres" id="5_ao2n2"]
+[ext_resource type="Resource" uid="uid://bk14aot6jtncu" path="res://Resources/Skills/FireBall.tres" id="6_kcagc"]
+
+[resource]
+script = ExtResource("1_vmhcc")
+character_name = "Mago Basico"
+scene = ExtResource("2_lqbib")
+base_stats = ExtResource("1_6ae03")
+starting_skills = Array[ExtResource("2_bx7w6")]([ExtResource("5_ao2n2"), ExtResource("6_kcagc")])
+metadata/_custom_type_script = "uid://c43gnnfauc070"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://boxmb6la5ibyi"]
+
+[ext_resource type="Resource" uid="uid://6ani4ruco48d" path="res://Resources/Units/Goblin.tres" id="1_n08hh"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_sq0bg"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_pbb3q"]
+[ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="2_qurno"]
+[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="5_12qyr"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="6_jkxma"]
+[ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="7_j6332"]
+
+[resource]
+script = ExtResource("1_sq0bg")
+character_name = "Basic Goblin"
+scene = ExtResource("2_qurno")
+base_stats = ExtResource("1_n08hh")
+starting_skills = Array[ExtResource("2_pbb3q")]([ExtResource("5_12qyr"), ExtResource("6_jkxma"), ExtResource("7_j6332")])
+metadata/_custom_type_script = "uid://c43gnnfauc070"

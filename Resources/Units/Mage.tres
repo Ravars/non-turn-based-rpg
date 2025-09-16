@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ibpmp")
-health = 10
+health = 100
 mana = 10
 strength = 1
 dexterity = 1

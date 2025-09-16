@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=6 format=3 uid="uid://bxjyp2do4lqed"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_1ad4x"]
+[ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Warrior.tres" id="1_jv5i5"]
+[ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="2_axnja"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_kafkc"]
+[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="5_axnja"]
+
+[resource]
+script = ExtResource("1_1ad4x")
+character_name = "Paladino"
+scene = ExtResource("2_axnja")
+base_stats = ExtResource("1_jv5i5")
+starting_skills = Array[ExtResource("2_kafkc")]([ExtResource("5_axnja")])
+metadata/_custom_type_script = "uid://c43gnnfauc070"

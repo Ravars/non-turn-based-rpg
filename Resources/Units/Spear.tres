@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_mlkxj")
-health = 15
+health = 100
 mana = 0
 strength = 2
 dexterity = 15

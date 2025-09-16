@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=6 format=3 uid="uid://bxkxbgjh1ekam"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_g0bl6"]
+[ext_resource type="Resource" uid="uid://www1p6ux2rc3" path="res://Resources/Units/Spear.tres" id="1_v1exl"]
+[ext_resource type="PackedScene" uid="uid://jrod0m38irh2" path="res://Scenes/Units/Spear.tscn" id="1_yr4n4"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_yr4n4"]
+[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="5_iivqr"]
+
+[resource]
+script = ExtResource("1_g0bl6")
+character_name = "Lanceiro"
+scene = ExtResource("1_yr4n4")
+base_stats = ExtResource("1_v1exl")
+starting_skills = Array[ExtResource("2_yr4n4")]([ExtResource("5_iivqr")])
+metadata/_custom_type_script = "uid://c43gnnfauc070"

@@ -21,8 +21,8 @@ func play_game():
 func _physics_process(p_delta: float) -> void:
 	if is_paused:
 		return
-	current_time += p_delta / time_scale
-	tick.emit(current_time, p_delta / time_scale)
+	current_time += p_delta * time_scale
+	tick.emit(current_time, p_delta * time_scale)
 	time_updated.emit(current_time)
 
 func set_time_scale(p_time_scale: float):
