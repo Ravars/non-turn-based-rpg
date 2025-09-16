@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3 uid="uid://c5nbbc0f2jm76"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_ncm08"]
+[ext_resource type="Resource" uid="uid://boxmb6la5ibyi" path="res://Resources/Archetypes/BasicGoblin.tres" id="2_85cn1"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="2_t12x6"]
+[ext_resource type="Resource" uid="uid://decmcf6bstinw" path="res://Resources/Archetypes/BasicWarrior.tres" id="3_hayk8"]
+
+[resource]
+script = ExtResource("2_t12x6")
+encounter_name = "Primeiro Encontro"
+enemy_archetypes = Array[ExtResource("1_ncm08")]([ExtResource("2_85cn1"), ExtResource("3_hayk8")])
+metadata/_custom_type_script = "uid://bkccj684haiid"

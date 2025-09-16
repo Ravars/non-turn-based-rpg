@@ -89,6 +89,7 @@ func _die():
 	is_dead = true
 	unit_died.emit(self)
 	modulate = Color(0.5, 0.5, 0.5)
+	CombatManager.on_unit_died(self)
 
 func apply_status_effect(effect:StatusEffect):
 	print("EFFECT {0} recebeu o efeito {1}".format({0: name, 1: effect.effect_name}))

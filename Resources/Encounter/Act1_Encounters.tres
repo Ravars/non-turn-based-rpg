@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterDB" load_steps=5 format=3 uid="uid://yck4xlke51p5"]
+
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_fmfnj"]
+[ext_resource type="Script" uid="uid://b17mj0wx2ynj8" path="res://Scripts/Data/EncounterDB.gd" id="2_msjvb"]
+[ext_resource type="Resource" uid="uid://c5nbbc0f2jm76" path="res://Resources/Encounter/FirstEncounter.tres" id="2_nnlqb"]
+[ext_resource type="Resource" uid="uid://cvts85rg5ccpd" path="res://Resources/Encounter/Goblins.tres" id="3_nnlqb"]
+
+[resource]
+script = ExtResource("2_msjvb")
+normal_encounters = Array[ExtResource("1_fmfnj")]([ExtResource("2_nnlqb"), ExtResource("3_nnlqb")])
+elite_encounters = Array[ExtResource("1_fmfnj")]([])

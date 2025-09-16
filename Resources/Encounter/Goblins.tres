@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=4 format=3 uid="uid://cvts85rg5ccpd"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_whkxp"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="2_xhm75"]
+[ext_resource type="Resource" uid="uid://boxmb6la5ibyi" path="res://Resources/Archetypes/BasicGoblin.tres" id="2_xinja"]
+
+[resource]
+script = ExtResource("2_xhm75")
+encounter_name = "Goblins"
+enemy_archetypes = Array[ExtResource("1_whkxp")]([ExtResource("2_xinja"), ExtResource("2_xinja"), ExtResource("2_xinja"), ExtResource("2_xinja")])
+metadata/_custom_type_script = "uid://bkccj684haiid"

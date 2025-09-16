@@ -74,3 +74,17 @@ func get_random_hero_target():
 			alive_heroes.append(hero)
 	if alive_heroes.is_empty(): return null
 	return alive_heroes.pick_random()
+
+func on_unit_died(dead_unit: Unit):
+	if dead_unit.is_enemy:
+		active_enemies.erase(dead_unit)
+	else:
+		active_heroes.erase(dead_unit)
+	
+	if active_heroes.is_empty():
+		print("COMBATE TERMINOU: Derrota!")
+		GameManager.combat_ended.emit(false)
+	elif active_enemies.is_empty():
+		print("COMBATE TERMINOU: Vitoria!")
+		GameManager.combat_ended.emit(true)
+	
