@@ -14,3 +14,14 @@ layout_mode = 2
 
 [node name="NodeButton2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 387.0
+offset_top = 8.0
+offset_right = 471.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Map Scene"

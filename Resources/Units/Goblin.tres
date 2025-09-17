@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_p8ocb")
-health = 100
+health = 10
 mana = 0
 strength = 2
 dexterity = 8
