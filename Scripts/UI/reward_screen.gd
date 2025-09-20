@@ -17,7 +17,7 @@ func _ready():
 		card_container.add_child(card)
 
 func _continue_to_map():
-	get_tree().change_scene_to_file("res://Scenes/MapScene.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/MapScene.tscn")
 
 func _on_reward_selected(selected_skill: SkillData):
 	GameManager.add_skill_to_hero(selected_skill)

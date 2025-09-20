@@ -4,8 +4,8 @@ var player_team: Array[PlayerCharacterData] = []
 var next_encounter_enemies: Array[CharacterArchetype] = []
 
 const PLAYABLE_HEROES_DB: PlayableArchetypes = preload("res://Resources/Archetypes/PlayableHeroes.tres")
-# const skill_reward: Array[SkillData] = preload("")
-var skill_reward: Array[SkillData] = []
+# const SKILL_REWARD_DB: Array[SkillData] = preload("")
+const SKILL_REWARD_DB: SkillRewardDB = preload("res://Resources/Skills/SkillRewardDB.tres")
 var current_map_node = 0
 var gold: int = 0
 signal run_started
@@ -40,7 +40,8 @@ func _on_combat_ended(was_victory: bool):
 			var hero_data = player_team[i]
 			var hero_in_combat = CombatManager.active_heroes[i]
 			hero_data.current_hp = hero_in_combat.current_hp
-		get_tree().change_scene_to_file("res://Scenes/RewardScreen.tscn")
+		TimelineManager.reset_timeline()
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/RewardScreen.tscn")
 
 	else:
 		print("GAME MANAGER: Derrota! Fim da partida.")
@@ -53,9 +54,9 @@ func get_available_hero_archetype(): #TODO:  -> Array[CharacterArchetype]
 
 func get_skill_reward_options(count: int) -> Array[SkillData]:
 	var options: Array[SkillData] = []
-	if skill_reward.is_empty():
+	if SKILL_REWARD_DB.skill_pool.is_empty():
 		return options
-	var available_skills = skill_reward.duplicate()
+	var available_skills = SKILL_REWARD_DB.skill_pool.duplicate()
 	available_skills.shuffle()
 	for i in range(min(count, available_skills.size())):
 		options.append(available_skills[i])

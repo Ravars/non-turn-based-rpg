@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwr8nxso3aith"]
+[gd_scene load_steps=3 format=3 uid="uid://bwr8nxso3aith"]
 
 [ext_resource type="Script" uid="uid://nm2ey8bdlakb" path="res://Scripts/UI/reward_screen.gd" id="1_fx078"]
+[ext_resource type="PackedScene" uid="uid://dtjhxwabfqgjv" path="res://Scenes/UI/RewardCard.tscn" id="2_ly5bm"]
 
 [node name="RewardScreen" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fx078")
+reward_card_scene = ExtResource("2_ly5bm")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

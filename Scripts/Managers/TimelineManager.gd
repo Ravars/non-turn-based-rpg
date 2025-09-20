@@ -28,6 +28,11 @@ func _physics_process(p_delta: float) -> void:
 func set_time_scale(p_time_scale: float):
 	self.time_scale = p_time_scale
 	time_scale_changed.emit(p_time_scale)
+
+func reset_timeline():
+	current_time = 0.0
+	is_paused = true
+	time_scale = 1
 # func add_planned_action(action: TimelineAction):
 # 	planned_actions.append(action)
 # 	planned_actions.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.get_execution_time() < b.get_execution_time())

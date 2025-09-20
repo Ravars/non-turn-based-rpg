@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dj23qu86s8ydu" path="res://Scripts/UI/reward_card.gd" id="1_5bkd3"]
 
 [node name="RewardCard" type="Control"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
