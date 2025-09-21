@@ -8,4 +8,4 @@ is_enemy = true
 characterStats = ExtResource("2_o22dp")
 
 [node name="ColorRect" parent="." index="0"]
-color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)
+color = Color(0.656538, 0.575669, 0.224831, 1)

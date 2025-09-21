@@ -11,7 +11,7 @@ characterStats = ExtResource("2_g41ub")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0.141954, 0.409075, 0.229459, 1)
+color = Color(0.3184, 0.304753, 0.590842, 1)
 
 [node name="Label" type="Label" parent="."]
 offset_top = -24.0

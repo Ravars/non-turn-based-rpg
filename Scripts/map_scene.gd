@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var act_1_encounters: EncounterDB = preload("res://Resources/Encounter/Act1_Encounters.tres")
+@onready var act_1_encounters: EncounterDB = preload("res://Resources/Encounter/Act1_EncountersDB.tres")
 var node_encounter_map: Dictionary = {}
 
 @onready var node_button_1: Button = $VBoxContainer/NodeButton1

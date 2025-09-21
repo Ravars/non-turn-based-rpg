@@ -1,11 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://7vh5n4px2cnv"]
+[gd_scene load_steps=9 format=3 uid="uid://7vh5n4px2cnv"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_r3b7i"]
 [ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Units/Mage.tres" id="2_ea1sq"]
-[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_l0i51"]
-[ext_resource type="Resource" uid="uid://cjplw62slvhk2" path="res://Resources/Skills/FireBolt.tres" id="4_f3stt"]
-[ext_resource type="Resource" uid="uid://bk14aot6jtncu" path="res://Resources/Skills/FireBall.tres" id="5_f3stt"]
-[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="6_0ejpv"]
 [ext_resource type="Texture2D" uid="uid://d2uprb5wpvyeh" path="res://Assets/MiniMage.png" id="6_j7l1o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ejpv"]
@@ -46,7 +42,6 @@ animations = [{
 
 [node name="Mage" instance=ExtResource("1_r3b7i")]
 characterStats = ExtResource("2_ea1sq")
-skills = Array[ExtResource("3_l0i51")]([ExtResource("4_f3stt"), ExtResource("5_f3stt"), ExtResource("6_0ejpv")])
 
 [node name="ColorRect" parent="." index="0"]
 visible = false

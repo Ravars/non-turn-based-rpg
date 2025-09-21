@@ -1,11 +1,14 @@
-[gd_resource type="Resource" script_class="EncounterDB" load_steps=5 format=3 uid="uid://yck4xlke51p5"]
+[gd_resource type="Resource" script_class="EncounterDB" load_steps=8 format=3 uid="uid://bkered38lpme7"]
 
-[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_fmfnj"]
-[ext_resource type="Script" uid="uid://b17mj0wx2ynj8" path="res://Scripts/Data/EncounterDB.gd" id="2_msjvb"]
-[ext_resource type="Resource" uid="uid://c5nbbc0f2jm76" path="res://Resources/Encounter/FirstEncounter.tres" id="2_nnlqb"]
-[ext_resource type="Resource" uid="uid://cvts85rg5ccpd" path="res://Resources/Encounter/Goblins.tres" id="3_nnlqb"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_6gacv"]
+[ext_resource type="Script" uid="uid://b17mj0wx2ynj8" path="res://Scripts/Data/EncounterDB.gd" id="1_db"]
+[ext_resource type="Resource" uid="uid://bpv177pgjqs6a" path="res://Resources/Encounter/Encounter_2_Goblins.tres" id="2_enc1"]
+[ext_resource type="Resource" uid="uid://cr3kxjsdf46gp" path="res://Resources/Encounter/Encounter_Goblin_and_Spearman.tres" id="3_enc2"]
+[ext_resource type="Resource" path="res://Resources/Encounter/Encounter_Triple_Goblins.tres" id="4_enc3"]
+[ext_resource type="Resource" path="res://Resources/Encounter/Encounter_Orc_and_Spearman.tres" id="5_enc4"]
+[ext_resource type="Resource" uid="uid://dw4cshhmbr84a" path="res://Resources/Encounter/Encounter_Elite_Leader.tres" id="6_enc5"]
 
 [resource]
-script = ExtResource("2_msjvb")
-normal_encounters = Array[ExtResource("1_fmfnj")]([ExtResource("2_nnlqb"), ExtResource("3_nnlqb")])
-elite_encounters = Array[ExtResource("1_fmfnj")]([])
+script = ExtResource("1_db")
+normal_encounters = Array[ExtResource("1_6gacv")]([ExtResource("2_enc1"), ExtResource("6_enc5"), ExtResource("3_enc2"), ExtResource("3_enc2"), ExtResource("5_enc4"), ExtResource("4_enc3")])
+elite_encounters = Array[ExtResource("1_6gacv")]([])

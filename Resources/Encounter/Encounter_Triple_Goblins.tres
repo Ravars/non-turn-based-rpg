@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3 uid="uid://yshgny75aqvs"]
+
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_w7y5f"]
+[ext_resource type="Resource" uid="uid://boxmb6la5ibyi" path="res://Resources/Archetypes/BasicGoblin.tres" id="2_goblin"]
+[ext_resource type="Resource" uid="uid://bxkxbgjh1ekam" path="res://Resources/Archetypes/BasicSpear.tres" id="3_spearman"]
+
+[resource]
+script = ExtResource("1_main")
+encounter_name = "Trio de Goblins"
+enemy_archetypes = Array[ExtResource("1_w7y5f")]([ExtResource("2_goblin"), ExtResource("2_goblin"), ExtResource("3_spearman")])
