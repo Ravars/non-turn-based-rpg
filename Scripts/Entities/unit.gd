@@ -7,6 +7,8 @@ signal action_executed(action: TimelineAction)
 signal action_started(action: TimelineAction)
 signal action_tick(percent: float)
 signal damage_taken(amount: float, position: Vector2, damage_type: CombatManager.DamageType)
+signal target_selection_requested(action: TimelineAction)
+signal action_added(action: TimelineAction)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -185,3 +187,20 @@ func get_final_strength() -> int:
 			else:
 				final_value += effect.value
 	return max(0, int(final_value))
+
+func quick_add_skill(skill: SkillData):
+	var start_time = get_last_action_end_time()
+	var new_action = TimelineAction.new(skill, self, null, start_time)
+	add_action_to_queue(new_action)
+	action_added.emit(new_action)
+	target_selection_requested.emit(new_action)
+
+func get_last_action_end_time() -> float:
+	if action_queue.is_empty():
+		return TimelineManager.current_time
+	var latest_end_time: float = 0.0
+	for action in action_queue:
+		var action_end_time = action.start_time + action.skill_data.cast_time
+		if action_end_time > latest_end_time:
+			latest_end_time = action_end_time
+	return latest_end_time

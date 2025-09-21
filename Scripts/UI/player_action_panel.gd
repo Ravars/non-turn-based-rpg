@@ -35,6 +35,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		
 		# Conecta ao sinal de clique de cada unidade
 		character.unit_clicked.connect(_on_unit_clicked)
+		character.target_selection_requested.connect(_on_target_selection_requested)
 
 	# Conecta aos inimigos também
 	for enemy in CombatManager.active_enemies:

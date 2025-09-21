@@ -91,7 +91,27 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 		"visual_block": real_block
 	})
 	
+func _on_action_added_to_unit(new_action: TimelineAction):
+	for item in placed_actions:
+		if item.action_data == new_action:
+			return
 
+	var real_block:TimelineActionBlock = timeline_action_block_scene.instantiate()
+	real_block.setup_block(new_action, pixels_per_second)
+
+	real_block.position.x = new_action.start_time * pixels_per_second
+	real_block.position.y = (size.y - real_block.size.y) / 2.0
+	add_child(real_block)
+	real_block.removed.connect(_on_action_block_removed)
+	real_block.target_change_requested.connect(player_action_panel._on_target_selection_requested)
+	if is_instance_valid(targeting_line):
+		real_block.show_target_line.connect(targeting_line.update_and_show_line)
+		real_block.hide_target_line.connect(targeting_line.clear_line)
+	placed_actions.append({
+		"action_data": new_action,
+		"visual_block": real_block
+	})
+	
 #==============================================================================
 # Funções de Lógica e Auxiliares
 #==============================================================================
@@ -136,6 +156,7 @@ func _create_action_block_visual(data: SkillData) -> Panel:
 	
 	return action_block
 
+	
 #==============================================================================
 # Conexões de Sinais
 #==============================================================================
@@ -162,6 +183,7 @@ func set_hero_owner(hero: Unit) -> void:
 	self.hero_owner.action_executed.connect(action_executed)
 	self.hero_owner.action_started.connect(action_started)
 	self.hero_owner.action_tick.connect(action_tick)
+	self.hero_owner.action_added.connect(_on_action_added_to_unit)
 
 func action_executed(action: TimelineAction) -> void:
 	if action.caster == hero_owner:
