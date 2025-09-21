@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvee0pp6yvq3x"]
+
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_o22dp"]
+[ext_resource type="Resource" path="res://Resources/Units/Goblin_Leader.tres" id="2_o22dp"]
+
+[node name="GoblinLeader" instance=ExtResource("1_o22dp")]
+is_enemy = true
+characterStats = ExtResource("2_o22dp")
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)

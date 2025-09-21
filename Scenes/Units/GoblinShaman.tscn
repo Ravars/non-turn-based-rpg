@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://du1j1exi1spab"]
+
+[ext_resource type="Script" uid="uid://bo3vat64lvjk3" path="res://Scripts/Entities/unit.gd" id="1_16kkg"]
+[ext_resource type="Resource" uid="uid://csvopphswd4xe" path="res://Resources/Units/GoblinShaman.tres" id="2_g41ub"]
+
+[node name="GoblinShaman" type="Node2D"]
+script = ExtResource("1_16kkg")
+is_enemy = true
+characterStats = ExtResource("2_g41ub")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.141954, 0.409075, 0.229459, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_top = -24.0
+offset_right = 40.0
+offset_bottom = -1.0
+text = "100"
+
+[node name="ActionIndicator" type="Sprite2D" parent="."]
+position = Vector2(16, -40)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, -3)
+scale = Vector2(2.875, 2.875)

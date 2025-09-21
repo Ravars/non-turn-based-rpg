@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_mlkxj")
-health = 100
+health = 35
 mana = 0
-strength = 2
+strength = 3
 dexterity = 15
 metadata/_custom_type_script = "uid://l8uxdayn10hi"

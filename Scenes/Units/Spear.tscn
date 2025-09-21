@@ -1,11 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://jrod0m38irh2"]
+[gd_scene load_steps=9 format=3 uid="uid://jrod0m38irh2"]
 
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_1f8ol"]
-[ext_resource type="Resource" uid="uid://www1p6ux2rc3" path="res://Resources/Units/Spear.tres" id="2_1f8ol"]
-[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_4artb"]
-[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="4_uyvf5"]
-[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="5_4artb"]
-[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="6_uyvf5"]
+[ext_resource type="Resource" uid="uid://cn5j6yg3g46k1" path="res://Resources/Units/Warrior_Spearman.tres" id="2_iu58d"]
 [ext_resource type="Texture2D" uid="uid://bi68jf7qnxwk1" path="res://Assets/MiniSpearMan.png" id="7_uyvf5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_64th6"]
@@ -45,8 +41,7 @@ animations = [{
 }]
 
 [node name="Spear" instance=ExtResource("1_1f8ol")]
-characterStats = ExtResource("2_1f8ol")
-skills = Array[ExtResource("3_4artb")]([ExtResource("4_uyvf5"), ExtResource("5_4artb"), ExtResource("6_uyvf5")])
+characterStats = ExtResource("2_iu58d")
 
 [node name="ColorRect" parent="." index="0"]
 color = Color(1, 1, 1, 0)

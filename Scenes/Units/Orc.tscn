@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxxwyq5ks51t0"]
+
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_xncr6"]
+[ext_resource type="Resource" uid="uid://cfy7osg66n1xw" path="res://Resources/Units/Orc.tres" id="2_xncr6"]
+
+[node name="Orc" instance=ExtResource("1_xncr6")]
+is_enemy = true
+characterStats = ExtResource("2_xncr6")
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(1.44392e-07, 0.701049, 1.54018e-06, 1)
