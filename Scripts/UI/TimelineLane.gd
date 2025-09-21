@@ -60,45 +60,25 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 		ghost_block = null
 	
 	var start_time: float = _snap_position_x(at_position.x) / pixels_per_second
-	
-	# Cria a ação com o alvo NULO.
 	var new_action = TimelineAction.new(data["skill_data"], hero_owner, null, start_time)
-	# Adiciona a ação (ainda sem alvo) ao manager.
 	hero_owner.add_action_to_queue(new_action)
-	# TimelineManager.add_planned_action(new_action)
-
-	# Emite o sinal para que a UI saiba que esta ação precisa de um alvo.
 	target_selection_requested.emit(new_action)
 	action_added.emit(new_action)
-
-	if not timeline_action_block_scene:
-		print("ERRO: Timeline block nao definido")
-		return
-	var real_block:TimelineActionBlock = timeline_action_block_scene.instantiate()
-	real_block.setup_block(new_action, pixels_per_second)
-
-	# var real_block = _create_action_block_visual(data["skill_data"])
-	real_block.position.x = _snap_position_x(at_position.x)
-	real_block.position.y = (size.y - real_block.size.y) / 2.0
-	add_child(real_block)
-	real_block.removed.connect(_on_action_block_removed)
-	real_block.target_change_requested.connect(player_action_panel._on_target_selection_requested)
-	if is_instance_valid(targeting_line):
-		real_block.show_target_line.connect(targeting_line.update_and_show_line)
-		real_block.hide_target_line.connect(targeting_line.clear_line)
-	placed_actions.append({
-		"action_data": new_action,
-		"visual_block": real_block
-	})
+	_create_and_place_action_block(new_action)
+	
 	
 func _on_action_added_to_unit(new_action: TimelineAction):
+	_create_and_place_action_block(new_action)
+	
+func _create_and_place_action_block(new_action: TimelineAction):
 	for item in placed_actions:
 		if item.action_data == new_action:
 			return
-
+	if not timeline_action_block_scene:
+		print("ERRO: Cena nao definida")
+		return
 	var real_block:TimelineActionBlock = timeline_action_block_scene.instantiate()
 	real_block.setup_block(new_action, pixels_per_second)
-
 	real_block.position.x = new_action.start_time * pixels_per_second
 	real_block.position.y = (size.y - real_block.size.y) / 2.0
 	add_child(real_block)
@@ -111,7 +91,9 @@ func _on_action_added_to_unit(new_action: TimelineAction):
 		"action_data": new_action,
 		"visual_block": real_block
 	})
-	
+
+
+
 #==============================================================================
 # Funções de Lógica e Auxiliares
 #==============================================================================
