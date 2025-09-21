@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbl0o4v48fddq"]
+
+[ext_resource type="Script" uid="uid://dodkl68g8gjlg" path="res://Scripts/UI/hero_target_button.gd" id="1_458oa"]
+
+[node name="HeroTargetButton" type="Button"]
+custom_minimum_size = Vector2(100, 100)
+script = ExtResource("1_458oa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+expand_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2

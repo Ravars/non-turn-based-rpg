@@ -4,7 +4,6 @@ var player_team: Array[PlayerCharacterData] = []
 var next_encounter_enemies: Array[CharacterArchetype] = []
 
 const PLAYABLE_HEROES_DB: PlayableArchetypes = preload("res://Resources/Archetypes/PlayableHeroes.tres")
-# const SKILL_REWARD_DB: Array[SkillData] = preload("")
 const SKILL_REWARD_DB: SkillRewardDB = preload("res://Resources/Skills/SkillRewardDB.tres")
 var current_map_node = 0
 var gold: int = 0
@@ -62,9 +61,9 @@ func get_skill_reward_options(count: int) -> Array[SkillData]:
 		options.append(available_skills[i])
 	return options
 
-func add_skill_to_hero(new_skill: SkillData):
-	if player_team.is_empty():
+func add_skill_to_hero(new_skill: SkillData, target_hero_data: PlayerCharacterData):
+	if not player_team.has(target_hero_data):
+		print("Erro: Character not found")
 		return
-	var hero_archetype = player_team[0].archetype # Choose hero
-	hero_archetype.starting_skills.append(new_skill)
-	print("Habilidade {0} adicionada ao {1}!".format({0: new_skill.skill_name, 1: hero_archetype.character_name}))
+	target_hero_data.archetype.starting_skills.append(new_skill)
+	print("Habilidade {0} adicionada ao {1}!".format({0: new_skill.skill_name, 1: target_hero_data.archetype.character_name}))
