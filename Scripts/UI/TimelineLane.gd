@@ -20,7 +20,7 @@ var player_action_panel: PlayerActionPanel
 @export var timeline_action_block_scene: PackedScene
 # --- Estado Interno ---
 var placed_actions: Array = []
-var ghost_block: Panel = null # Variável para o bloco fantasma
+var ghost_block: Dictionary = {}
 
 #==============================================================================
 # Funções Nativas do Godot
@@ -40,26 +40,64 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	if not data["hero_owner"] == hero_owner:
 		return false
 
-	if not is_instance_valid(ghost_block):
+	var proposed_start_time = _snap_position_x(at_position.x) / pixels_per_second
+	var skill_cast_time = data["skill_data"].cast_time
+
+	var is_in_future = proposed_start_time >= TimelineManager.current_time
+	var is_slot_free = _is_timeslot_free(proposed_start_time, skill_cast_time)
+
+	var is_valid_position = is_in_future and is_slot_free
+	
+	if ghost_block.is_empty():
 		ghost_block = _create_action_block_visual(data["skill_data"])
-		ghost_block.modulate.a = 0.5
-		add_child(ghost_block)
+		ghost_block.node.modulate.a = 0.5
+		add_child(ghost_block.node)
 
 	var snapped_x = _snap_position_x(at_position.x)
-	ghost_block.position.x = snapped_x
-	ghost_block.position.y = (size.y - ghost_block.size.y) / 2
+	ghost_block.node.position.x = snapped_x
+	ghost_block.node.position.y = (size.y - ghost_block.node.size.y) / 2
 
+	if is_valid_position:
+		ghost_block.cast_rect.self_modulate = Color.GREEN.lightened(0.5)
+	else:
+		ghost_block.cast_rect.self_modulate = Color.RED.lightened(0.5)
+
+
+	return is_valid_position
+
+func _is_timeslot_free(new_start_time: float, new_cast_time: float, ignored_action: TimelineAction = null) -> bool:
+	if not is_instance_valid(hero_owner):
+		return false
+	var new_end_time = new_start_time + new_cast_time
+
+	for existing_action in hero_owner.action_queue:
+		if existing_action == ignored_action:
+			continue
+		var existing_end_time = existing_action.start_time + existing_action.skill_data.cast_time
+		if new_start_time < existing_end_time and existing_action.start_time < new_end_time:
+			return false
 	return true
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
 	if not hero_owner:
 		return
 	
-	if is_instance_valid(ghost_block):
-		ghost_block.queue_free()
-		ghost_block = null
+	if not ghost_block.is_empty():
+		if is_instance_valid(ghost_block.node):
+			ghost_block.node.queue_free()
+		ghost_block.clear()
+	
 	
 	var start_time: float = _snap_position_x(at_position.x) / pixels_per_second
+	var skill_cast_time = data["skill_data"].cast_time
+
+	if start_time < TimelineManager.current_time:
+		print("ERROR: Ação no passado")
+		return
+	if not _is_timeslot_free(start_time, skill_cast_time):
+		print("ERRO: Slot ocupado")
+		return
+
 	var new_action = TimelineAction.new(data["skill_data"], hero_owner, null, start_time)
 	hero_owner.add_action_to_queue(new_action)
 	target_selection_requested.emit(new_action)
@@ -104,7 +142,7 @@ func is_overlapping(new_start_time: float, new_end_time: float) -> bool:
 			return true
 	return false
 
-func _create_action_block_visual(data: SkillData) -> Panel:
+func _create_action_block_visual(data: SkillData) -> Dictionary:
 	var action_block = Panel.new()
 	action_block.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	
@@ -119,11 +157,13 @@ func _create_action_block_visual(data: SkillData) -> Panel:
 	var cast_rect = ColorRect.new()
 	cast_rect.color = Color("e6db74") # Amarelo
 	cast_rect.custom_minimum_size = Vector2(cast_width, 30)
+	cast_rect.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	hbox.add_child(cast_rect)
 	
 	var impact_rect = ColorRect.new()
 	impact_rect.color = Color("f92672") # Rosa/Vermelho
 	impact_rect.custom_minimum_size = Vector2(impact_width, 30)
+	impact_rect.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	hbox.add_child(impact_rect)
 		
 	var texto = Label.new()
@@ -131,12 +171,16 @@ func _create_action_block_visual(data: SkillData) -> Panel:
 	texto.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	texto.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	texto.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	texto.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	action_block.add_child(texto)
 	
 	var total_width = cast_width + impact_width
 	action_block.size = Vector2(total_width, 30)
 	
-	return action_block
+	return {
+		"node": action_block,
+		"cast_rect": cast_rect
+	}
 
 	
 #==============================================================================
@@ -144,9 +188,10 @@ func _create_action_block_visual(data: SkillData) -> Panel:
 #==============================================================================
 
 func _on_mouse_exited():
-	if is_instance_valid(ghost_block):
-		ghost_block.queue_free()
-		ghost_block = null
+	if not ghost_block.is_empty():
+		if is_instance_valid(ghost_block.node):
+			ghost_block.node.queue_free()
+		ghost_block.clear()
 
 
 func _on_mouse_entered() -> void:
