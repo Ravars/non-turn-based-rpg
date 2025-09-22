@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://m8mwtdnjwrll"]
+
+[ext_resource type="Texture2D" uid="uid://c6s0apfyai1mr" path="res://Elimar/Models/Outside Props01/OutsideProps01_TXT_AlbedoTransparency.jpg" id="1_8vjmk"]
+[ext_resource type="Texture2D" uid="uid://b8rs722r1b764" path="res://Elimar/Models/Outside Props01/OutsideProps01_TXT_AO.jpg" id="2_83ilu"]
+[ext_resource type="Texture2D" uid="uid://dyroe1mr3l3ti" path="res://Elimar/Models/Outside Props01/OutsideProps01_TXT_Emission.jpg" id="3_qmfjj"]
+[ext_resource type="Texture2D" uid="uid://e42m4bu365e4" path="res://Elimar/Models/Outside Props01/OutsideProps01_TXT_Normal.jpg" id="4_f251r"]
+
+[resource]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_8vjmk")
+emission_enabled = true
+emission_energy_multiplier = 3.0
+emission_texture = ExtResource("3_qmfjj")
+normal_enabled = true
+normal_texture = ExtResource("4_f251r")
+ao_enabled = true
+ao_texture = ExtResource("2_83ilu")

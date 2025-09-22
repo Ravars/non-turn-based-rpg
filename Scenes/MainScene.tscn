@@ -1,12 +1,539 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckit00xypn1v1"]
+[gd_scene load_steps=17 format=4 uid="uid://ckit00xypn1v1"]
 
+[ext_resource type="Material" uid="uid://cidqhp2nru04" path="res://Elimar/Arte/grass_ground.tres" id="1_0iob3"]
+[ext_resource type="Texture2D" uid="uid://f6rdinudkrvv" path="res://Elimar/Arte/Guerreiro_PH.png" id="1_qxria"]
 [ext_resource type="PackedScene" uid="uid://8rjewcj1qibu" path="res://Scenes/Combat.tscn" id="1_tr2i4"]
+[ext_resource type="Texture2D" uid="uid://c2bmdx3g6lod8" path="res://Elimar/Arte/Tree_Pixel.png" id="2_q68mp"]
 [ext_resource type="PackedScene" uid="uid://bgshm43j5t54n" path="res://Scenes/MainHUD.tscn" id="2_tr2i4"]
+[ext_resource type="Texture2D" uid="uid://wo7k2pgi3pdi" path="res://Elimar/Arte/Arqueiro_PH.png" id="2_y4jh7"]
+[ext_resource type="Material" uid="uid://m8mwtdnjwrll" path="res://Elimar/Models/Outside Props01/OutsideProps01_MAT.tres" id="3_f140w"]
+[ext_resource type="Texture2D" uid="uid://cndylxgwgkyjd" path="res://Elimar/Arte/Mago_PH.png" id="3_q68mp"]
+[ext_resource type="PackedScene" uid="uid://c8oueex704kly" path="res://Elimar/Models/Tree/forestpack_tree_fir_tall.fbx" id="6_y4jh7"]
+
+[sub_resource type="Environment" id="Environment_0iob3"]
+background_mode = 1
+background_color = Color(1.52815e-06, 0.389753, 0, 1)
+background_energy_multiplier = 0.26
+ambient_light_color = Color(0.448067, 0.448067, 0.448067, 1)
+ssil_intensity = 4.74
+glow_enabled = true
+glow_intensity = 1.08
+glow_bloom = 0.19
+glow_hdr_threshold = 1.38
+glow_hdr_scale = 1.52
+glow_hdr_luminance_cap = 39.46
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.32549, 0.498039, 0.352941, 1)
+fog_light_energy = 5.29
+fog_sun_scatter = 0.1
+fog_density = 1.0415
+fog_depth_curve = 0.615571
+fog_depth_begin = 0.0
+fog_depth_end = 607.7
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gptba"]
+_surfaces = [{
+"aabb": AABB(-1.62794, -0.159494, -0.0844975, 1.62794, 0.30623, 0.160777),
+"format": 34359742465,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAQAAAAQABQADAAIABAAGAAEAAgAHAAUABwAGAAQABAAFAAcA"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("M2DQv/NBFj6PNZw9j8L1tPNBFj5IOJw9j8L1tFxSI75IOJw9M2DQv19SI76PNZw9LmDQv/NBFj4ADa29LmDQv19SI74ADa29AAAAAPNBFj5hCq29AAAAAFxSI75hCq29")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_x8mk6"]
+resource_name = "Fence_PlankB"
+_surfaces = [{
+"aabb": AABB(-1.62794, -0.159494, -0.0844975, 1.62794, 0.30623, 0.160777),
+"attribute_data": PackedByteArray("158tPxJKwj78c+c+FErCPvxz5z7k464+158tP+bjrj78c+c+gt/fPvxz5z5Qecw+158tP1h5zD7Xny0/gN/fPvxz5z4USsI+158tPxJKwj7Xny0/WHnMPvxz5z5Qecw+/HPnPsAO6j78c+c+gt/fPtefLT+A398+158tP7wO6j4="),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwA"),
+"material": ExtResource("3_f140w"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("M2DQv/NBFj6PNZw9j8L1tPNBFj5IOJw9j8L1tFxSI75IOJw9M2DQv19SI76PNZw9AAAAAFxSI75hCq29AAAAAPNBFj5hCq29LmDQv/NBFj4ADa29LmDQv19SI74ADa29j8L1tPNBFj5IOJw9M2DQv/NBFj6PNZw9LmDQv/NBFj4ADa29AAAAAPNBFj5hCq29j8L1tFxSI75IOJw9AAAAAFxSI75hCq29LmDQv19SI74ADa29M2DQv19SI76PNZw9/3//fwAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7////7/AAD/v////v8AAP+////+/wAA/7////7/AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//38AAAAA/7//fwAAAAD/v/9/AAAAAP+//38AAAAA/78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_gptba")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wfmc2"]
+_surfaces = [{
+"aabb": AABB(-0.182464, 0, -0.181497, 0.364927, 1.36231, 0.362991),
+"format": 34359742465,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAQAAAAMAAgAEAAAABQAEAAIAAgABAAYAAwAGAAEAAgAHAAUAAwAFAAcABgAHAAIABwAGAAMA"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("FMf+PQAAAADNbP09bNc6Pi5grj+U2Tk+u9c6Pi5grj/x2Tm+e8f+vQAAAABjbP09e8f+PQAAAAC7bf29Csf+vQAAAAAmbv29uNc6vi5grj9F2Tk+bNc6vi5grj9A2jm+")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_oijwi"]
+resource_name = "Fence_Pole"
+_surfaces = [{
+"aabb": AABB(-0.182464, 0, -0.181497, 0.364927, 1.36231, 0.362991),
+"attribute_data": PackedByteArray("IM7GPvj86T4gzsY+6C1kPnHD5D6UJmQ+ccPkPvz96T7N2Kg+DPzpPs3YqD5INGQ+IM7GPugtZD4gzsY++PzpPnzjij6oOmQ+zdioPkg0ZD7N2Kg+DPzpPnzjij4m++k+UNxZPgBCZD5844o+qDpkPnzjij4m++k+UNxZPiT66T496yE/kDmlPULrIT8ArdI7Dgc1PwCv0jsOBzU/uDmlPQ=="),
+"format": 34359742487,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA"),
+"material": ExtResource("3_f140w"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("FMf+PQAAAADNbP09bNc6Pi5grj+U2Tk+u9c6Pi5grj/x2Tm+e8f+PQAAAAC7bf29e8f+vQAAAABjbP09uNc6vi5grj9F2Tk+bNc6Pi5grj+U2Tk+FMf+PQAAAADNbP09bNc6vi5grj9A2jm+uNc6vi5grj9F2Tk+e8f+vQAAAABjbP09Csf+vQAAAAAmbv29u9c6Pi5grj/x2Tm+bNc6vi5grj9A2jm+Csf+vQAAAAAmbv29e8f+PQAAAAC7bf29uNc6vi5grj9F2Tk+bNc6vi5grj9A2jm+u9c6Pi5grj/x2Tm+bNc6Pi5grj+U2Tk+w/rEevz//v/D+sR6DgAAgMP6xHoMAACAw/rEevn//v//f8p6/P8AwP9/ynry//i//3/KevT/+b//f8p6+f8BwDsFw3r/f/m/OwXDev9/+L87BcN6/38AwDsFw3r/fwHAyvoAAAwA+b/K+gAADwD3v8r6AAACAADAyvoAAAUAAsD/f///////v/9///////+//3///////7//f///////vw==")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_wfmc2")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_micme"]
+_surfaces = [{
+"aabb": AABB(-1.62794, -0.159494, -0.0844975, 1.62794, 0.30623, 0.160777),
+"format": 34359742465,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAQAAAAMAAgAEAAAAAwAFAAEABgAEAAIABQADAAYAAgAHAAYABgAHAAUA"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("M2DQv/FBFj6PNZw9j8L1tPFBFj5IOJw9j8L1tFxSI75IOJw9LmDQv/FBFj4ADa29M2DQv1xSI76PNZw9AAAAAPFBFj5hCq29LmDQv1xSI74ADa29AAAAAFxSI75hCq29")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ph7cn"]
+resource_name = "Fence_PlankA"
+_surfaces = [{
+"aabb": AABB(-1.62794, -0.159494, -0.0844975, 1.62794, 0.30623, 0.160777),
+"attribute_data": PackedByteArray("PmctP+qshT7JAuc+7qyFPskC5z54jWQ+PmctP3yNZD7JAuc+KtyPPj5nLT8y3I8+PmctP1hCoz7JAuc+XkKjPskC5z7urIU+PmctP+qshT4+Zy0/MtyPPskC5z4q3I8+yQLnPqBxrT7JAuc+XkKjPj5nLT9YQqM+PmctP5xxrT4="),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwA"),
+"material": ExtResource("3_f140w"),
+"name": "OutsideProps01_TXT",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("M2DQv/FBFj6PNZw9j8L1tPFBFj5IOJw9j8L1tFxSI75IOJw9M2DQv1xSI76PNZw9AAAAAPFBFj5hCq29LmDQv/FBFj4ADa29LmDQv1xSI74ADa29AAAAAFxSI75hCq29j8L1tPFBFj5IOJw9M2DQv/FBFj6PNZw9LmDQv/FBFj4ADa29AAAAAPFBFj5hCq29j8L1tFxSI75IOJw9AAAAAFxSI75hCq29LmDQv1xSI74ADa29M2DQv1xSI76PNZw9/3//fwAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7////7/AAD/v////v8AAP+////+/wAA/7////7/AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//38AAAAA/7//fwAAAAD/v/9/AAAAAP+//38AAAAA/78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_micme")
 
 [node name="MainScene" type="Node2D"]
 
+[node name="3D_ViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="3D_Scene" type="SubViewport" parent="3D_ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="3D_ViewportContainer/3D_Scene"]
+transform = Transform3D(-4.23963e-08, -0.243446, 0.969914, -1.06414e-08, 0.969914, 0.243446, -1, -8.88178e-16, -4.37114e-08, 18.2335, 1.61575, 0)
+keep_aspect = 0
+environment = SubResource("Environment_0iob3")
+fov = 73.2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="3D_ViewportContainer/3D_Scene"]
+transform = Transform3D(27.3707, 0, 0, 0, 1, 0, 0, 0, 61.4929, -3.95098, -2.98046, -0.00160193)
+material_override = ExtResource("1_0iob3")
+size = Vector3(1.29199, 1, 1)
+material = ExtResource("1_0iob3")
+
+[node name="TREES" type="Node3D" parent="3D_ViewportContainer/3D_Scene"]
+
+[node name="Trees_3D" type="Node3D" parent="3D_ViewportContainer/3D_Scene/TREES" groups=["Trees"]]
+
+[node name="forestpack_tree_fir_tall" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" groups=["Trees"] instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, -2.07028)
+
+[node name="forestpack_tree_fir_tall2" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" groups=["Trees"] instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, 32.0339)
+
+[node name="forestpack_tree_fir_tall3" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, 21.283)
+
+[node name="forestpack_tree_fir_tall4" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, 12.1404)
+
+[node name="forestpack_tree_fir_tall5" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, 4.99063)
+
+[node name="forestpack_tree_fir_tall6" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, -23.2102)
+
+[node name="forestpack_tree_fir_tall7" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, -8.99951)
+
+[node name="forestpack_tree_fir_tall8" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, -16.1493)
+
+[node name="forestpack_tree_fir_tall10" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -12.0274, -2.10228, -31.0997)
+
+[node name="forestpack_tree_fir_tall9" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, 6.71274)
+
+[node name="forestpack_tree_fir_tall11" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, 40.8169)
+
+[node name="forestpack_tree_fir_tall12" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, 30.0661)
+
+[node name="forestpack_tree_fir_tall13" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, 20.9234)
+
+[node name="forestpack_tree_fir_tall14" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, 13.7736)
+
+[node name="forestpack_tree_fir_tall15" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -14.4272)
+
+[node name="forestpack_tree_fir_tall16" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -0.216497)
+
+[node name="forestpack_tree_fir_tall17" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -7.36627)
+
+[node name="forestpack_tree_fir_tall18" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -22.3167)
+
+[node name="forestpack_tree_fir_tall19" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -29.6764)
+
+[node name="forestpack_tree_fir_tall20" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_3D" instance=ExtResource("6_y4jh7")]
+transform = Transform3D(4.80741, 0, 0, 0, 4.80741, 0, 0, 0, 4.80741, -18.4991, -2.10228, -37.0227)
+
+[node name="Trees_Back" type="Node3D" parent="3D_ViewportContainer/3D_Scene/TREES"]
+
+[node name="Sprite3D" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, -25.5812)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D2" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, -32.7668)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D3" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, -9.32121)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D4" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, -16.5068)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D5" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, 3.7215)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D6" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, -3.4641)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D7" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, 16.6463)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D8" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, 9.46075)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D9" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, 33.5517)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D10" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -19.1065, 6.24823, 26.3661)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D11" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, -28.2453)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D12" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, -35.4309)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D13" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, -11.9854)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D14" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, -19.1709)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D15" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 1.05735)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D16" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, -6.12824)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D17" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 13.9822)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D18" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 6.7966)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D19" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 30.8875)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D20" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 23.7019)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D21" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 36.4624)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D22" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 29.2769)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="Sprite3D24" type="Sprite3D" parent="3D_ViewportContainer/3D_Scene/TREES/Trees_Back"]
+transform = Transform3D(-1.17598e-07, 0, -2.69033, 0, 2.69033, 0, 2.69033, 0, -1.17598e-07, -21.0543, 6.24823, 38.9188)
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+texture = ExtResource("2_q68mp")
+
+[node name="PROPS" type="Node3D" parent="3D_ViewportContainer/3D_Scene"]
+
+[node name="Fence_PlankB2" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 19.646)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole2" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 19.8936)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA2" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 19.646)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB3" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 16.2186)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole3" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 16.4661)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA3" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 16.2186)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB4" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 12.6407)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole4" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 12.8883)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA4" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 12.6407)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB5" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 9.21332)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole5" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 9.46085)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA5" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 9.21332)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB6" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 5.7747)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole6" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 6.02223)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA6" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 5.7747)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB7" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, 2.34729)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole7" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, 2.59482)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA7" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, 2.34729)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB8" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -1.23059)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole8" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -0.983067)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA8" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -1.23059)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB9" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -4.658)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole9" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -4.41048)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA9" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -4.658)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB10" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -8.36544)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole10" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -8.11791)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA10" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -8.36544)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB11" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -11.7928)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole11" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -11.5453)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA11" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -11.7928)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB12" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -15.3707)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole12" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -15.1232)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA12" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -15.3707)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
+[node name="Fence_PlankB13" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -1.60984, -18.7981)
+mesh = SubResource("ArrayMesh_x8mk6")
+skeleton = NodePath("")
+
+[node name="Fence_Pole13" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -2.568, -18.5506)
+mesh = SubResource("ArrayMesh_oijwi")
+skeleton = NodePath("")
+
+[node name="Fence_PlankA13" type="MeshInstance3D" parent="3D_ViewportContainer/3D_Scene/PROPS"]
+transform = Transform3D(-8.27096e-08, 0, -1.89217, 0, 1.89217, 0, 1.89217, 0, -8.27096e-08, -8.78442, -0.675827, -18.7981)
+mesh = SubResource("ArrayMesh_ph7cn")
+skeleton = NodePath("")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GuerreiroPh" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(335, 229)
+scale = Vector2(2, 2)
+texture = ExtResource("1_qxria")
+
+[node name="ArqueiroPh" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(231, 270)
+scale = Vector2(2, 2)
+texture = ExtResource("2_y4jh7")
+
+[node name="MagoPh" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(206, 377)
+scale = Vector2(2, 2)
+texture = ExtResource("3_q68mp")
 
 [node name="MainHud" parent="CanvasLayer" instance=ExtResource("2_tr2i4")]
 
 [node name="Combat" parent="." instance=ExtResource("1_tr2i4")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-3.78552e-08, -0.5, 0.866025, -2.18557e-08, 0.866025, 0.5, -1, 0, -4.37114e-08, 12.6712, 6.93941, 21.4171)

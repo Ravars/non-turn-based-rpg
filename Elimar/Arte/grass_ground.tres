@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cidqhp2nru04"]
+
+[ext_resource type="Texture2D" uid="uid://cr708lw7sxngr" path="res://Elimar/Arte/grass_ground.jpg" id="1_o8cao"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_o8cao")
+albedo_texture_force_srgb = true
+uv1_scale = Vector3(5, 1.5, 4)
+uv1_offset = Vector3(0.445, 0.825, 0)
+uv1_triplanar_sharpness = 0.258816
+texture_filter = 0
