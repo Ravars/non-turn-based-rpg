@@ -35,10 +35,17 @@ func start_combat(enemy_archetypes: Array[CharacterArchetype]):
 func _on_combat_ended(was_victory: bool):
 	if was_victory:
 		print("GAME MANAGER: Vitória! Retornando ao mapa.")
-		for i in range(player_team.size()):
-			var hero_data = player_team[i]
-			var hero_in_combat = CombatManager.active_heroes[i]
-			hero_data.current_hp = hero_in_combat.current_hp
+		for hero_data in player_team:
+			var hero_survived = false
+			for hero_in_combat in CombatManager.active_heroes:
+				if hero_in_combat.archetype == hero_data.archetype:
+					hero_data.current_hp = hero_in_combat.current_hp
+					hero_survived = true
+					print("Heroi {0} sobreviveu com {1} HP".format({0: hero_data.archetype.character_name, 1: str(hero_data.current_hp)}))
+					break
+			if not hero_survived:
+				hero_data.current_hp = 0
+				print("Heroi {0} foi derrotado em combate".format({0: hero_data.archetype.character_name}))
 		TimelineManager.reset_timeline()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/RewardScreen.tscn")
 

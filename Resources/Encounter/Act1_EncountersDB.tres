@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://b17mj0wx2ynj8" path="res://Scripts/Data/EncounterDB.gd" id="1_db"]
 [ext_resource type="Resource" uid="uid://bpv177pgjqs6a" path="res://Resources/Encounter/Encounter_2_Goblins.tres" id="2_enc1"]
 [ext_resource type="Resource" uid="uid://cr3kxjsdf46gp" path="res://Resources/Encounter/Encounter_Goblin_and_Spearman.tres" id="3_enc2"]
-[ext_resource type="Resource" path="res://Resources/Encounter/Encounter_Triple_Goblins.tres" id="4_enc3"]
-[ext_resource type="Resource" path="res://Resources/Encounter/Encounter_Orc_and_Spearman.tres" id="5_enc4"]
+[ext_resource type="Resource" uid="uid://yshgny75aqvs" path="res://Resources/Encounter/Encounter_Triple_Goblins.tres" id="4_enc3"]
+[ext_resource type="Resource" uid="uid://bkwtqpjcw2u6y" path="res://Resources/Encounter/Encounter_Orc_and_Spearman.tres" id="5_enc4"]
 [ext_resource type="Resource" uid="uid://dw4cshhmbr84a" path="res://Resources/Encounter/Encounter_Elite_Leader.tres" id="6_enc5"]
 
 [resource]

@@ -56,6 +56,8 @@ func _on_mouse_exited():
 	
 
 func _on_gui_input(event: InputEvent):
+	if disabled:
+		return
 	if event is InputEventMouseButton and not event.is_pressed():
 		if not is_draging:
 			_do_quick_add()

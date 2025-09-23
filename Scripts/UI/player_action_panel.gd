@@ -5,7 +5,7 @@ var action_awaiting_target: TimelineAction = null
 var is_selecting_target: bool = false
 @export var ability_button_scene: PackedScene
 @export var vfx_manager: VFXManager
-
+@onready var skills_container = $ColorRect2/Buttons_Skills_Container
 func _ready():
 	print("Ready PlayerActionPanel")
 	CombatManager.battle_initialized.connect(instantiate_button)
@@ -71,6 +71,7 @@ func render_skill():
 		botao.set_hero_owner(selected_char)
 		botao.timeline_ui = self
 		skills_container.add_child(botao)
+	_set_skill_buttons_disabled(is_selecting_target)
 
 # --- Novas Funções para Seleção de Alvo ---
 
@@ -86,6 +87,7 @@ func _on_target_selection_requested(action: TimelineAction):
 	print("UI: Entrando em modo de seleção de alvo para a skill: {skill_name}".format({"skill_name": action.skill_data.skill_name}))
 	is_selecting_target = true
 	action_awaiting_target = action
+	_set_skill_buttons_disabled(true)
 	# Feedback visual: pode adicionar um brilho nos inimigos aqui.
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.RED # Exemplo de destaque
@@ -115,6 +117,7 @@ func _on_unit_clicked(unit: Unit):
 	# Reseta o estado e o feedback visual
 	is_selecting_target = false
 	action_awaiting_target = null
+	_set_skill_buttons_disabled(false)
 	for enemy in CombatManager.active_enemies:
 		enemy.modulate = Color.WHITE # Remove o destaque
 		
@@ -133,3 +136,8 @@ func _on_05x_button_pressed():
 func _on_01x_button_pressed():
 	TimelineManager.set_time_scale(0.1)
 	pass
+
+func _set_skill_buttons_disabled(disabled: bool):
+	for button in skills_container.get_children():
+		if button is Button:
+			button.disabled = disabled
