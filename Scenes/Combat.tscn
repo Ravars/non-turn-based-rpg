@@ -17,16 +17,17 @@ metadata/_edit_lock_ = true
 position = Vector2(266, -77)
 
 [node name="Lane1" type="Node2D" parent="PlayerLanes"]
-position = Vector2(0, 250)
+position = Vector2(80, 461)
 
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane1"]
 
 [node name="Lane2" type="Node2D" parent="PlayerLanes"]
-position = Vector2(0, 340)
+position = Vector2(-25, 352)
 
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane2"]
 
 [node name="Lane3" type="Node2D" parent="PlayerLanes"]
+visible = false
 position = Vector2(0, 435)
 
 [node name="UnitPosition" type="Marker2D" parent="PlayerLanes/Lane3"]
@@ -35,16 +36,17 @@ position = Vector2(0, 435)
 position = Vector2(966, -77)
 
 [node name="Lane1" type="Node2D" parent="EnemyLanes"]
-position = Vector2(0, 250)
+position = Vector2(-80, 461)
 
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane1"]
 
 [node name="Lane2" type="Node2D" parent="EnemyLanes"]
-position = Vector2(0, 343)
+position = Vector2(25, 352)
 
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane2"]
 
 [node name="Lane3" type="Node2D" parent="EnemyLanes"]
+visible = false
 position = Vector2(0, 441)
 
 [node name="UnitPosition" type="Marker2D" parent="EnemyLanes/Lane3"]

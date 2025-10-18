@@ -13,4 +13,7 @@ damage_type = 2
 cast_time = 1.0
 cooldown = 1.0
 status_effects = Array[ExtResource("2_rjhyn")]([ExtResource("3_rjhyn")])
+targeting_rule = 0
+range_rule = 1
+area_target = 0
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

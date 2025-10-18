@@ -29,15 +29,16 @@ var stun_texture = preload("res://Icons/busy_hourglass.png")
 var action_indicator_image: Sprite2D
 var action_queue: Array[TimelineAction] = []
 var current_cast_progress: float = 0.0
-
+var current_lane_position: LanePosition
 # func _ready() -> void:
 # 	# max_hp = characterStats.health
 # 	# current_hp = max_hp
 # 	# $Label.text = str(current_hp)
 	
 
-func initialize(p_archetype: CharacterArchetype, p_current_health: float = -1.0):
+func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, p_current_health: float = -1.0):
 	self.archetype = p_archetype
+	self.current_lane_position = p_lane_position
 	self.name = archetype.character_name
 	self.skills = archetype.starting_skills.duplicate()
 	if p_current_health < 0:
@@ -204,3 +205,9 @@ func get_last_action_end_time() -> float:
 		if action_end_time > latest_end_time:
 			latest_end_time = action_end_time
 	return latest_end_time
+
+
+enum LanePosition {
+	FRONT,
+	BACK
+}

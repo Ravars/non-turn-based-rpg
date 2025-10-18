@@ -517,16 +517,19 @@ skeleton = NodePath("")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GuerreiroPh" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(335, 229)
 scale = Vector2(2, 2)
 texture = ExtResource("1_qxria")
 
 [node name="ArqueiroPh" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(231, 270)
 scale = Vector2(2, 2)
 texture = ExtResource("2_y4jh7")
 
 [node name="MagoPh" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(206, 377)
 scale = Vector2(2, 2)
 texture = ExtResource("3_q68mp")
