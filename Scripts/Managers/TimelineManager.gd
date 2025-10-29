@@ -8,6 +8,11 @@ signal time_updated(current_time: float)
 signal tick(current_time: float, delta: float)
 signal time_scale_changed(time_scale: float)
 
+func _ready():
+	LimboConsole.register_command(play_game, "timeline play", "Play the game")
+	LimboConsole.register_command(pause_game, "timeline pause", "Pause the game")
+	LimboConsole.register_command(set_time_scale, "timeline setscale", "Set timeline scale")
+
 func pause_game():
 	if not is_paused:
 		is_paused = true
@@ -37,3 +42,5 @@ func reset_timeline():
 # 	planned_actions.append(action)
 # 	planned_actions.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.get_execution_time() < b.get_execution_time())
 # 	print("Ação '{skill_name}' adicionada à timeline em {1} para {0}.".format({"skill_name": action.skill_data.skill_name, 1: action.start_time, 0:action.caster.name}))
+
+
