@@ -1,8 +1,6 @@
 extends Control
 class_name PlayerActionPanel
 var selected_char: Unit
-var action_awaiting_target: TimelineAction = null
-var is_selecting_target: bool = false
 @export var ability_button_scene: PackedScene
 @export var vfx_manager: VFXManager
 @onready var skills_container = $ColorRect2/Buttons_Skills_Container
@@ -15,7 +13,7 @@ func _ready():
 	$"ColorRect4/VBoxContainer/0_5xButton".connect("pressed", Callable(self, "_on_05x_button_pressed"))
 	$"ColorRect4/VBoxContainer/1xButton".connect("pressed", Callable(self, "_on_1x_button_pressed"))
 	$"ColorRect4/VBoxContainer/2xButton".connect("pressed", Callable(self, "_on_2x_button_pressed"))
-	
+	TimelineManager.target_selection_changed.connect(_on_target_selection_changed)
 	# Conecta ao sinal da lane (isso precisa ser feito depois que as lanes são criadas)
 	# Vamos mover essa lógica para _on_battle_initialized
 
@@ -43,7 +41,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		enemy.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 
 func _on_button_press(unidade: Unit):
-	if is_selecting_target:
+	if TimelineManager.is_selecting_target:
 		print("Termine de selecionar o alvo antes")
 		return
 	selected_char = unidade
@@ -51,7 +49,7 @@ func _on_button_press(unidade: Unit):
 	print(unidade.name)
 
 func _on_play_button_pressed():
-	if is_selecting_target:
+	if TimelineManager.is_selecting_target:
 		return
 	TimelineManager.play_game()
 	
@@ -71,7 +69,7 @@ func render_skill():
 		botao.set_hero_owner(selected_char)
 		botao.timeline_ui = self
 		skills_container.add_child(botao)
-	_set_skill_buttons_disabled(is_selecting_target)
+	_set_skill_buttons_disabled(TimelineManager.is_selecting_target)
 
 # --- Novas Funções para Seleção de Alvo ---
 
@@ -82,44 +80,20 @@ func setup_lane_connections(lanes_container: Node):
 			lane.target_selection_stoped.connect(_on_target_selection_stoped)
 
 func _on_target_selection_requested(action: TimelineAction):
-	if is_selecting_target:
-		return
-	print("UI: Entrando em modo de seleção de alvo para a skill: {skill_name}".format({"skill_name": action.skill_data.skill_name}))
-	is_selecting_target = true
-	action_awaiting_target = action
-	_set_skill_buttons_disabled(true)
-	# Feedback visual: pode adicionar um brilho nos inimigos aqui.
-	for enemy in CombatManager.active_enemies:
-		enemy.modulate = Color.RED # Exemplo de destaque
-
+	TimelineManager.start_target_selection(action)
+	
 func _on_target_selection_stoped():
-	if not is_selecting_target:
-		return
-	is_selecting_target = false
-	action_awaiting_target = null
-	for enemy in CombatManager.active_enemies:
-		enemy.modulate = Color(1, 1, 1, 1)
-
+	TimelineManager.stop_target_selection()
 func _on_unit_clicked(unit: Unit):
-	if not is_selecting_target:
+	if not TimelineManager.is_selecting_target:
 		return
-		
-	# Se não estamos esperando por um alvo, o clique não faz nada de especial aqui.
-	if action_awaiting_target == null:
+	if TimelineManager.action_awaiting_target == null:
 		return
 		
 	# Verifica se o alvo é válido (ex: não pode curar um inimigo)
 	# (Lógica a ser adicionada no futuro)
-	
-	print("UI: Unidade '{unit_name}' selecionada como alvo!".format({"unit_name": unit.name}))
-	action_awaiting_target.target = unit
-	
-	# Reseta o estado e o feedback visual
-	is_selecting_target = false
-	action_awaiting_target = null
+	TimelineManager.confirm_target_form_action(unit)
 	_set_skill_buttons_disabled(false)
-	for enemy in CombatManager.active_enemies:
-		enemy.modulate = Color.WHITE # Remove o destaque
 		
 func _on_2x_button_pressed():
 	TimelineManager.set_time_scale(2)
@@ -141,3 +115,13 @@ func _set_skill_buttons_disabled(disabled: bool):
 	for button in skills_container.get_children():
 		if button is Button:
 			button.disabled = disabled
+
+func _on_target_selection_changed(is_selecting: bool):
+	_set_skill_buttons_disabled(is_selecting)
+
+	if is_selecting:
+		for enemy in CombatManager.active_enemies:
+			enemy.modulate = Color.RED
+	else:
+		for enemy in CombatManager.active_enemies:
+			enemy.modulate = Color.WHITE

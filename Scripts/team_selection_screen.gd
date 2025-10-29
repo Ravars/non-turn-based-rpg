@@ -29,8 +29,8 @@ func populate_available_archetypes():
 func _on_start_run_pressed():
 	start()
 
-func start_random():
-	create_random_team()
+func start_random(team_size: int = 2):
+	create_random_team(team_size)
 	start()
 func start():
 	if selected_archetypes.is_empty():
@@ -60,6 +60,8 @@ func update_selected_team_display():
 
 func create_random_team(team_size: int = 2):
 	var available_heroes = GameManager.get_available_hero_archetype()
+	if team_size > TEAM_LIMIT:
+		TEAM_LIMIT = min(team_size, available_heroes.size())
 	while selected_archetypes.size() < team_size and selected_archetypes.size() < available_heroes.size() and selected_archetypes.size() < TEAM_LIMIT:
 		var archetype = available_heroes.pick_random()
 		try_add_archetype(archetype)
