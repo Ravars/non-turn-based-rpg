@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=7 format=3 uid="uid://cxbhnmd7jgava"]
+
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_kjl6v"]
+[ext_resource type="Resource" uid="uid://boxmb6la5ibyi" path="res://Resources/Archetypes/BasicGoblin.tres" id="2_drwps"]
+[ext_resource type="Resource" uid="uid://bxkxbgjh1ekam" path="res://Resources/Archetypes/BasicSpear.tres" id="3_vr0vb"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="4_vfsjt"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/Archetype_Goblin_Leader.tres" id="4_vr0vb"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/Archetype_GoblinShaman.tres" id="5_vfsjt"]
+
+[resource]
+script = ExtResource("4_vfsjt")
+encounter_name = "Muitos Goblins"
+enemy_archetypes = Array[ExtResource("1_kjl6v")]([ExtResource("2_drwps"), ExtResource("2_drwps"), ExtResource("3_vr0vb"), ExtResource("2_drwps"), ExtResource("4_vr0vb"), ExtResource("5_vfsjt")])

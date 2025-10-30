@@ -15,6 +15,18 @@ layout_mode = 2
 [node name="NodeButton2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="NodeButton3" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NodeButton4" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NodeButton5" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NodeButton6" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5

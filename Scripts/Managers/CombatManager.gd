@@ -22,14 +22,67 @@ func execute_action(action: TimelineAction):
 		print("Ação cancelada. Alvo inválido.")
 		return
 	
+	var targets: Array[Unit] = get_targets(action)
+
+	if targets.is_empty():
+		print("Ação cancelada. Alvo nao encontrado.")
+		return
+	
+	var total_damage = get_total_damage(action)
+	if total_damage > 0:
+		for target in targets:
+			target.take_damage(total_damage, action.skill_data.damage_type)
+	
+	for effect in action.skill_data.status_effects:
+		for target in targets:
+			target.apply_status_effect(effect)
+
+func get_total_damage(action: TimelineAction) -> int:
 	var base_damage: int = action.skill_data.damage
 	var final_strength = action.caster.get_final_strength()
 	var total_damage = base_damage + (final_strength * 2)
-	if total_damage > 0:
-		action.target.take_damage(total_damage, action.skill_data.damage_type)
+	return total_damage
 
-	for effect in action.skill_data.status_effects:
-		action.target.apply_status_effect(effect)
+func get_targets(action: TimelineAction) -> Array[Unit]:
+	var targets: Array[Unit] = []
+	var all_enemies: Array[Unit] = []
+	var all_allies: Array[Unit] = []
+	
+	if action.caster.is_enemy:
+		all_enemies.append_array(active_heroes)
+		all_allies.append_array(active_enemies)
+	else:
+		all_enemies.append_array(active_enemies)
+		all_allies.append_array(active_heroes)
+	print(action.skill_data.targeting_rule)
+	print(action.skill_data.area_target)
+	match action.skill_data.targeting_rule:
+		SkillData.TargetingRule.SINGLE_TARGET:
+			if is_instance_valid(action.target):
+				targets.append(action.target)
+		SkillData.TargetingRule.AREA_OF_EFFECT:
+			match action.skill_data.area_target:
+				SkillData.AreaTarget.ALL_ENEMIES:
+					targets.append_array(all_enemies)
+				SkillData.AreaTarget.ALL_ALLIES:
+					targets.append(all_allies)
+				SkillData.AreaTarget.ENEMY_FRONT_LINE:
+					for enemy in all_enemies:
+						if enemy.current_lane_position == Unit.LanePosition.FRONT:
+							targets.append(enemy)
+				SkillData.AreaTarget.ENEMY_BACK_LINE:
+					for enemy in active_enemies:
+						if enemy.current_lane_position == Unit.LanePosition.BACK:
+							targets.append(enemy)
+				SkillData.AreaTarget.ALLY_FRONT_LINE:
+					for ally in all_allies:
+						if ally.current_lane_position == Unit.LanePosition.FRONT:
+							targets.append(ally)
+				SkillData.AreaTarget.ALLY_BACK_LINE:
+					for ally in all_allies:
+						if ally.current_lane_position == Unit.LanePosition.BACK:
+							targets.append(ally)
+	return targets
 
 func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[CharacterArchetype], setup_node: BattleSetup) -> void:
 	active_heroes.clear()

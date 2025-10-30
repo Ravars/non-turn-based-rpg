@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://gejnytn2ksu6"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_puv1a"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_7oyep"]
+
+[resource]
+script = ExtResource("1_puv1a")
+skill_name = "Line Breaker Back"
+skill_description = "Atinge a fileira"
+damage = 15
+cast_time = 2.0
+cooldown = 5.0
+targeting_rule = 1
+area_target = 2
+metadata/_custom_type_script = "uid://deb6e1y03bnsd"

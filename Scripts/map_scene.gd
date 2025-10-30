@@ -5,7 +5,10 @@ var node_encounter_map: Dictionary = {}
 
 @onready var node_button_1: Button = $VBoxContainer/NodeButton1
 @onready var node_button_2: Button = $VBoxContainer/NodeButton2
-
+@onready var node_button_3: Button = $VBoxContainer/NodeButton3
+@onready var node_button_4: Button = $VBoxContainer/NodeButton4
+@onready var node_button_5: Button = $VBoxContainer/NodeButton5
+@onready var node_button_6: Button = $VBoxContainer/NodeButton6
 func _ready() -> void:
 	generate_map_path()
 	node_button_1.pressed.connect(_on_node_button_pressed.bind(node_button_1))
