@@ -64,6 +64,6 @@ func _on_gui_input(event: InputEvent):
 		is_draging = false
 
 func _do_quick_add():
-	print("Quick add {0}".format({0: skill_data.skill_name}))
+	print("Quick add {0} Heal {1} Damage {2}".format({0: skill_data.skill_name, 1: skill_data.heal, 2: skill_data.damage}))
 	if is_instance_valid(hero_owner):
 		hero_owner.quick_add_skill(skill_data)

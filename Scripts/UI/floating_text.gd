@@ -18,6 +18,8 @@ func start(text_to_display: String, damage_type: CombatManager.DamageType):
 			color = Color.SKY_BLUE
 		CombatManager.DamageType.HOLY:
 			color = Color.GOLD
+		CombatManager.DamageType.HEAL:
+			color = Color.RED
 	label.add_theme_color_override("font_color", color)
 	label.add_theme_color_override("font_outline_color", Color.BLACK)
 	animation_player.play("float_and_fade")

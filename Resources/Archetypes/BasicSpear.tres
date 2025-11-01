@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_g0bl6"]
 [ext_resource type="Resource" uid="uid://cn5j6yg3g46k1" path="res://Resources/Units/Warrior_Spearman.tres" id="1_iivqr"]
-[ext_resource type="PackedScene" uid="uid://cvee0pp6yvq3x" path="res://Scenes/Units/GoblinSpear.tscn" id="2_iivqr"]
+[ext_resource type="PackedScene" uid="uid://jrod0m38irh2" path="res://Scenes/Units/Spear.tscn" id="2_iivqr"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_yr4n4"]
 [ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="5_iivqr"]
 

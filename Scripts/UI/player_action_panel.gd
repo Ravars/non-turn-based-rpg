@@ -30,6 +30,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		botao.connect("pressed", Callable(self, "_on_button_press").bind(character))
 		buttons_container.add_child(botao)
 		character.damage_taken.connect(vfx_manager._on_unit_damage_taken)
+		character.heal_received.connect(vfx_manager._on_unit_heal_received)
 		
 		# Conecta ao sinal de clique de cada unidade
 		character.unit_clicked.connect(_on_unit_clicked)

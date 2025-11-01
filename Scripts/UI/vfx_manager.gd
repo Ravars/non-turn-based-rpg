@@ -10,3 +10,11 @@ func _on_unit_damage_taken(amount: float, position: Vector2, damage_type: Combat
 	add_child(floating_text)
 	floating_text.global_position = position
 	floating_text.start(str(snapped(amount, 0.1)), damage_type)
+
+func _on_unit_heal_received(amount: float, position: Vector2):
+	if not floating_text_scene:
+		print("ERROR VFXManager: text not asigned")
+	var floating_text: FloatingText = floating_text_scene.instantiate()
+	add_child(floating_text)
+	floating_text.global_position = position
+	floating_text.start(str(snapped(amount, 0.1)), CombatManager.DamageType.HEAL)

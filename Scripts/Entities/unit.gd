@@ -7,6 +7,7 @@ signal action_executed(action: TimelineAction)
 signal action_started(action: TimelineAction)
 signal action_tick(percent: float)
 signal damage_taken(amount: float, position: Vector2, damage_type: CombatManager.DamageType)
+signal heal_received(amount: float, position: Vector2)
 signal target_selection_requested(action: TimelineAction)
 signal action_added(action: TimelineAction)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
@@ -87,6 +88,12 @@ func take_damage(amount: float, damage_type: CombatManager.DamageType):
 	if current_hp <= 0:
 		_die()
 
+func heal(amount: float):
+	current_hp = min(current_hp + amount, max_hp)
+	$Label.text = str(current_hp)
+	heal_received.emit(amount, self.global_position)
+	print("HEAL {0} recebeu {1} de cura, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
+	
 func _die():
 	print("{0} foi derrotado!".format({0:name}))
 	is_dead = true
@@ -188,6 +195,9 @@ func get_final_strength() -> int:
 			else:
 				final_value += effect.value
 	return max(0, int(final_value))
+
+func get_final_intelligence() -> int:
+	return characterStats.intelligence
 
 func quick_add_skill(skill: SkillData):
 	var start_time = get_last_action_end_time()

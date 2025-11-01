@@ -6,6 +6,7 @@ enum DamageType {
 	POISON,
 	LIGHTNING,
 	HOLY,
+	HEAL,
 }
 
 signal battle_initialized(heroes: Array)
@@ -28,10 +29,16 @@ func execute_action(action: TimelineAction):
 		print("Ação cancelada. Alvo nao encontrado.")
 		return
 	
-	var total_damage = get_total_damage(action)
-	if total_damage > 0:
-		for target in targets:
-			target.take_damage(total_damage, action.skill_data.damage_type)
+	if action.skill_data.heal > 0:
+		var total_heal = get_total_heal(action)
+		if total_heal > 0:
+			for target:Unit in targets:
+				target.heal(total_heal)
+	else:
+		var total_damage = get_total_damage(action)
+		if total_damage > 0:
+			for target in targets:
+				target.take_damage(total_damage, action.skill_data.damage_type)
 	
 	for effect in action.skill_data.status_effects:
 		for target in targets:
@@ -42,6 +49,12 @@ func get_total_damage(action: TimelineAction) -> int:
 	var final_strength = action.caster.get_final_strength()
 	var total_damage = base_damage + (final_strength * 2)
 	return total_damage
+
+func get_total_heal(action: TimelineAction) -> int:
+	var base_heal: int = action.skill_data.heal
+	var final_intelligence = action.caster.get_final_intelligence()
+	var total_heal = base_heal + final_intelligence
+	return total_heal
 
 func get_targets(action: TimelineAction) -> Array[Unit]:
 	var targets: Array[Unit] = []
@@ -54,8 +67,6 @@ func get_targets(action: TimelineAction) -> Array[Unit]:
 	else:
 		all_enemies.append_array(active_enemies)
 		all_allies.append_array(active_heroes)
-	print(action.skill_data.targeting_rule)
-	print(action.skill_data.area_target)
 	match action.skill_data.targeting_rule:
 		SkillData.TargetingRule.SINGLE_TARGET:
 			if is_instance_valid(action.target):
@@ -65,7 +76,7 @@ func get_targets(action: TimelineAction) -> Array[Unit]:
 				SkillData.AreaTarget.ALL_ENEMIES:
 					targets.append_array(all_enemies)
 				SkillData.AreaTarget.ALL_ALLIES:
-					targets.append(all_allies)
+					targets.append_array(all_allies)
 				SkillData.AreaTarget.ENEMY_FRONT_LINE:
 					for enemy in all_enemies:
 						if enemy.current_lane_position == Unit.LanePosition.FRONT:

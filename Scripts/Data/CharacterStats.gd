@@ -6,3 +6,4 @@ class_name CharacterStats
 @export var mana: int = 0
 @export var strength: int = 1
 @export var dexterity: int = 1
+@export var intelligence: int = 1
