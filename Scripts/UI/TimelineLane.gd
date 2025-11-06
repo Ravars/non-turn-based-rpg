@@ -100,7 +100,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 
 	var new_action = TimelineAction.new(data["skill_data"], hero_owner, null, start_time)
 	hero_owner.add_action_to_queue(new_action)
-	if new_action.skill_data.targeting_rule == SkillData.TargetingRule.SINGLE_TARGET:
+	if new_action.skill_data.target_scope == SkillData.TargetScope.SINGLE:
 		target_selection_requested.emit(new_action)
 	action_added.emit(new_action)
 	_create_and_place_action_block(new_action)

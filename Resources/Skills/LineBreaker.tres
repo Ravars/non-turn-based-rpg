@@ -10,6 +10,5 @@ skill_description = "Atinge a fileira"
 damage = 15
 cast_time = 2.0
 cooldown = 5.0
-targeting_rule = 1
-area_target = 1
+target_scope = 1
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

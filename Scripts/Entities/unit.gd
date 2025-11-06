@@ -204,7 +204,7 @@ func quick_add_skill(skill: SkillData):
 	var new_action = TimelineAction.new(skill, self, null, start_time)
 	add_action_to_queue(new_action)
 	action_added.emit(new_action)
-	if skill.targeting_rule == SkillData.TargetingRule.SINGLE_TARGET:
+	if skill.target_scope == SkillData.TargetScope.SINGLE:
 		target_selection_requested.emit(new_action)
 
 func get_last_action_end_time() -> float:

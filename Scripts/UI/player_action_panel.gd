@@ -117,12 +117,16 @@ func _set_skill_buttons_disabled(disabled: bool):
 		if button is Button:
 			button.disabled = disabled
 
-func _on_target_selection_changed(is_selecting: bool):
+func _on_target_selection_changed(is_selecting: bool, valid_targets: Array[Unit]):
 	_set_skill_buttons_disabled(is_selecting)
-
+	print("IS selecting: {0}".format({0:is_selecting}))
+	var all_units = CombatManager.active_enemies + CombatManager.active_heroes
 	if is_selecting:
-		for enemy in CombatManager.active_enemies:
-			enemy.modulate = Color.RED
+		for unit:Unit in all_units:
+			if valid_targets.has(unit):
+				unit.modulate = Color.RED
+			else:
+				unit.modulate = Color(0.5,0.5,0.5,0.5)
 	else:
-		for enemy in CombatManager.active_enemies:
-			enemy.modulate = Color.WHITE
+		for unit in all_units:
+			unit.modulate = Color.WHITE
