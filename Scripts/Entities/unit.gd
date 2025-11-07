@@ -3,13 +3,13 @@ class_name Unit
 
 signal unit_died(Unit)
 signal unit_clicked(unit: Unit)
-signal action_executed(action: TimelineAction)
-signal action_started(action: TimelineAction)
-signal action_tick(percent: float)
+# signal action_executed(action: TimelineAction)
+# signal action_started(action: TimelineAction)
+# signal action_tick(percent: float)
 signal damage_taken(amount: float, position: Vector2, damage_type: CombatManager.DamageType)
 signal heal_received(amount: float, position: Vector2)
-signal target_selection_requested(action: TimelineAction)
-signal action_added(action: TimelineAction)
+# signal target_selection_requested(action: TimelineAction)
+# signal action_added(action: TimelineAction)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -28,13 +28,19 @@ var skills: Array[SkillData] = []
 @export var active_status_effects: Dictionary = {}
 var stun_texture = preload("res://Icons/busy_hourglass.png")
 var action_indicator_image: Sprite2D
-var action_queue: Array[TimelineAction] = []
+# var action_queue: Array[TimelineAction] = []
 var current_cast_progress: float = 0.0
 var current_lane_position: LanePosition
 # func _ready() -> void:
 # 	# max_hp = characterStats.health
 # 	# current_hp = max_hp
 # 	# $Label.text = str(current_hp)
+
+
+var skill_loop: Array[SkillData] = []
+var current_loop_index: int = 0
+var current_cast_timer: float = 0.0
+var is_loop_active: bool = false
 	
 
 func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, p_current_health: float = -1.0):
@@ -69,11 +75,36 @@ func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, 
 		ai_node.set_script(AIController)
 		add_child(ai_node)
 	action_indicator_image = $ActionIndicator
-	TimelineManager.tick.connect(internal_process)
+	LoopManager.tick.connect(internal_process)
+
+func setup_test_loop(loop_skills: Array[SkillData]):
+	self.skill_loop = loop_skills
+	self.is_loop_active = true
+	print("'{0}' configurado com um loop de {1} habilidades.".format({0: name, 1: skill_loop.size()}))
 
 func internal_process(_current_time: float, delta: float):
-	process_action_queue(_current_time, delta)
-	process_status_effect(_current_time, delta)
+	if not is_loop_active or is_dead or skill_loop.is_empty() or is_stunned: return
+	current_cast_timer += delta
+	
+	var current_skill = skill_loop[current_loop_index]
+
+
+
+	while current_cast_timer >= current_skill.cast_time:
+		print("'{0}' executou a habilidade '{1}'".format({0: name, 1: current_skill.skill_name}))
+		CombatManager.execute_action(self, current_skill)
+		current_cast_timer -= current_skill.cast_time
+		current_loop_index = (current_loop_index + 1) % skill_loop.size()
+		current_skill = skill_loop[current_loop_index]
+	# if current_cast_timer >= current_skill.cast_time:
+	# 	print("'{0}' executou a habilidade '{1}'".format({0: name, 1: current_skill.skill_name}))
+	# 	CombatManager.execute_action(self, current_skill)
+	# 	current_cast_timer = 0
+	# 	current_loop_index = (current_loop_index + 1) % skill_loop.size()
+		
+	
+	# process_action_queue(_current_time, delta)
+	# process_status_effect(_current_time, delta)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -95,6 +126,7 @@ func heal(amount: float):
 	print("HEAL {0} recebeu {1} de cura, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
 	
 func _die():
+	if is_dead: return
 	print("{0} foi derrotado!".format({0:name}))
 	is_dead = true
 	unit_died.emit(self)
@@ -114,31 +146,31 @@ func apply_status_effect(effect:StatusEffect):
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
 
-func add_action_to_queue(action: TimelineAction):
-	action_queue.append(action)
-	action_queue.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.start_time < b.start_time)
+# func add_action_to_queue(action: TimelineAction):
+# 	action_queue.append(action)
+# 	action_queue.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.start_time < b.start_time)
 
-func process_action_queue(_current_time: float, game_delta: float) -> void:
-	if is_dead or action_queue.is_empty(): return
+# func process_action_queue(_current_time: float, game_delta: float) -> void:
+# 	if is_dead or action_queue.is_empty(): return
 
-	if is_stunned: return
-	if is_casting:
-		current_cast_progress += game_delta
-		var current_action: TimelineAction = action_queue[0]
+# 	if is_stunned: return
+# 	if is_casting:
+# 		current_cast_progress += game_delta
+# 		var current_action: TimelineAction = action_queue[0]
 		
-		var percent = (current_cast_progress * 100) / current_action.skill_data.cast_time
-		action_tick.emit(percent)
-		if current_cast_progress >= current_action.skill_data.cast_time:
-			CombatManager.execute_action(current_action)
-			action_executed.emit(current_action)
-			action_queue.pop_front()
-			is_casting = false
-			current_cast_progress = 0
-		return
-	var next_action = action_queue[0]
-	if _current_time >= next_action.start_time:
-		is_casting = true
-		action_started.emit(next_action)
+# 		var percent = (current_cast_progress * 100) / current_action.skill_data.cast_time
+# 		action_tick.emit(percent)
+# 		if current_cast_progress >= current_action.skill_data.cast_time:
+# 			CombatManager.execute_action(current_action)
+# 			action_executed.emit(current_action)
+# 			action_queue.pop_front()
+# 			is_casting = false
+# 			current_cast_progress = 0
+# 		return
+# 	var next_action = action_queue[0]
+# 	if _current_time >= next_action.start_time:
+# 		is_casting = true
+# 		action_started.emit(next_action)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
@@ -179,12 +211,12 @@ func _on_effect_expired(effect: StatusEffect):
 		is_stunned = false
 		print("EFFECT {0} NÃO está mais atordoado.".format({0: name}))
 
-func remove_action_from_queue(action_to_remove: TimelineAction):
-	if action_queue.has(action_to_remove):
-		action_queue.erase(action_to_remove)
-		print("Ação '{0}' removida da fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
-	else:
-		print("Ação '{0}' não encontrada na fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
+# func remove_action_from_queue(action_to_remove: TimelineAction):
+# 	if action_queue.has(action_to_remove):
+# 		action_queue.erase(action_to_remove)
+# 		print("Ação '{0}' removida da fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
+# 	else:
+# 		print("Ação '{0}' não encontrada na fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
 
 func get_final_strength() -> int:
 	var final_value = float(characterStats.strength)
@@ -199,23 +231,23 @@ func get_final_strength() -> int:
 func get_final_intelligence() -> int:
 	return characterStats.intelligence
 
-func quick_add_skill(skill: SkillData):
-	var start_time = get_last_action_end_time()
-	var new_action = TimelineAction.new(skill, self, null, start_time)
-	add_action_to_queue(new_action)
-	action_added.emit(new_action)
-	if skill.target_scope == SkillData.TargetScope.SINGLE:
-		target_selection_requested.emit(new_action)
+# func quick_add_skill(skill: SkillData):
+# 	var start_time = get_last_action_end_time()
+# 	var new_action = TimelineAction.new(skill, self, null, start_time)
+# 	add_action_to_queue(new_action)
+# 	action_added.emit(new_action)
+# 	if skill.target_scope == SkillData.TargetScope.SINGLE:
+# 		target_selection_requested.emit(new_action)
 
-func get_last_action_end_time() -> float:
-	if action_queue.is_empty():
-		return TimelineManager.current_time
-	var latest_end_time: float = 0.0
-	for action in action_queue:
-		var action_end_time = action.start_time + action.skill_data.cast_time
-		if action_end_time > latest_end_time:
-			latest_end_time = action_end_time
-	return latest_end_time
+# func get_last_action_end_time() -> float:
+# 	if action_queue.is_empty():
+# 		return LoopManager.current_time
+# 	var latest_end_time: float = 0.0
+# 	for action in action_queue:
+# 		var action_end_time = action.start_time + action.skill_data.cast_time
+# 		if action_end_time > latest_end_time:
+# 			latest_end_time = action_end_time
+# 	return latest_end_time
 
 
 enum LanePosition {

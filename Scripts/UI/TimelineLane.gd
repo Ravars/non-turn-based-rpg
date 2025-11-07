@@ -43,7 +43,7 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	var proposed_start_time = _snap_position_x(at_position.x) / pixels_per_second
 	var skill_cast_time = data["skill_data"].cast_time
 
-	var is_in_future = proposed_start_time >= TimelineManager.current_time
+	var is_in_future = proposed_start_time >= LoopManager.current_time
 	var is_slot_free = _is_timeslot_free(proposed_start_time, skill_cast_time)
 
 	var is_valid_position = is_in_future and is_slot_free
@@ -91,7 +91,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	var start_time: float = _snap_position_x(at_position.x) / pixels_per_second
 	var skill_cast_time = data["skill_data"].cast_time
 
-	if start_time < TimelineManager.current_time:
+	if start_time < LoopManager.current_time:
 		print("ERROR: Ação no passado")
 		return
 	if not _is_timeslot_free(start_time, skill_cast_time):
@@ -106,8 +106,8 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	_create_and_place_action_block(new_action)
 	
 	
-func _on_action_added_to_unit(new_action: TimelineAction):
-	_create_and_place_action_block(new_action)
+# func _on_action_added_to_unit(new_action: TimelineAction):
+# 	_create_and_place_action_block(new_action)
 	
 func _create_and_place_action_block(new_action: TimelineAction):
 	for item in placed_actions:
@@ -208,28 +208,28 @@ func _snap_position_x(x_pos: float) -> float:
 func set_hero_owner(hero: Unit) -> void:
 	self.hero_owner = hero
 	$Label.text = hero.name
-	self.hero_owner.action_executed.connect(action_executed)
-	self.hero_owner.action_started.connect(action_started)
-	self.hero_owner.action_tick.connect(action_tick)
-	self.hero_owner.action_added.connect(_on_action_added_to_unit)
+	# self.hero_owner.action_executed.connect(action_executed)
+	# self.hero_owner.action_started.connect(action_started)
+	# self.hero_owner.action_tick.connect(action_tick)
+	# self.hero_owner.action_added.connect(_on_action_added_to_unit)
 
-func action_executed(action: TimelineAction) -> void:
-	if action.caster == hero_owner:
-		indicator_image.texture = progress_full
+# func action_executed(action: TimelineAction) -> void:
+# 	if action.caster == hero_owner:
+# 		indicator_image.texture = progress_full
 		
-func action_started(action: TimelineAction) -> void:
-	if action.caster == hero_owner:
-		indicator_image.texture = progress_empty
+# func action_started(action: TimelineAction) -> void:
+# 	if action.caster == hero_owner:
+# 		indicator_image.texture = progress_empty
 
-func action_tick(percent: float) -> void:
-	if percent == 0:
-		indicator_image.texture = progress_empty
-	elif percent >= 75:
-		indicator_image.texture = progress_75
-	elif percent >= 50:
-		indicator_image.texture = progress_50
-	elif percent >= 25:
-		indicator_image.texture = progress_25
+# func action_tick(percent: float) -> void:
+# 	if percent == 0:
+# 		indicator_image.texture = progress_empty
+# 	elif percent >= 75:
+# 		indicator_image.texture = progress_75
+# 	elif percent >= 50:
+# 		indicator_image.texture = progress_50
+# 	elif percent >= 25:
+# 		indicator_image.texture = progress_25
 
 
 func _on_action_block_removed(action_to_remove: TimelineAction):

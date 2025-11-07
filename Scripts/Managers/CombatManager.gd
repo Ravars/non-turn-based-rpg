@@ -16,51 +16,42 @@ var active_enemies: Array[Unit] = []
 
 func _ready() -> void:
 	pass
-	#TimelineManager.tick.connect(process_action)
 
-func execute_action(action: TimelineAction):
-	if not is_instance_valid(action):
-		print("Ação cancelada. Alvo inválido.")
+func execute_action(caster: Unit, skill: SkillData):
+	if not is_instance_valid(caster):
+		print("Ação cancelada. Caster inválido.")
 		return
 	
-	var targets_to_hit: Array[Unit] = []
-
-	if action.skill_data.target_scope == SkillData.TargetScope.SINGLE:
-		if is_instance_valid(action.target):
-			targets_to_hit.append(action.target)
-	else:
-		targets_to_hit = get_valid_targets(action.caster, action.skill_data)
+	var targets_to_hit: Array[Unit] = get_valid_targets(caster, skill)
 	
 	if targets_to_hit.is_empty():
 		print("Ação cancelada. Nenhum alvo válido encontrado na execução.")
 		return
-	
-
-
-	if action.skill_data.heal > 0:
-		var total_heal = get_total_heal(action)
+	print("Trying to execute {0}".format({0: skill.skill_name}))
+	if skill.heal > 0:
+		var total_heal = get_total_heal(caster, skill)
 		if total_heal > 0:
 			for target:Unit in targets_to_hit:
 				target.heal(total_heal)
 	else:
-		var total_damage = get_total_damage(action)
+		var total_damage = get_total_damage(caster, skill)
 		if total_damage > 0:
 			for target in targets_to_hit:
-				target.take_damage(total_damage, action.skill_data.damage_type)
+				target.take_damage(total_damage, skill.damage_type)
 	
-	for effect in action.skill_data.status_effects:
+	for effect in skill.status_effects:
 		for target in targets_to_hit:
 			target.apply_status_effect(effect)
 
-func get_total_damage(action: TimelineAction) -> int:
-	var base_damage: int = action.skill_data.damage
-	var final_strength = action.caster.get_final_strength()
+func get_total_damage(caster: Unit, skill: SkillData) -> int:
+	var base_damage: int = skill.damage
+	var final_strength = caster.get_final_strength()
 	var total_damage = base_damage + (final_strength * 2)
 	return total_damage
 
-func get_total_heal(action: TimelineAction) -> int:
-	var base_heal: int = action.skill_data.heal
-	var final_intelligence = action.caster.get_final_intelligence()
+func get_total_heal(caster: Unit, skill: SkillData) -> int:
+	var base_heal: int = skill.heal
+	var final_intelligence = caster.get_final_intelligence()
 	var total_heal = base_heal + final_intelligence
 	return total_heal
 
@@ -140,6 +131,12 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
 	
+	if not active_heroes.is_empty():
+		var first_hero: Unit = active_heroes[0]
+		if first_hero.skills.size() >= 2:
+			var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1]]
+			first_hero.setup_test_loop(test_skills)
+
 	battle_initialized.emit(active_heroes)
 
 func get_random_hero_target():

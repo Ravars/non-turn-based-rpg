@@ -46,7 +46,7 @@ func _on_combat_ended(was_victory: bool):
 			if not hero_survived:
 				hero_data.current_hp = 0
 				print("Heroi {0} foi derrotado em combate".format({0: hero_data.archetype.character_name}))
-		TimelineManager.reset_timeline()
+		LoopManager.reset_timeline()
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/RewardScreen.tscn")
 
 	else:

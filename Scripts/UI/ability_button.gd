@@ -16,7 +16,7 @@ func _ready():
 	gui_input.connect(_on_gui_input)
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
-	if TimelineManager.is_selecting_target:
+	if LoopManager.is_selecting_target:
 		print("Bloqueado: Selecione um alvo primeiro")
 		return null
 	if hero_owner.is_dead:

@@ -15,10 +15,10 @@ func _ready() -> void:
 	current_state = State.COOLDOWN
 	cooldown_timer = randf_range(0.5, 1.5)
 	action_indicator_image = get_parent().get_node("ActionIndicator")
-	TimelineManager.tick.connect(my_process)
+	LoopManager.tick.connect(my_process)
 
 func my_process(current_time: float, delta: float) -> void:
-	if unit_owner.is_dead or TimelineManager.is_paused:
+	if unit_owner.is_dead or LoopManager.is_paused:
 		return
 	match current_state:
 		State.IDLE:
@@ -37,17 +37,18 @@ func my_process(current_time: float, delta: float) -> void:
 				current_state = State.IDLE
 		
 func decide_next_action():
+	return
 	if unit_owner.skills.is_empty(): return
 	var skill_to_use: SkillData = unit_owner.skills.pick_random()
 	
 	var target = CombatManager.get_random_hero_target()
 	if not is_instance_valid(target): return
 	
-	var start_time = TimelineManager.current_time + randf_range(0.1, 0.5)
+	var start_time = LoopManager.current_time + randf_range(0.1, 0.5)
 	var new_action = TimelineAction.new(skill_to_use, unit_owner, target, start_time)
 	
 	unit_owner.add_action_to_queue(new_action)
-	#TimelineManager.add_planned_action(new_action)
+	#LoopManager.add_planned_action(new_action)
 	
 	pending_action = new_action
 	current_state = State.WAITING_FOR_EXECUTION
