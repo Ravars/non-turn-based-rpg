@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfv0w13navbei"]
+
+[ext_resource type="Script" uid="uid://bas43h8s4qsxg" path="res://Scripts/UI/skill_loop_item.gd" id="1_qpo5p"]
+
+[node name="SkillLoopItem" type="PanelContainer"]
+script = ExtResource("1_qpo5p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label_SkillName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button_Action" type="Button" parent="HBoxContainer"]
+layout_mode = 2

@@ -28,18 +28,18 @@ var skills: Array[SkillData] = []
 @export var active_status_effects: Dictionary = {}
 var stun_texture = preload("res://Icons/busy_hourglass.png")
 var action_indicator_image: Sprite2D
-# var action_queue: Array[TimelineAction] = []
 var current_cast_progress: float = 0.0
 var current_lane_position: LanePosition
-# func _ready() -> void:
-# 	# max_hp = characterStats.health
-# 	# current_hp = max_hp
-# 	# $Label.text = str(current_hp)
+
+
 
 
 var skill_loop: Array[SkillData] = []
-var current_loop_index: int = 0
-var current_cast_timer: float = 0.0
+var execution_plan: Array = []
+var plan_index: int = 0
+var step_progress_timer: float = 0.0
+# var current_loop_index: int = 0
+# var current_cast_timer: float = 0.0
 var is_loop_active: bool = false
 	
 var last_loop_progress: float = 0.0
@@ -108,31 +108,56 @@ func setup_test_loop(loop_skills: Array[SkillData]):
 # 	# process_action_queue(_current_time, delta)
 # 	# process_status_effect(_current_time, delta)
 
-func internal_process(_current_time: float, delta: float):
-	if not is_loop_active or skill_loop.is_empty() or is_stunned or is_dead:
+# func internal_process(_current_time: float, delta: float):
+# 	if not is_loop_active or skill_loop.is_empty() or is_stunned or is_dead:
+# 		return
+# 	var loop_props = calculate_loop_properties()
+# 	print(loop_props)
+# 	if loop_props.total_duration <= 0: return
+# 	# Salva o tempo anterior e avança o timer
+# 	last_loop_progress = loop_progress_timer
+# 	loop_progress_timer += delta
+# 	# Verifica se o timer cruzou o ponto de conclusão de alguma habilidade
+# 	var time_accumulator = 0.0
+# 	for skill in skill_loop:
+# 		var skill_end_time = time_accumulator + skill.cast_time
+# 		# Se o tempo ANTERIOR era antes do fim e o tempo ATUAL é depois...
+# 		if last_loop_progress < skill_end_time and loop_progress_timer >= skill_end_time:
+# 			print("'{0}' executou '{1}' no tempo {2}".format({0: name, 1: skill.skill_name, 2: skill_end_time}))
+# 			CombatManager.execute_action(self, skill)
+# 		time_accumulator += skill.cast_time
+# 	# "Wrap around" - faz o loop reiniciar
+# 	if loop_progress_timer >= loop_props.total_duration:
+# 		var time_overflow = loop_progress_timer - loop_props.total_duration
+# 		loop_progress_timer = time_overflow
+# 		last_loop_progress = 0.0
+# 		# Re-executa a lógica para o tempo que "sobrou"
+# 		internal_process(_current_time,0)
+
+func internal_process(current_time: float, delta: float):
+	if not is_loop_active or execution_plan.is_empty() or is_stunned or is_dead:
 		return
-	var loop_props = calculate_loop_properties()
-	print(loop_props)
-	if loop_props.total_duration <= 0: return
-	# Salva o tempo anterior e avança o timer
-	last_loop_progress = loop_progress_timer
-	loop_progress_timer += delta
-	# Verifica se o timer cruzou o ponto de conclusão de alguma habilidade
-	var time_accumulator = 0.0
-	for skill in skill_loop:
-		var skill_end_time = time_accumulator + skill.cast_time
-		# Se o tempo ANTERIOR era antes do fim e o tempo ATUAL é depois...
-		if last_loop_progress < skill_end_time and loop_progress_timer >= skill_end_time:
-			print("'{0}' executou '{1}' no tempo {2}".format({0: name, 1: skill.skill_name, 2: skill_end_time}))
-			CombatManager.execute_action(self, skill)
-		time_accumulator += skill.cast_time
-	# "Wrap around" - faz o loop reiniciar
-	if loop_progress_timer >= loop_props.total_duration:
-		var time_overflow = loop_progress_timer - loop_props.total_duration
-		loop_progress_timer = time_overflow
-		last_loop_progress = 0.0
-		# Re-executa a lógica para o tempo que "sobrou"
-		internal_process(_current_time,0)
+	step_progress_timer += delta
+
+	var current_step = execution_plan[plan_index]
+	var current_step_duration: float
+	# Determina a duração do passo atual
+	if current_step.type == "cast":
+		# print("CAST: {0} at {1}".format({0:current_step_duration, 1: current_time}))
+		current_step_duration = current_step.skill.cast_time
+	else: # "idle"
+		current_step_duration = current_step.duration
+		# print("Idle: {0} at {1}".format({0:current_step_duration, 1: current_time}))
+	# Se o tempo progrediu além do passo atual, executa e avança
+	if step_progress_timer >= current_step_duration:
+		# Se o passo que terminou era um cast, executa a ação
+		if current_step.type == "cast":
+			print("Cast: {0} at {1}".format({0: current_step.skill.skill_name, 1: current_time}))
+			CombatManager.execute_action(self, current_step.skill)
+		# Avança para o próximo passo no plano
+		plan_index = (plan_index + 1) % execution_plan.size()
+		# Reseta o timer, carregando o tempo que "sobrou"
+		step_progress_timer -= current_step_duration
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -175,32 +200,6 @@ func apply_status_effect(effect:StatusEffect):
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
 
-# func add_action_to_queue(action: TimelineAction):
-# 	action_queue.append(action)
-# 	action_queue.sort_custom(func(a: TimelineAction,b: TimelineAction): return a.start_time < b.start_time)
-
-# func process_action_queue(_current_time: float, game_delta: float) -> void:
-# 	if is_dead or action_queue.is_empty(): return
-
-# 	if is_stunned: return
-# 	if is_casting:
-# 		current_cast_progress += game_delta
-# 		var current_action: TimelineAction = action_queue[0]
-		
-# 		var percent = (current_cast_progress * 100) / current_action.skill_data.cast_time
-# 		action_tick.emit(percent)
-# 		if current_cast_progress >= current_action.skill_data.cast_time:
-# 			CombatManager.execute_action(current_action)
-# 			action_executed.emit(current_action)
-# 			action_queue.pop_front()
-# 			is_casting = false
-# 			current_cast_progress = 0
-# 		return
-# 	var next_action = action_queue[0]
-# 	if _current_time >= next_action.start_time:
-# 		is_casting = true
-# 		action_started.emit(next_action)
-
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
 	
@@ -240,13 +239,6 @@ func _on_effect_expired(effect: StatusEffect):
 		is_stunned = false
 		print("EFFECT {0} NÃO está mais atordoado.".format({0: name}))
 
-# func remove_action_from_queue(action_to_remove: TimelineAction):
-# 	if action_queue.has(action_to_remove):
-# 		action_queue.erase(action_to_remove)
-# 		print("Ação '{0}' removida da fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
-# 	else:
-# 		print("Ação '{0}' não encontrada na fila de {1}.".format({0: action_to_remove.skill_data.skill_name, 1: name}))
-
 func get_final_strength() -> int:
 	var final_value = float(characterStats.strength)
 	for effect: StatusEffect in active_status_effects:
@@ -260,105 +252,61 @@ func get_final_strength() -> int:
 func get_final_intelligence() -> int:
 	return characterStats.intelligence
 
-# func quick_add_skill(skill: SkillData):
-# 	var start_time = get_last_action_end_time()
-# 	var new_action = TimelineAction.new(skill, self, null, start_time)
-# 	add_action_to_queue(new_action)
-# 	action_added.emit(new_action)
-# 	if skill.target_scope == SkillData.TargetScope.SINGLE:
-# 		target_selection_requested.emit(new_action)
-
-# func get_last_action_end_time() -> float:
-# 	if action_queue.is_empty():
-# 		return LoopManager.current_time
-# 	var latest_end_time: float = 0.0
-# 	for action in action_queue:
-# 		var action_end_time = action.start_time + action.skill_data.cast_time
-# 		if action_end_time > latest_end_time:
-# 			latest_end_time = action_end_time
-# 	return latest_end_time
-
-
 enum LanePosition {
 	FRONT,
 	BACK
 }
 
-
-# func calculate_loop_properties() -> Dictionary:
-# 	var props = {
-#         "total_cast_time": 0.0,
-#         "total_idle_time": 0.0,
-#         "total_duration": 0.0,
-# 	}
-# 	if skill_loop.is_empty():
-# 		return props
-# 	# --- PASSO 1: Calcular o tempo total de atividade ---
-# 	for skill in skill_loop:
-# 		props.total_cast_time += skill.cast_time
-# 	# --- PASSO 2: Encontrar o maior déficit de cooldown ---
-# 	var max_shortfall = 0.0
-# 	for skill in skill_loop:
-#          # O "descanso" de uma skill é o tempo de cast de todas as outras.
-# 		var other_skills_cast_time = props.total_cast_time - skill.cast_time
-		
-#          # O déficit é o quanto falta para cumprir o cooldown.
-# 		var shortfall = max(0.0, skill.cooldown - other_skills_cast_time)
-# 		# O tempo ocioso do loop será definido pelo maior déficit.
-# 		if shortfall > max_shortfall:
-# 			max_shortfall = shortfall
-# 	# --- PASSO 3: Calcular os resultados finais ---
-# 	props.total_idle_time = max_shortfall
-# 	props.total_duration = props.total_cast_time + props.total_idle_time
-# 	return props
-
-
-func calculate_times():
-	pass
-
-
-
-func calculate_loop_properties() -> Dictionary:
-	var props = {
-		"total_cast_time": 0.0,
-		"total_idle_time": 0.0,
-		"total_duration": 0.0,
-	}
+func recalculate_execution_plan():
+	execution_plan.clear()
 	if skill_loop.is_empty():
-		return props
-		
-	# --- PASSO 1: Calcular o tempo total de atividade ---
-	for skill in skill_loop:
-		props.total_cast_time += skill.cast_time
-
-	# --- PASSO 2: Simular o descanso para CADA skill e encontrar o maior déficit ---
-	var max_shortfall = 0.0
-	# Itera por cada skill na fila para analisar seu descanso individual
+		return
+	var cooldown_timers: Dictionary = {} # Simula os cooldowns durante o planejamento
+	# Simula um ciclo completo para determinar a ordem e as pausas
 	for i in range(skill_loop.size()):
-		var skill_to_analyze = skill_loop[i]
-		var rest_time_for_this_skill = 0.0
+		var skill_to_cast = skill_loop[i]
+		var current_cooldown_keys = cooldown_timers.keys()
+		# 1. Verifica se a skill precisa de uma pausa para o cooldown
+		if cooldown_timers.has(skill_to_cast):
+			var required_idle_time = cooldown_timers[skill_to_cast]
+			if required_idle_time > 0:
+				# Adiciona um passo de pausa ao plano
+				execution_plan.append({"type": "idle", "duration": required_idle_time})
+				# Avança o tempo, reduzindo todos os outros cooldowns
+				
+				for timer_skill in current_cooldown_keys:
+					cooldown_timers[timer_skill] -= required_idle_time
 
-		# Simula a execução das skills SEGUINTES até encontrar uma igual ou dar a volta completa
-		var j = (i + 1) % skill_loop.size()
-		while j != i:
-			var next_skill_in_sequence = skill_loop[j]
-			# Se encontrarmos uma cópia da mesma skill, o descanso para aqui.
-			if next_skill_in_sequence == skill_to_analyze:
-				break
+		# 2. Adiciona o passo de conjuração
+		execution_plan.append({"type": "cast", "skill": skill_to_cast})
+		# 3. Avança o tempo pelo cast_time, reduzindo todos os cooldowns
+		var cast_duration = skill_to_cast.cast_time
+		for timer_skill in current_cooldown_keys:
+			cooldown_timers[timer_skill] -= cast_duration
+		# 4. Define o cooldown para a skill que acabamos de "conjurar"
+		cooldown_timers[skill_to_cast] = skill_to_cast.cooldown
+	# Limpa timers negativos
+	var final_timers = cooldown_timers.keys()
+	for skill in final_timers:
+		if cooldown_timers[skill] <= 0:
+			cooldown_timers.erase(skill)
 
-			rest_time_for_this_skill += next_skill_in_sequence.cast_time
-			j = (j + 1) % skill_loop.size()
+	# Verifica se a última skill precisa de uma pausa para a primeira skill do próximo ciclo
+	var first_skill_of_loop = skill_loop[0]
+	if cooldown_timers.has(first_skill_of_loop):
+		var final_idle_time = cooldown_timers[first_skill_of_loop]
+		if final_idle_time > 0:
+			execution_plan.append({"type": "idle", "duration": final_idle_time})
 
-		# Se o loop deu a volta completa sem achar outra cópia, o descanso é o cast de todas as outras.
-		if j == i:
-			rest_time_for_this_skill = props.total_cast_time - skill_to_analyze.cast_time
-		# ...
-		# Calcula o déficit para esta skill específica
-		var shortfall = max(0.0, skill_to_analyze.cooldown - rest_time_for_this_skill)
-		# Mantém o registro do maior déficit encontrado
-		if shortfall > max_shortfall:
-			max_shortfall = shortfall
-	# --- PASSO 3: Calcular os resultados finais ---
-	props.total_idle_time = max_shortfall
-	props.total_duration = props.total_cast_time + props.total_idle_time
-	return props
+	print("Novo Plano de Execução Gerado: ", execution_plan)
+
+func add_skill_to_loop(skill_to_add: SkillData):
+	if skill_loop.size() >= characterStats.focus:
+		return
+	skill_loop.append(skill_to_add)
+	recalculate_execution_plan()
+
+func remove_skill_from_loop(index: int):
+	if index >= 0 and index < skill_loop.size():
+		skill_loop.remove_at(index)
+		recalculate_execution_plan()

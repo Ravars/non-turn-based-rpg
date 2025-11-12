@@ -7,3 +7,4 @@ class_name CharacterStats
 @export var strength: int = 1
 @export var dexterity: int = 1
 @export var intelligence: int = 1
+@export var focus: int = 3

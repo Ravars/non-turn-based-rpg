@@ -3,6 +3,7 @@ class_name PlayerActionPanel
 var selected_char: Unit
 @export var ability_button_scene: PackedScene
 @export var vfx_manager: VFXManager
+@export var skill_loop_panel: SkillLoopPanel
 @onready var skills_container = $ColorRect2/Buttons_Skills_Container
 func _ready():
 	print("Ready PlayerActionPanel")
@@ -42,12 +43,13 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		enemy.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 
 func _on_button_press(unidade: Unit):
-	if LoopManager.is_selecting_target:
-		print("Termine de selecionar o alvo antes")
-		return
-	selected_char = unidade
-	render_skill()
-	print(unidade.name)
+	skill_loop_panel.display_for_hero(unidade)
+	#if LoopManager.is_selecting_target:
+		#print("Termine de selecionar o alvo antes")
+		#return
+	#selected_char = unidade
+	#render_skill()
+	#print(unidade.name)
 
 func _on_play_button_pressed():
 	if LoopManager.is_selecting_target:

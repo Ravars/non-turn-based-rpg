@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://resqdfk32fh0"]
+
+[ext_resource type="Script" uid="uid://bx6ilubf1nj36" path="res://Scripts/UI/skill_loop_panel.gd" id="1_3ne2n"]
+
+[node name="SkillLoopPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3ne2n")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label_HeroName" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "{HERO_NAME}"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer_Available" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_AvailableTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_Available"]
+layout_mode = 2
+text = "Habilidades"
+
+[node name="VBoxContainer_Loop" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_LoopTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_Loop"]
+layout_mode = 2
+text = "Loop Atual"
+
+[node name="GridContainer_Stats" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label_CastTimeTitle" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
+text = "Tempo Ativo:"
+
+[node name="Label_CastTimeValue" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
+
+[node name="Label_IdleTimeTitle" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
+text = "Tempo Ocioso:"
+
+[node name="Label_IdleTimeValue" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
+
+[node name="Label_TotalTimeTitle" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
+text = "Duração Total:"
+
+[node name="Label_TotalTimeValue" type="Label" parent="MarginContainer/VBoxContainer/GridContainer_Stats"]
+layout_mode = 2
