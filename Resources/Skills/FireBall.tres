@@ -9,6 +9,7 @@ skill_name = "Fire Ball"
 damage = 10
 damage_type = 1
 cast_time = 2.0
+cooldown = 4.0
 target_scope = 3
 range_rule = 1
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

@@ -133,8 +133,8 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 	
 	if not active_heroes.is_empty():
 		var first_hero: Unit = active_heroes[0]
-		if first_hero.skills.size() >= 2:
-			var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1]]
+		if first_hero.skills.size() >= 3:
+			var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1], first_hero.skills[2]]
 			first_hero.setup_test_loop(test_skills)
 
 	battle_initialized.emit(active_heroes)
