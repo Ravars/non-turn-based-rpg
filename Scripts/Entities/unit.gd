@@ -285,6 +285,16 @@ func recalculate_execution_plan():
 			cooldown_timers[timer_skill] -= cast_duration
 		# 4. Define o cooldown para a skill que acabamos de "conjurar"
 		cooldown_timers[skill_to_cast] = skill_to_cast.cooldown
+	
+	var final_idle_time = 0.0
+	for skill in cooldown_timers:
+		var remaining_cd = cooldown_timers[skill]
+		if remaining_cd > final_idle_time:
+			final_idle_time = remaining_cd
+
+	if final_idle_time > 0:
+		execution_plan.append({"type": "idle", "duration": final_idle_time})
+	
 	# Limpa timers negativos
 	var final_timers = cooldown_timers.keys()
 	for skill in final_timers:
@@ -292,11 +302,11 @@ func recalculate_execution_plan():
 			cooldown_timers.erase(skill)
 
 	# Verifica se a última skill precisa de uma pausa para a primeira skill do próximo ciclo
-	var first_skill_of_loop = skill_loop[0]
-	if cooldown_timers.has(first_skill_of_loop):
-		var final_idle_time = cooldown_timers[first_skill_of_loop]
-		if final_idle_time > 0:
-			execution_plan.append({"type": "idle", "duration": final_idle_time})
+	# var first_skill_of_loop = skill_loop[0]
+	# if cooldown_timers.has(first_skill_of_loop):
+	# 	var final_idle_time = cooldown_timers[first_skill_of_loop]
+	# 	if final_idle_time > 0:
+	# 		execution_plan.append({"type": "idle", "duration": final_idle_time})
 
 	print("Novo Plano de Execução Gerado: ", execution_plan)
 
