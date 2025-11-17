@@ -30,25 +30,49 @@ func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = [])
 		print("Ação cancelada. Nenhum alvo válido encontrado na execução.")
 		return
 
-	print("EXECUTING ACTION: {0} uses {1} on {2}".format([caster.name, skill.skill_name, targets_to_hit]))
+	print("EXECUTING ACTION: %s uses %s on %s" % [caster.name, skill.skill_name, ", ".join(targets_to_hit.map(func(t): return t.name))])
+	
+	var actual_targets: Array[Unit] = []
+	for target in targets_to_hit:
+		if is_instance_valid(target) and not target.is_dead:
+			actual_targets.append(target)
+	
+	if actual_targets.is_empty():
+		print("Ação cancelada. Todos os alvos se tornaram inválidos antes da execução.")
+		return
+
 	if skill.heal > 0:
 		var total_heal = get_total_heal(caster, skill)
 		if total_heal > 0:
-			for target in targets_to_hit:
+			for target in actual_targets:
 				target.heal(total_heal)
 	else:
 		var total_damage = get_total_damage(caster, skill)
 		if total_damage > 0:
-			for target in targets_to_hit:
+			for target in actual_targets:
 				target.take_damage(total_damage, skill.damage_type)
 	
 	for effect in skill.status_effects:
-		for target in targets_to_hit:
+		for target in actual_targets:
 			target.apply_status_effect(effect)
 
 func get_automatic_targets(caster: Unit, skill: SkillData) -> Array[Unit]:
 	var potential_targets = get_valid_targets(caster, skill)
-	return potential_targets
+	
+	if potential_targets.is_empty():
+		return []
+
+	match skill.target_scope:
+		SkillData.TargetScope.SINGLE:
+			# Prioritize lowest HP for damage, highest HP for heal
+			if skill.heal > 0:
+				potential_targets.sort_custom(func(a, b): return a.current_hp > b.current_hp)
+			else:
+				potential_targets.sort_custom(func(a, b): return a.current_hp < b.current_hp)
+			return [potential_targets[0]]
+		SkillData.TargetScope.ALL, SkillData.TargetScope.FRONT_LINE, SkillData.TargetScope.BACK_LINE:
+			return potential_targets
+	return []
 
 func get_total_damage(caster: Unit, skill: SkillData) -> int:
 	var base_damage: int = skill.damage
@@ -81,16 +105,27 @@ func get_valid_targets(caster: Unit, skill_data: SkillData) -> Array[Unit]:
 			potential_targets = potential_targets.filter(func(unit: Unit): 
 				return unit.current_lane_position == Unit.LanePosition.FRONT
 			)
+	
+	var preferred_targets: Array[Unit] = []
 	match skill_data.target_scope:
 		SkillData.TargetScope.SINGLE:
 			return potential_targets
 		SkillData.TargetScope.ALL:
 			return potential_targets
 		SkillData.TargetScope.FRONT_LINE:
-			return potential_targets.filter(func(unit: Unit): return unit.current_lane_position == Unit.LanePosition.FRONT)
+			preferred_targets = potential_targets.filter(func(unit: Unit): return unit.current_lane_position == Unit.LanePosition.FRONT)
+			if not preferred_targets.is_empty():
+				return preferred_targets
 		SkillData.TargetScope.BACK_LINE:
-			return potential_targets.filter(func(unit: Unit): return unit.current_lane_position == Unit.LanePosition.BACK)
-	return []	
+			preferred_targets = potential_targets.filter(func(unit: Unit): return unit.current_lane_position == Unit.LanePosition.BACK)
+			if not preferred_targets.is_empty():
+				return preferred_targets
+	
+	# Fallback for empty lanes
+	if skill_data.target_scope == SkillData.TargetScope.FRONT_LINE or skill_data.target_scope == SkillData.TargetScope.BACK_LINE:
+		return potential_targets
+
+	return []
 
 func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[CharacterArchetype], setup_node: BattleSetup) -> void:
 	active_heroes.clear()
