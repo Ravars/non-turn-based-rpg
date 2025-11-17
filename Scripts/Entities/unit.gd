@@ -153,7 +153,8 @@ func internal_process(current_time: float, delta: float):
 		# Se o passo que terminou era um cast, executa a ação
 		if current_step.type == "cast":
 			print("Cast: {0} at {1}".format({0: current_step.skill.skill_name, 1: current_time}))
-			CombatManager.execute_action(self, current_step.skill)
+			var targets = CombatManager.get_automatic_targets(self, current_step.skill)
+			CombatManager.execute_action(self, current_step.skill, targets)
 		# Avança para o próximo passo no plano
 		plan_index = (plan_index + 1) % execution_plan.size()
 		# Reseta o timer, carregando o tempo que "sobrou"

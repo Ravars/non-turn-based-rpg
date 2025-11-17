@@ -32,24 +32,13 @@ func instantiate_button(characters: Array[Unit]) -> void:
 		buttons_container.add_child(botao)
 		character.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 		character.heal_received.connect(vfx_manager._on_unit_heal_received)
-		
-		# Conecta ao sinal de clique de cada unidade
-		# character.unit_clicked.connect(_on_unit_clicked)
-		# character.target_selection_requested.connect(_on_target_selection_requested)
 
 	# Conecta aos inimigos também
 	for enemy in CombatManager.active_enemies:
-		# enemy.unit_clicked.connect(_on_unit_clicked)
 		enemy.damage_taken.connect(vfx_manager._on_unit_damage_taken)
 
 func _on_button_press(unidade: Unit):
 	skill_loop_panel.display_for_hero(unidade)
-	#if LoopManager.is_selecting_target:
-		#print("Termine de selecionar o alvo antes")
-		#return
-	#selected_char = unidade
-	#render_skill()
-	#print(unidade.name)
 
 func _on_play_button_pressed():
 	if LoopManager.is_selecting_target:
@@ -80,25 +69,7 @@ func setup_lane_connections(lanes_container: Node):
 	for lane in lanes_container.get_children():
 		if lane is TimelineLane:
 			pass
-			# lane.target_selection_requested.connect(_on_target_selection_requested)
-			# lane.target_selection_stoped.connect(_on_target_selection_stoped)
 
-# func _on_target_selection_requested(action: TimelineAction):
-# 	LoopManager.start_target_selection(action)
-	
-# func _on_target_selection_stoped():
-# 	LoopManager.stop_target_selection()
-# func _on_unit_clicked(unit: Unit):
-# 	if not LoopManager.is_selecting_target:
-# 		return
-# 	if LoopManager.action_awaiting_target == null:
-# 		return
-		
-# 	# Verifica se o alvo é válido (ex: não pode curar um inimigo)
-# 	# (Lógica a ser adicionada no futuro)
-# 	LoopManager.confirm_target_form_action(unit)
-# 	_set_skill_buttons_disabled(false)
-		
 func _on_2x_button_pressed():
 	LoopManager.set_time_scale(2)
 	pass

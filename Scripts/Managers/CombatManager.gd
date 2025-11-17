@@ -17,21 +17,24 @@ var active_enemies: Array[Unit] = []
 func _ready() -> void:
 	pass
 
-func execute_action(caster: Unit, skill: SkillData):
+func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = []):
 	if not is_instance_valid(caster):
 		print("Ação cancelada. Caster inválido.")
 		return
 	
-	var targets_to_hit: Array[Unit] = get_valid_targets(caster, skill)
-	
+	var targets_to_hit: Array[Unit] = p_targets
+	if targets_to_hit.is_empty():
+		targets_to_hit = get_automatic_targets(caster, skill)
+
 	if targets_to_hit.is_empty():
 		print("Ação cancelada. Nenhum alvo válido encontrado na execução.")
 		return
-	print("Trying to execute {0}".format({0: skill.skill_name}))
+
+	print("EXECUTING ACTION: {0} uses {1} on {2}".format([caster.name, skill.skill_name, targets_to_hit]))
 	if skill.heal > 0:
 		var total_heal = get_total_heal(caster, skill)
 		if total_heal > 0:
-			for target:Unit in targets_to_hit:
+			for target in targets_to_hit:
 				target.heal(total_heal)
 	else:
 		var total_damage = get_total_damage(caster, skill)
@@ -42,6 +45,10 @@ func execute_action(caster: Unit, skill: SkillData):
 	for effect in skill.status_effects:
 		for target in targets_to_hit:
 			target.apply_status_effect(effect)
+
+func get_automatic_targets(caster: Unit, skill: SkillData) -> Array[Unit]:
+	var potential_targets = get_valid_targets(caster, skill)
+	return potential_targets
 
 func get_total_damage(caster: Unit, skill: SkillData) -> int:
 	var base_damage: int = skill.damage
