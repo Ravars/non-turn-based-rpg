@@ -51,7 +51,7 @@ func _on_combat_ended(was_victory: bool):
 
 	else:
 		print("GAME MANAGER: Derrota! Fim da partida.")
-		# start_new_run()
+		get_tree().change_scene_to_file("res://Scenes/UI/GameOverScreen.tscn")
 
 	
 func get_available_hero_archetype(): #TODO:  -> Array[CharacterArchetype]
