@@ -2,32 +2,36 @@
 
 [ext_resource type="Script" uid="uid://gmes0o8m8s3s" path="res://Scripts/UI/archetype_card.gd" id="1_xa3yc"]
 
-[node name="ArchetypeCard" type="Button"]
-offset_right = 234.0
-offset_bottom = 310.0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-flat = true
+[node name="ArchetypeCard" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 300)
+offset_right = 200.0
+offset_bottom = 300.0
 script = ExtResource("1_xa3yc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-offset_right = 91.0
-offset_bottom = 131.0
 
 [node name="CharacterNameLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Character Name"
+horizontal_alignment = 1
 
-[node name="StatsHBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
 
-[node name="StatsTitleLabel" type="Label" parent="VBoxContainer/StatsHBoxContainer"]
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Status"
+text = "Character Description"
+autowrap_mode = 2
 
-[node name="SkillsHBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="AddButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Add to Team"
 
-[node name="SkillsTitleLabel" type="Label" parent="VBoxContainer/SkillsHBoxContainer"]
+[node name="RemoveButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
-text = "Habilidades"
+text = "Remove"

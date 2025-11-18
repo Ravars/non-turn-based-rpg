@@ -1,41 +1,47 @@
-extends Button
+extends PanelContainer
+
 class_name ArchetypeCard
 
-var archetype: CharacterArchetype
-@onready var character_name_label = $VBoxContainer/CharacterNameLabel
-@onready var stats_container = $VBoxContainer/StatsHBoxContainer
-@onready var skills_container = $VBoxContainer/SkillsHBoxContainer
+signal add_pressed(archetype: CharacterArchetype)
+signal remove_pressed(archetype: CharacterArchetype)
 
+var archetype: CharacterArchetype
+
+@onready var character_name_label = $VBoxContainer/CharacterNameLabel
+@onready var texture_rect = $VBoxContainer/TextureRect
+@onready var description_label = $VBoxContainer/DescriptionLabel
+@onready var add_button: Button = $VBoxContainer/AddButton
+@onready var remove_button: Button = $VBoxContainer/RemoveButton
 
 func _ready():
-	text = archetype.character_name
-	var healthText = Label.new()
-	healthText.text = "Health: " + str(archetype.base_stats.health)
-	stats_container.add_child(healthText)
-
-	var manaText = Label.new()
-	manaText.text = "Mana: " + str(archetype.base_stats.health)
-	stats_container.add_child(manaText)
-
-	var strengthText = Label.new()
-	strengthText.text = "Strength" + str(archetype.base_stats.health)
-	stats_container.add_child(strengthText)
-
-	var dexterityText = Label.new()
-	dexterityText.text = "Dexterity" + str(archetype.base_stats.health)
-	stats_container.add_child(dexterityText)
-	
-	for skill in archetype.starting_skills:
-		var skill_text = Label.new()
-		skill_text.text = skill.skill_name + " CastTime: " + str(skill.cast_time)
-		skills_container.add_child(skill_text)
-
+	add_button.pressed.connect(_on_add_pressed)
+	remove_button.pressed.connect(_on_remove_pressed)
+	_update_ui()
 
 func setup(_archetype: CharacterArchetype):
 	self.archetype = _archetype
-	# var character_name_label: Label = $VBoxContainer/CharacterNameLabel
-	# var stats_container = $VBoxContainer/StatsHBoxContainer
-	# var skills_container = $VBoxContainer/SkillsHBoxContainer
-	# character_name_label.text = archetype.character_name
+	if is_node_ready():
+		_update_ui()
 
-	
+func _update_ui():
+	if archetype:
+		character_name_label.text = archetype.character_name
+		description_label.text = archetype.description
+		#if archetype.texture:
+			#texture_rect.texture = archetype.texture
+
+func set_selected(is_selected: bool):
+	if not is_node_ready():
+		await ready
+	if is_selected:
+		add_button.visible = false
+		remove_button.visible = true
+	else:
+		add_button.visible = true
+		remove_button.visible = false
+
+func _on_add_pressed():
+	add_pressed.emit(archetype)
+
+func _on_remove_pressed():
+	remove_pressed.emit(archetype)

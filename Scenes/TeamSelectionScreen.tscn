@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqh6gcep2kdbf"]
+[gd_scene load_steps=5 format=3 uid="uid://dqh6gcep2kdbf"]
 
 [ext_resource type="Script" uid="uid://d3in6eiwf6of7" path="res://Scripts/team_selection_screen.gd" id="1_3xiah"]
 [ext_resource type="PackedScene" uid="uid://df161rj25jbt7" path="res://Scenes/UI/ArchetypeCard.tscn" id="2_s56xw"]
+[ext_resource type="PackedScene" uid="uid://crbcax52qcwco" path="res://Scenes/UI/CharacterStatsPanel.tscn" id="3_123ab"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/SkillTooltip.tscn" id="4_456cd"]
 
 [node name="TeamSelectionScreen" type="Control"]
 layout_mode = 3
@@ -12,46 +14,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3xiah")
 archetype_card_scene = ExtResource("2_s56xw")
+character_stats_panel_scene = ExtResource("3_123ab")
+skill_tooltip_scene = ExtResource("4_456cd")
 
-[node name="Label" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.0
-offset_right = 60.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Crie sua equipe"
-
-[node name="AvailableArchetypesContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = 94.0
-offset_bottom = 94.0
-grow_horizontal = 2
-
-[node name="SelectedContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = 95.0
-offset_bottom = 95.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="AvailableArchetypesVBox" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="Label" type="Label" parent="HBoxContainer/AvailableArchetypesVBox"]
+layout_mode = 2
+text = "Available Archetypes"
+horizontal_alignment = 1
+
+[node name="AvailableArchetypesContainer" type="HFlowContainer" parent="HBoxContainer/AvailableArchetypesVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CharacterDetailsVBox" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="CharacterStatsPanelContainer" type="PanelContainer" parent="HBoxContainer/CharacterDetailsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectedTeamVBox" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -46.0
-offset_top = -31.0
-grow_horizontal = 0
+offset_top = -150.0
+grow_horizontal = 2
 grow_vertical = 0
-text = "Start"
+
+[node name="Label" type="Label" parent="SelectedTeamVBox"]
+layout_mode = 2
+text = "Your Team"
+horizontal_alignment = 1
+
+[node name="SelectedArchetypesContainer" type="HBoxContainer" parent="SelectedTeamVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ConfirmButton" type="Button" parent="SelectedTeamVBox"]
+layout_mode = 2
+disabled = true
+text = "Confirm Selection"

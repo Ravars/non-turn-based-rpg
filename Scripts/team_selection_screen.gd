@@ -1,76 +1,82 @@
 extends Control
 
-@onready var available_archetypes_container = $AvailableArchetypesContainer
-@onready var selected_archetypes_container = $SelectedContainer
-@onready var start_run_button:Button = $Button
+@onready var available_archetypes_container = $HBoxContainer/AvailableArchetypesVBox/AvailableArchetypesContainer
+@onready var selected_archetypes_container = $SelectedTeamVBox/SelectedArchetypesContainer
+@onready var character_details_container = $HBoxContainer/CharacterDetailsVBox/CharacterStatsPanelContainer
+@onready var confirm_button: Button = $SelectedTeamVBox/ConfirmButton
+
 @export var archetype_card_scene: PackedScene
+@export var character_stats_panel_scene: PackedScene
+@export var skill_tooltip_scene: PackedScene
 
 var TEAM_LIMIT = 3
 var selected_archetypes: Array[CharacterArchetype] = []
+var displayed_archetype_cards: Dictionary = {} # Stores archetype -> card instance
+var character_stats_panel: Control
+var current_hovered_skill_tooltip: Control = null
 
 func _ready():
-	start_run_button.pressed.connect(_on_start_run_pressed)
+	confirm_button.pressed.connect(_on_confirm_button_pressed)
+	character_stats_panel = character_stats_panel_scene.instantiate() as CharacterStatsPanel
+	character_details_container.add_child(character_stats_panel)
+	
 	populate_available_archetypes()
-	LimboConsole.register_command(create_random_team, "selection random")
-	LimboConsole.register_command(set_team_size, "selection setteamsize")
-	LimboConsole.register_command(reset_team, "selection reset")
-	LimboConsole.register_command(start, "selection start")
-	LimboConsole.register_command(start_random, "selection quick")
+	update_confirm_button_state()
+
 func populate_available_archetypes():
 	var available_heroes = GameManager.get_available_hero_archetype()
 	for archetype in available_heroes:
 		var card: ArchetypeCard = archetype_card_scene.instantiate()
 		card.setup(archetype)
-		# var card_button: Button = Button.new()
-		# card_button.text = archetype.character_name
-		card.pressed.connect(_on_archetype_selected.bind(archetype))
+		card.add_pressed.connect(_on_archetype_added)
+		card.remove_pressed.connect(_on_archetype_removed)
+		card.gui_input.connect(_on_archetype_card_gui_input.bind(card, archetype))
 		available_archetypes_container.add_child(card)
+		displayed_archetype_cards[archetype] = card
 
-func _on_start_run_pressed():
-	start()
+func _on_archetype_card_gui_input(event: InputEvent, card: ArchetypeCard, archetype: CharacterArchetype):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_on_archetype_card_pressed(archetype)
 
-func start_random(team_size: int = 2):
-	create_random_team(team_size)
-	start()
-func start():
-	if selected_archetypes.is_empty():
-		print("Selecione pelo menos um herói.")
-		return
-	GameManager.start_new_run(selected_archetypes)
-func _on_archetype_selected(archetype: CharacterArchetype):
-	try_add_archetype(archetype)
-
-func try_add_archetype(archetype: CharacterArchetype):
+func _on_archetype_added(archetype: CharacterArchetype):
 	if selected_archetypes.size() >= TEAM_LIMIT:
 		print("Limite da equipe atingido.")
 		return
 	if selected_archetypes.has(archetype):
 		print("Já selecionado.")
 		return
+	
 	selected_archetypes.append(archetype)
 	update_selected_team_display()
+	displayed_archetype_cards[archetype].set_selected(true)
+	update_confirm_button_state()
+
+func _on_archetype_removed(archetype: CharacterArchetype):
+	if selected_archetypes.has(archetype):
+		selected_archetypes.erase(archetype)
+		update_selected_team_display()
+		displayed_archetype_cards[archetype].set_selected(false)
+		update_confirm_button_state()
+
+func _on_archetype_card_pressed(archetype: CharacterArchetype):
+	character_stats_panel.display_stats(archetype)
 
 func update_selected_team_display():
 	for child in selected_archetypes_container.get_children():
 		child.queue_free()
+	
 	for archetype in selected_archetypes:
-		var name_label = Label.new()
-		name_label.text = archetype.character_name
-		selected_archetypes_container.add_child(name_label)
+		var card: ArchetypeCard = archetype_card_scene.instantiate()
+		card.setup(archetype)
+		card.set_selected(true)
+		card.remove_pressed.connect(_on_archetype_removed)
+		card.gui_input.connect(_on_archetype_card_gui_input.bind(card, archetype))
+		selected_archetypes_container.add_child(card)
 
-func create_random_team(team_size: int = 2):
-	var available_heroes = GameManager.get_available_hero_archetype()
-	if team_size > TEAM_LIMIT:
-		TEAM_LIMIT = min(team_size, available_heroes.size())
-	while selected_archetypes.size() < team_size and selected_archetypes.size() < available_heroes.size() and selected_archetypes.size() < TEAM_LIMIT:
-		var archetype = available_heroes.pick_random()
-		try_add_archetype(archetype)
+func update_confirm_button_state():
+	confirm_button.disabled = selected_archetypes.is_empty()
 
-func set_team_size(new_size: int = 3):
-	var available_heroes = GameManager.get_available_hero_archetype()
-	TEAM_LIMIT = min(new_size, available_heroes.size())
-
-func reset_team():
-	selected_archetypes.clear()
-	for child in selected_archetypes_container.get_children():
-		child.queue_free()
+func _on_confirm_button_pressed():
+	if selected_archetypes.is_empty():
+		return
+	GameManager.start_new_run(selected_archetypes)
