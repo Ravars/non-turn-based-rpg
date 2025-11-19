@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://new_unique_uid_for_map_node"]
+
+[ext_resource type="Script" path="res://Scripts/UI/map_node.gd" id="1_abcde"]
+
+[node name="MapNode" type="GraphNode"]
+offset_right = 100.0
+offset_bottom = 80.0
+title = "Node"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+script = ExtResource("1_abcde")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Node Type"
+horizontal_alignment = 1
+vertical_alignment = 1

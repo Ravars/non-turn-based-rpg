@@ -30,7 +30,7 @@ func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = [])
 		print("Ação cancelada. Nenhum alvo válido encontrado na execução.")
 		return
 
-	print("EXECUTING ACTION: %s uses %s on %s" % [caster.name, skill.skill_name, ", ".join(targets_to_hit.map(func(t): return t.name))])
+	print("%s EXECUTING ACTION: %s uses %s on %s" % ["ENEMY" if caster.is_enemy else "HERO",caster.name, skill.skill_name, ", ".join(targets_to_hit.map(func(t): return t.name))])
 	
 	var actual_targets: Array[Unit] = []
 	for target in targets_to_hit:
@@ -150,6 +150,7 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		new_hero.add_to_group("heroes")
 		new_hero.global_position = spawn_point.global_position + offset
 		active_heroes.append(new_hero)
+		new_hero.is_loop_active = true
 		setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
 		
 	for i in range(enemy_data.size()):
@@ -173,15 +174,15 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
 	
-	if not active_heroes.is_empty():
-		var first_hero: Unit = active_heroes[0]
-		if first_hero.skills.size() >= 3:
-			# var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1], first_hero.skills[2]]
-			# first_hero.setup_test_loop(test_skills)
-			first_hero.add_skill_to_loop(first_hero.skills[0])
-			first_hero.add_skill_to_loop(first_hero.skills[1])
-			first_hero.add_skill_to_loop(first_hero.skills[0])
-			first_hero.is_loop_active = true
+	#if not active_heroes.is_empty():
+		#var first_hero: Unit = active_heroes[0]
+		#if first_hero.skills.size() >= 3:
+			## var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1], first_hero.skills[2]]
+			## first_hero.setup_test_loop(test_skills)
+			#first_hero.add_skill_to_loop(first_hero.skills[0])
+			#first_hero.add_skill_to_loop(first_hero.skills[1])
+			#first_hero.add_skill_to_loop(first_hero.skills[0])
+			#first_hero.is_loop_active = true
 
 	battle_initialized.emit(active_heroes)
 

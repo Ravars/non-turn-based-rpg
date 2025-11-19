@@ -1,39 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds7gugvfs680c"]
+[gd_scene load_steps=3 format=3 uid="uid://ds7gugvfs680c"]
 
 [ext_resource type="Script" uid="uid://c13omcpn55h38" path="res://Scripts/map_scene.gd" id="1_ta3c0"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/MapNode.tscn" id="2_abcde"]
 
 [node name="MapScene" type="Node2D"]
 script = ExtResource("1_ta3c0")
+map_node_scene = ExtResource("2_abcde")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="NodeButton1" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NodeButton2" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NodeButton3" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NodeButton4" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NodeButton5" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NodeButton6" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 387.0
-offset_top = 8.0
-offset_right = 471.0
-offset_bottom = 31.0
-grow_horizontal = 2
-text = "Map Scene"
+[node name="GraphEdit" type="GraphEdit" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+show_grid = false
+grid_pattern = 1

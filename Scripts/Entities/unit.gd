@@ -138,7 +138,6 @@ func internal_process(current_time: float, delta: float):
 	if not is_loop_active or execution_plan.is_empty() or is_stunned or is_dead:
 		return
 	step_progress_timer += delta
-
 	var current_step = execution_plan[plan_index]
 	var current_step_duration: float
 	# Determina a duração do passo atual
@@ -159,6 +158,7 @@ func internal_process(current_time: float, delta: float):
 		plan_index = (plan_index + 1) % execution_plan.size()
 		# Reseta o timer, carregando o tempo que "sobrou"
 		step_progress_timer -= current_step_duration
+	
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

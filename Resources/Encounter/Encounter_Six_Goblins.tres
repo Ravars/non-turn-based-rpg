@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://boxmb6la5ibyi" path="res://Resources/Archetypes/BasicGoblin.tres" id="2_drwps"]
 [ext_resource type="Resource" uid="uid://bxkxbgjh1ekam" path="res://Resources/Archetypes/BasicSpear.tres" id="3_vr0vb"]
 [ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="4_vfsjt"]
-[ext_resource type="Resource" path="res://Resources/Archetypes/Archetype_Goblin_Leader.tres" id="4_vr0vb"]
+[ext_resource type="Resource" uid="uid://c5cuc2cxamixu" path="res://Resources/Archetypes/Archetype_Goblin_Leader.tres" id="4_vr0vb"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Archetype_GoblinShaman.tres" id="5_vfsjt"]
 
 [resource]
