@@ -36,7 +36,7 @@ func generate_map_nodes():
 						graph_edit.connect_node(node_positions[Vector2(x, y)].name, 0, node_positions[Vector2(next_x, y+1)].name, 0)
 
 func _on_map_node_pressed(node_data: Dictionary):
-	print("Encounter DB instance: ", encounter_db)
+	print("Encounter DB instance: ", node_data.type)
 	match node_data.type:
 		MapGenerator.NodeType.COMBAT:
 			GameManager.start_combat(encounter_db.get_random_normal_encounter())
@@ -44,6 +44,10 @@ func _on_map_node_pressed(node_data: Dictionary):
 			GameManager.start_combat(encounter_db.get_random_elite_encounter())
 		MapGenerator.NodeType.BOSS:
 			GameManager.start_combat(encounter_db.get_boss_encounter())
+		MapGenerator.NodeType.RECRUITMENT:
+			get_tree().change_scene_to_file("res://Scenes/Events/RecruitmentEvent.tscn")
+		MapGenerator.NodeType.UPGRADE:
+			get_tree().change_scene_to_file("res://Scenes/Events/UpgradeEvent.tscn")
 		MapGenerator.NodeType.EVENT:
 			# Implement event logic
 			pass

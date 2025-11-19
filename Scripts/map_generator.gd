@@ -5,7 +5,7 @@ class_name MapGenerator
 const MAP_WIDTH = 3
 const MAP_HEIGHT = 5
 
-enum NodeType { COMBAT, ELITE_COMBAT, EVENT, SHOP, BOSS }
+enum NodeType { COMBAT, ELITE_COMBAT, EVENT, SHOP, BOSS, RECRUITMENT, UPGRADE }
 
 func generate_map() -> Array[Array]:
 	var map_data: Array[Array] = []
@@ -40,12 +40,16 @@ func _generate_node_data(y: int, is_boss: bool = false) -> Dictionary:
 		node_type = NodeType.BOSS
 	else:
 		var rand = randf()
-		if rand < 0.6:
+		if rand < 0.4:
 			node_type = NodeType.COMBAT
-		elif rand < 0.8:
+		elif rand < 0.6:
 			node_type = NodeType.EVENT
-		elif rand < 0.9:
+		elif rand < 0.7:
 			node_type = NodeType.ELITE_COMBAT
+		elif rand < 0.8:
+			node_type = NodeType.RECRUITMENT
+		elif rand < 0.9:
+			node_type = NodeType.UPGRADE
 		else:
 			node_type = NodeType.SHOP
 			
