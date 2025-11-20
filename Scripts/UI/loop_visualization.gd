@@ -47,17 +47,16 @@ func create_loop_container(unit: Unit) -> VBoxContainer:
 		if step.type == "cast":
 			var skill = step.skill
 			
-			var skill_vbox = VBoxContainer.new()
-			hbox.add_child(skill_vbox)
-
 			var skill_square = SkillSquareScene.instantiate()
 			skill_square.setup(skill)
-			skill_vbox.add_child(skill_square)
+			hbox.add_child(skill_square)
 			
 			var progress_bar = ProgressBar.new()
 			progress_bar.max_value = skill.cast_time
+			progress_bar.show_percentage = false
 			progress_bar.name = "ProgressBar_" + str(skill_index)
-			skill_vbox.add_child(progress_bar)
+			skill_square.add_child(progress_bar)
+			progress_bar.set_anchors_preset(Control.PRESET_FULL_RECT)
 			skill_index += 1
 	
 	return vbox
@@ -79,8 +78,8 @@ func update_progress_bars(loop_container: VBoxContainer, unit: Unit):
 	for step_index in range(unit.execution_plan.size()):
 		var step = unit.execution_plan[step_index]
 		if step.type == "cast":
-			var skill_vbox = hbox.get_child(skill_index)
-			var progress_bar = skill_vbox.get_node("ProgressBar_" + str(skill_index))
+			var skill_square = hbox.get_child(skill_index)
+			var progress_bar = skill_square.get_node("ProgressBar_" + str(skill_index))
 			
 			if step_index == unit.plan_index:
 				progress_bar.value = unit.step_progress_timer
