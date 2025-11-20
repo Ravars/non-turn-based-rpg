@@ -258,9 +258,12 @@ enum LanePosition {
 	BACK
 }
 
+signal execution_plan_changed(unit: Unit)
+
 func recalculate_execution_plan():
 	execution_plan.clear()
 	if skill_loop.is_empty():
+		execution_plan_changed.emit(self)
 		return
 	var cooldown_timers: Dictionary = {} # Simula os cooldowns durante o planejamento
 	# Simula um ciclo completo para determinar a ordem e as pausas
@@ -302,14 +305,8 @@ func recalculate_execution_plan():
 		if cooldown_timers[skill] <= 0:
 			cooldown_timers.erase(skill)
 
-	# Verifica se a última skill precisa de uma pausa para a primeira skill do próximo ciclo
-	# var first_skill_of_loop = skill_loop[0]
-	# if cooldown_timers.has(first_skill_of_loop):
-	# 	var final_idle_time = cooldown_timers[first_skill_of_loop]
-	# 	if final_idle_time > 0:
-	# 		execution_plan.append({"type": "idle", "duration": final_idle_time})
-
 	print("Novo Plano de Execução Gerado: ", execution_plan)
+	execution_plan_changed.emit(self)
 
 func add_skill_to_loop(skill_to_add: SkillData):
 	if skill_loop.size() >= characterStats.focus:

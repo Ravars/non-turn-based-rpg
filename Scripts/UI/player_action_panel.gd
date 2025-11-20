@@ -4,6 +4,7 @@ var selected_char: Unit
 @export var ability_button_scene: PackedScene
 @export var vfx_manager: VFXManager
 @export var skill_loop_panel: SkillLoopPanel
+@export var character_stats_panel: CharacterStatsPanel
 @onready var skills_container = $ColorRect2/Buttons_Skills_Container
 func _ready():
 	print("Ready PlayerActionPanel")
@@ -39,6 +40,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 
 func _on_button_press(unidade: Unit):
 	skill_loop_panel.display_for_hero(unidade)
+	character_stats_panel.display_stats(unidade.archetype)
 
 func _on_play_button_pressed():
 	if LoopManager.is_selecting_target:

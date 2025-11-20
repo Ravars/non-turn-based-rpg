@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgshm43j5t54n"]
+[gd_scene load_steps=8 format=3 uid="uid://bgshm43j5t54n"]
 
+[ext_resource type="Script" uid="uid://36jxab8wbqvk" path="res://Scripts/UI/main_hud.gd" id="1_abcde"]
 [ext_resource type="PackedScene" uid="uid://of55w5nk6rnu" path="res://Scenes/PlayerActionPanel.tscn" id="2_orym3"]
 [ext_resource type="Script" uid="uid://t43s4hldhv0v" path="res://Scripts/UI/vfx_manager.gd" id="3_orym3"]
 [ext_resource type="PackedScene" uid="uid://resqdfk32fh0" path="res://Scenes/UI/SkillLoopPanel.tscn" id="4_p7nfh"]
 [ext_resource type="PackedScene" uid="uid://ff6gpfqwg3wf" path="res://Scenes/UI/FloatingText.tscn" id="4_u0a2b"]
+[ext_resource type="PackedScene" uid="uid://crbcax52qcwco" path="res://Scenes/UI/CharacterStatsPanel.tscn" id="5_abcde"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/LoopVisualization.tscn" id="6_xyz"]
 
 [node name="MainHud" type="Control"]
 layout_mode = 3
@@ -15,14 +18,16 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
+script = ExtResource("1_abcde")
 
-[node name="PlayerActionPanel" parent="." node_paths=PackedStringArray("vfx_manager", "skill_loop_panel") instance=ExtResource("2_orym3")]
+[node name="PlayerActionPanel" parent="." node_paths=PackedStringArray("vfx_manager", "skill_loop_panel", "character_stats_panel") instance=ExtResource("2_orym3")]
 layout_mode = 1
 anchors_preset = 9
 anchor_right = 0.0
 grow_horizontal = 1
 vfx_manager = NodePath("../VFXManager")
 skill_loop_panel = NodePath("../SkillLoopPanel")
+character_stats_panel = NodePath("../CharacterStatsPanelContainer/CharacterStatsPanel")
 
 [node name="VFXManager" type="Control" parent="."]
 anchors_preset = 0
@@ -37,3 +42,25 @@ offset_left = 28.0
 offset_top = 130.0
 offset_right = 28.0
 offset_bottom = 130.0
+
+[node name="CharacterStatsPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -400.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CharacterStatsPanel" parent="CharacterStatsPanelContainer" instance=ExtResource("5_abcde")]
+layout_mode = 2
+
+[node name="LoopVisualization" parent="." instance=ExtResource("6_xyz")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+offset_top = -200.0
+grow_vertical = 0
