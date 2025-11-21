@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_strength_buff_skill"]
+
+[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Effects/StrengthBuff.tres" id="2_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Strength Buff"
+cast_time = 1.0
+cooldown = 10.0
+damage = 0
+damage_type = 0 # PHYSICAL
+target_team = 1 # ALLIES
+target_scope = 0 # SINGLE
+status_effects = [ExtResource("2_xyz")]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://b8e6m4qmasgc1"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_s6uru"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Lightning Bolt"
+damage = 25
+damage_type = 3
+cast_time = 1.5
+cooldown = 8.0
