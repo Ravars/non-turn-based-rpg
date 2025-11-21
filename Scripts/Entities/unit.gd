@@ -136,11 +136,30 @@ func _die():
 	modulate = Color(0.5, 0.5, 0.5)
 	CombatManager.on_unit_died(self)
 
+@export var status_effect_icon_scene: PackedScene
+@export var status_effect_tooltip_scene: PackedScene
+
+@onready var status_effects_container = $StatusEffectsContainer
+
 func apply_status_effect(effect:StatusEffect):
 	print("EFFECT {0} recebeu o efeito {1}".format({0: name, 1: effect.effect_name}))
+	
+	var icon = status_effect_icon_scene.instantiate()
+	icon.texture = effect.icon
+	status_effects_container.add_child(icon)
+	
+	var tooltip = status_effect_tooltip_scene.instantiate()
+	tooltip.setup(effect)
+	tooltip.visible = false
+	icon.add_child(tooltip)
+	
+	icon.mouse_entered.connect(tooltip.show)
+	icon.mouse_exited.connect(tooltip.hide)
+
 	active_status_effects[effect] = {
 		"time_left": effect.duration,
-		"tick_timer": 0.0
+		"tick_timer": 0.0,
+		"icon": icon
 	}
 	
 	if effect.type == StatusEffect.EffectType.STUN:
@@ -148,7 +167,6 @@ func apply_status_effect(effect:StatusEffect):
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
 	elif effect.type == StatusEffect.EffectType.STAT_MODIFIER:
-		print("Stat changed: %f" % [get_final_strength()])
 		apply_stat_modifier(effect)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
@@ -198,6 +216,12 @@ func _on_effect_expired(effect: StatusEffect):
 	if effect.type == StatusEffect.EffectType.STUN:
 		is_stunned = false
 		print("EFFECT {0} NÃO está mais atordoado.".format({0: name}))
+	
+	var effect_data = active_status_effects[effect]
+	if effect_data and effect_data.has("icon"):
+		var icon = effect_data["icon"]
+		if is_instance_valid(icon):
+			icon.queue_free()
 
 func get_final_stat(stat_to_get: StatusEffect.Stat) -> int:
 	var base_value: float

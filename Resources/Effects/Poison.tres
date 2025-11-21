@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://txctliyjfneq"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=4 format=3 uid="uid://txctliyjfneq"]
 
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="1_okark"]
 [ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_ot2oc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epw8t"]
+atlas = ExtResource("1_okark")
+region = Rect2(32, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_ot2oc")
 effect_name = "Poison"
+icon = SubResource("AtlasTexture_epw8t")
 type = 1
 duration = 4.0
 value = 2.0
-target_stat = 0
-is_percentage = false
 metadata/_custom_type_script = "uid://chslrfvmeqbqa"

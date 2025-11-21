@@ -29,7 +29,7 @@ window/size/viewport_height=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/limbo_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/kenny_spritesheet_importer/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
 
 [input]
 

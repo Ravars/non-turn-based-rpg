@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://dti1u7071o8ja"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=4 format=3 uid="uid://dti1u7071o8ja"]
 
 [ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_j5iya"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="1_olukw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu5eq"]
+atlas = ExtResource("1_olukw")
+region = Rect2(480, 320, 32, 32)
 
 [resource]
 script = ExtResource("1_j5iya")
 effect_name = "Stun"
+icon = SubResource("AtlasTexture_eu5eq")
 type = 0
 duration = 2.0
 value = 0.0

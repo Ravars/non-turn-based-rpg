@@ -46,7 +46,7 @@ characterStats = ExtResource("2_iu58d")
 [node name="ColorRect" parent="." index="0"]
 color = Color(1, 1, 1, 0)
 
-[node name="AnimatedSprite2D" parent="." index="3"]
+[node name="AnimatedSprite2D" parent="." index="4"]
 sprite_frames = SubResource("SpriteFrames_hs06u")
 animation = &"Idle"
 autoplay = "Idle"

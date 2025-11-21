@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://cuwf140g8ocv1"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=4 format=3 uid="uid://cuwf140g8ocv1"]
 
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="1_5pypt"]
 [ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_07kbq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p24cx"]
+atlas = ExtResource("1_5pypt")
+region = Rect2(384, 224, 32, 32)
 
 [resource]
 script = ExtResource("1_07kbq")
 effect_name = "Armadura Quebrada"
+icon = SubResource("AtlasTexture_p24cx")
 duration = 8.0
 value = -20.0
 metadata/_custom_type_script = "uid://chslrfvmeqbqa"

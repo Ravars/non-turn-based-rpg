@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cfh86l6qvuhom"]
+
+[node name="StatusEffectIcon" type="TextureRect"]
+custom_minimum_size = Vector2(32, 32)
+expand_mode = 1
