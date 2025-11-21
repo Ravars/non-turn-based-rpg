@@ -8,3 +8,5 @@ class_name CharacterStats
 @export var dexterity: int = 1
 @export var intelligence: int = 1
 @export var focus: int = 3
+@export var armor: int = 0
+@export var magic_resist: int = 0

@@ -5,9 +5,6 @@
 [resource]
 script = ExtResource("1_07kbq")
 effect_name = "Armadura Quebrada"
-type = 3
 duration = 8.0
 value = -20.0
-target_stat = 0
-is_percentage = false
 metadata/_custom_type_script = "uid://chslrfvmeqbqa"

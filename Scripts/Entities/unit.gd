@@ -3,13 +3,8 @@ class_name Unit
 
 signal unit_died(Unit)
 signal unit_clicked(unit: Unit)
-# signal action_executed(action: TimelineAction)
-# signal action_started(action: TimelineAction)
-# signal action_tick(percent: float)
 signal damage_taken(amount: float, position: Vector2, damage_type: CombatManager.DamageType)
 signal heal_received(amount: float, position: Vector2)
-# signal target_selection_requested(action: TimelineAction)
-# signal action_added(action: TimelineAction)
 const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 @export var is_enemy := false
@@ -31,15 +26,10 @@ var action_indicator_image: Sprite2D
 var current_cast_progress: float = 0.0
 var current_lane_position: LanePosition
 
-
-
-
 var skill_loop: Array[SkillData] = []
 var execution_plan: Array = []
 var plan_index: int = 0
 var step_progress_timer: float = 0.0
-# var current_loop_index: int = 0
-# var current_cast_timer: float = 0.0
 var is_loop_active: bool = false
 	
 var last_loop_progress: float = 0.0
@@ -84,59 +74,17 @@ func setup_test_loop(loop_skills: Array[SkillData]):
 	self.is_loop_active = true
 	print("'{0}' configurado com um loop de {1} habilidades.".format({0: name, 1: skill_loop.size()}))
 
-# func internal_process(_current_time: float, delta: float):
-# 	if not is_loop_active or is_dead or skill_loop.is_empty() or is_stunned: return
-# 	current_cast_timer += delta
-	
-# 	var current_skill = skill_loop[current_loop_index]
-
-
-
-# 	while current_cast_timer >= current_skill.cast_time:
-# 		print("'{0}' executou a habilidade '{1}'".format({0: name, 1: current_skill.skill_name}))
-# 		CombatManager.execute_action(self, current_skill)
-# 		current_cast_timer -= current_skill.cast_time
-# 		current_loop_index = (current_loop_index + 1) % skill_loop.size()
-# 		current_skill = skill_loop[current_loop_index]
-# 	# if current_cast_timer >= current_skill.cast_time:
-# 	# 	print("'{0}' executou a habilidade '{1}'".format({0: name, 1: current_skill.skill_name}))
-# 	# 	CombatManager.execute_action(self, current_skill)
-# 	# 	current_cast_timer = 0
-# 	# 	current_loop_index = (current_loop_index + 1) % skill_loop.size()
-		
-	
-# 	# process_action_queue(_current_time, delta)
-# 	# process_status_effect(_current_time, delta)
-
-# func internal_process(_current_time: float, delta: float):
-# 	if not is_loop_active or skill_loop.is_empty() or is_stunned or is_dead:
-# 		return
-# 	var loop_props = calculate_loop_properties()
-# 	print(loop_props)
-# 	if loop_props.total_duration <= 0: return
-# 	# Salva o tempo anterior e avança o timer
-# 	last_loop_progress = loop_progress_timer
-# 	loop_progress_timer += delta
-# 	# Verifica se o timer cruzou o ponto de conclusão de alguma habilidade
-# 	var time_accumulator = 0.0
-# 	for skill in skill_loop:
-# 		var skill_end_time = time_accumulator + skill.cast_time
-# 		# Se o tempo ANTERIOR era antes do fim e o tempo ATUAL é depois...
-# 		if last_loop_progress < skill_end_time and loop_progress_timer >= skill_end_time:
-# 			print("'{0}' executou '{1}' no tempo {2}".format({0: name, 1: skill.skill_name, 2: skill_end_time}))
-# 			CombatManager.execute_action(self, skill)
-# 		time_accumulator += skill.cast_time
-# 	# "Wrap around" - faz o loop reiniciar
-# 	if loop_progress_timer >= loop_props.total_duration:
-# 		var time_overflow = loop_progress_timer - loop_props.total_duration
-# 		loop_progress_timer = time_overflow
-# 		last_loop_progress = 0.0
-# 		# Re-executa a lógica para o tempo que "sobrou"
-# 		internal_process(_current_time,0)
-
 func internal_process(current_time: float, delta: float):
-	if not is_loop_active or execution_plan.is_empty() or is_stunned or is_dead:
+	if is_dead: # If dead, nothing happens
 		return
+	
+	# Process status effects always, as long as the unit is not dead
+	process_status_effect(current_time, delta)
+
+	# Skill execution is guarded by more conditions
+	if not is_loop_active or execution_plan.is_empty() or is_stunned:
+		return
+		
 	step_progress_timer += delta
 	var current_step = execution_plan[plan_index]
 	var current_step_duration: float
@@ -195,11 +143,13 @@ func apply_status_effect(effect:StatusEffect):
 		"tick_timer": 0.0
 	}
 	
-	# TODO: Apply instant effects
 	if effect.type == StatusEffect.EffectType.STUN:
 		is_stunned = true
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
+	elif effect.type == StatusEffect.EffectType.STAT_MODIFIER:
+		print("Stat changed: %f" % [get_final_strength()])
+		apply_stat_modifier(effect)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
@@ -219,13 +169,19 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 			StatusEffect.EffectType.DAMAGE_OVER_TIME:
 				effect_data.tick_timer += delta
 				if effect_data.tick_timer >= 1.0:
-					print("EFFECT! {0} sofre {1} de dano do efeito {2}".format({0: name, 1: effect.value, 2: effect.effect_name}))
-					take_damage(effect.value, CombatManager.DamageType.POISON)
+					print("EFFECT! {0} tomou {1} de dano do efeito {2}".format({0: name, 1: effect.value, 2: effect.effect_name}))
+					take_damage(effect.value, effect.damage_type)
 					effect_data.tick_timer -= 1.0
 				pass
 			StatusEffect.EffectType.HEAL_OVER_TIME:
+				effect_data.tick_timer += delta
+				if effect_data.tick_timer >= 1.0:
+					print("EFFECT! {0} cura {1} de vida do efeito {2}".format({0: name, 1: effect.value, 2: effect.effect_name}))
+					heal(effect.value)
+					effect_data.tick_timer -= 1.0
 				pass
 			StatusEffect.EffectType.STAT_MODIFIER:
+				# The effect is already applied in `apply_status_effect`
 				pass
 			
 	for effect in effects_to_remove:
@@ -233,23 +189,48 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 		active_status_effects.erase(effect)
 		action_indicator_image.texture = null
 		print("EFFECT '{0}' expirou em {1}".format({"0": effect.effect_name, "1": name}))
-	# TODO: revert effects
+	
+func apply_stat_modifier(effect: StatusEffect):
+	# This function is now empty, the logic is handled in get_final_strength
+	pass
 
 func _on_effect_expired(effect: StatusEffect):
 	if effect.type == StatusEffect.EffectType.STUN:
 		is_stunned = false
 		print("EFFECT {0} NÃO está mais atordoado.".format({0: name}))
 
-func get_final_strength() -> int:
-	var final_value = float(characterStats.strength)
-	for effect: StatusEffect in active_status_effects:
-		if effect.type == StatusEffect.EffectType.STAT_MODIFIER and effect.target_stat == StatusEffect.Stat.STRENGTH:
-			if effect.is_percentage:
-				final_value *= (1.0 + effect.value/100)
-			else:
-				final_value += effect.value
-	return max(0, int(final_value))
+func get_final_stat(stat_to_get: StatusEffect.Stat) -> int:
+	var base_value: float
+	match stat_to_get:
+		StatusEffect.Stat.STRENGTH:
+			base_value = float(characterStats.strength)
+		StatusEffect.Stat.DEXTERITY:
+			base_value = float(characterStats.dexterity)
+		StatusEffect.Stat.ARMOR:
+			base_value = float(characterStats.armor)
+		StatusEffect.Stat.MAGIC_RESIST:
+			base_value = float(characterStats.magic_resist)
 
+	for effect: StatusEffect in active_status_effects:
+		if effect.type == StatusEffect.EffectType.STAT_MODIFIER and effect.target_stat == stat_to_get:
+			if effect.is_percentage:
+				base_value *= (1.0 + effect.value/100)
+			else:
+				base_value += effect.value
+	return max(0, int(base_value))
+
+func get_final_strength() -> int:
+	return get_final_stat(StatusEffect.Stat.STRENGTH)
+
+func get_final_dexterity() -> int:
+	return get_final_stat(StatusEffect.Stat.DEXTERITY)
+
+func get_final_armor() -> int:
+	return get_final_stat(StatusEffect.Stat.ARMOR)
+
+func get_final_magic_resist() -> int:
+	return get_final_stat(StatusEffect.Stat.MAGIC_RESIST)
+	
 func get_final_intelligence() -> int:
 	return characterStats.intelligence
 

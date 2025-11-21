@@ -9,6 +9,7 @@ class_name StatusEffect
 @export_group("Values")
 @export var duration: float = 1.0
 @export var value: float = 1.0
+@export var damage_type: CombatManager.DamageType = CombatManager.DamageType.POISON
 @export var target_stat: Stat = Stat.STRENGTH
 @export var is_percentage: bool = false
 

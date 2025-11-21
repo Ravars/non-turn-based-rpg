@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://bk14aot6jtncu"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://bk14aot6jtncu"]
 
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_gybf2"]
 [ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_ymj8e"]
+[ext_resource type="Resource" uid="uid://djgjmimng740v" path="res://Resources/Effects/Fire.tres" id="3_k8ya7"]
 
 [resource]
 script = ExtResource("1_gybf2")
@@ -10,6 +11,7 @@ damage = 10
 damage_type = 1
 cast_time = 3.0
 cooldown = 10.0
+status_effects = Array[ExtResource("2_ymj8e")]([ExtResource("3_k8ya7")])
 target_scope = 3
 range_rule = 1
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"
