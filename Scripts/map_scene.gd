@@ -3,13 +3,12 @@ extends Node2D
 @onready var graph_edit = $GraphEdit
 @export var map_node_scene: PackedScene
 
-var map_generator = MapGenerator.new()
 var map_data: Array[Array]
 var encounter_db: EncounterDB
 
 func _ready():
 	encounter_db = load("res://Resources/Encounter/Act1_EncountersDB.tres")
-	map_data = map_generator.generate_map()
+	map_data = GameManager.map_data
 	generate_map_nodes()
 
 func generate_map_nodes():
@@ -20,12 +19,22 @@ func generate_map_nodes():
 			var node_data = map_data[y][x]
 			if node_data:
 				var map_node: GraphNode = map_node_scene.instantiate()
-				map_node.setup(node_data)
+				var node_pos = Vector2i(x,y)
+				map_node.setup(node_data, node_pos)
 				map_node.position_offset = Vector2(x * 200 + 50, y * 120 + 50)
 				graph_edit.add_child(map_node)
 				node_positions[Vector2(x, y)] = map_node
 
-				map_node.map_node_clicked.connect(_on_map_node_pressed)
+				if node_data.type == MapGenerator.NodeType.START:
+					map_node.modulate = Color.GREEN
+					GameManager.update_current_map_node_ref(map_node)
+				else:
+					map_node.map_node_clicked.connect(_on_map_node_pressed)
+				
+				if node_pos == GameManager.current_player_pos:
+					map_node.modulate = Color.GREEN
+					GameManager.update_current_map_node_ref(map_node)
+
 
 	# Connect nodes
 	for y in range(map_data.size() - 1):
@@ -35,8 +44,27 @@ func generate_map_nodes():
 					if map_data[y+1][next_x]:
 						graph_edit.connect_node(node_positions[Vector2(x, y)].name, 0, node_positions[Vector2(next_x, y+1)].name, 0)
 
-func _on_map_node_pressed(node_data: Dictionary):
-	print("Encounter DB instance: ", node_data.type)
+func _on_map_node_pressed(node_data: Dictionary, map_node: GraphNode, node_pos: Vector2i):
+	
+	if node_data.type == MapGenerator.NodeType.START:
+		return
+
+	if not (node_pos.y == GameManager.current_player_pos.y + 1 or (GameManager.current_player_pos.y == 0 and node_pos.y == 0)):
+		print("Invalid move")
+		return
+
+	# Clear previous highlight
+	if is_instance_valid(GameManager.current_map_node_ref):
+		GameManager.current_map_node_ref.modulate = Color.WHITE
+
+	# Update player position
+	GameManager.add_visited_node(GameManager.current_player_pos)
+	GameManager.update_player_pos(node_pos)
+	GameManager.update_current_map_node_ref(map_node)
+
+	# Highlight new position
+	map_node.modulate = Color.GREEN
+
 	match node_data.type:
 		MapGenerator.NodeType.COMBAT:
 			GameManager.start_combat(encounter_db.get_random_normal_encounter())

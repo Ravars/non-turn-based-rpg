@@ -9,6 +9,7 @@ skill_name = "Heal Single"
 damage = 0
 heal = 25
 cast_time = 2.0
+cooldown = 5.0
 target_team = 1
 range_rule = 1
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

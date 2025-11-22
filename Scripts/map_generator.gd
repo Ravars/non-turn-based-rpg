@@ -5,7 +5,7 @@ class_name MapGenerator
 const MAP_WIDTH = 3
 const MAP_HEIGHT = 5
 
-enum NodeType { COMBAT, ELITE_COMBAT, EVENT, SHOP, BOSS, RECRUITMENT, UPGRADE }
+enum NodeType { START, COMBAT, ELITE_COMBAT, EVENT, SHOP, BOSS, RECRUITMENT, UPGRADE }
 
 func generate_map() -> Array[Array]:
 	var map_data: Array[Array] = []
@@ -15,9 +15,13 @@ func generate_map() -> Array[Array]:
 			row.append(null)
 		map_data.append(row)
 
+	# Create a start node
+	var start_x = randi() % MAP_WIDTH
+	map_data[0][start_x] = _generate_node_data(0, false, true)
+
 	# Create a random path
-	var current_x = randi() % MAP_WIDTH
-	for y in range(MAP_HEIGHT):
+	var current_x = start_x
+	for y in range(1, MAP_HEIGHT):
 		map_data[y][current_x] = _generate_node_data(y)
 		
 		# Add branching paths
@@ -34,10 +38,12 @@ func generate_map() -> Array[Array]:
 	
 	return map_data
 
-func _generate_node_data(y: int, is_boss: bool = false) -> Dictionary:
+func _generate_node_data(y: int, is_boss: bool = false, is_start: bool = false) -> Dictionary:
 	var node_type: NodeType
 	if is_boss:
 		node_type = NodeType.BOSS
+	elif is_start:
+		node_type = NodeType.START
 	else:
 		var rand = randf()
 		if rand < 0.4:

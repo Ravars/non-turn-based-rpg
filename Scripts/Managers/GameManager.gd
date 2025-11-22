@@ -2,6 +2,8 @@ extends Node
 
 var player_team: Array[PlayerCharacterData] = []
 var next_encounter_enemies: Array[CharacterArchetype] = []
+var map_data: Array[Array] = []
+var map_generator = MapGenerator.new()
 
 const PLAYABLE_HEROES_DB: PlayableArchetypes = preload("res://Resources/Archetypes/PlayableHeroes.tres")
 const SKILL_REWARD_DB: SkillRewardDB = preload("res://Resources/Skills/SkillRewardDB.tres")
@@ -14,6 +16,12 @@ func _ready():
 	combat_ended.connect(_on_combat_ended)
 	get_tree().change_scene_to_file("res://Scenes/TeamSelectionScreen.tscn")
 
+var current_player_pos := Vector2i.ZERO
+
+var current_map_node_ref: GraphNode = null
+
+var visited_nodes: Array[Vector2i] = []
+
 func start_new_run(chosen_archetypes: Array[CharacterArchetype]):
 	print("GAME MANAGER: Iniciando nova partida")
 	player_team.clear();
@@ -24,8 +32,28 @@ func start_new_run(chosen_archetypes: Array[CharacterArchetype]):
 		character_data.current_hp = archetype.base_stats.health
 		player_team.append(character_data)
 	
+	map_data = map_generator.generate_map()
+	
+	for y in range(map_data.size()):
+		for x in range(map_data[y].size()):
+			if map_data[y][x] and map_data[y][x].type == MapGenerator.NodeType.START:
+				current_player_pos = Vector2i(x, y)
+				break
+	
+	current_map_node_ref = null
+	visited_nodes.clear()
 	run_started.emit()
 	get_tree().change_scene_to_file("res://Scenes/MapScene.tscn")
+
+func update_player_pos(new_pos: Vector2i):
+	current_player_pos = new_pos
+
+func update_current_map_node_ref(node: GraphNode):
+	current_map_node_ref = node
+
+func add_visited_node(node_pos: Vector2i):
+	if not visited_nodes.has(node_pos):
+		visited_nodes.append(node_pos)
 
 func start_combat(enemy_archetypes: Array[CharacterArchetype]):
 	print("GAME MANAGER: Preparando para iniciar o combate.")
