@@ -6,13 +6,16 @@ extends Node2D
 var map_data: Array[Array]
 var encounter_db: EncounterDB
 
+var node_positions = {} # Store node positions to draw connections
+
 func _ready():
 	encounter_db = load("res://Resources/Encounter/Act1_EncountersDB.tres")
 	map_data = GameManager.map_data
 	generate_map_nodes()
+	graph_edit.arrange_nodes()
 
 func generate_map_nodes():
-	var node_positions = {} # Store node positions to draw connections
+	node_positions.clear()
 
 	for y in range(map_data.size()):
 		for x in range(map_data[y].size()):
