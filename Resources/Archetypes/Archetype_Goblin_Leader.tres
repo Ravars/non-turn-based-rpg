@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://c5cuc2cxamixu"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://c5cuc2cxamixu"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_main"]
 [ext_resource type="Resource" path="res://Resources/Units/Goblin_Leader.tres" id="2_stats"]
@@ -7,14 +7,25 @@
 [ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="5_7j5an"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="6_7j5an"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gy74"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7j5an"]
 atlas = ExtResource("6_7j5an")
 region = Rect2(0, 576, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gy74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7j5an")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_main")
 character_name = "Líder Goblin"
 scene = ExtResource("3_scene")
-texture = SubResource("AtlasTexture_7gy74")
+sprite_frames = SubResource("SpriteFrames_7gy74")
 base_stats = ExtResource("2_stats")
 starting_skills = Array[ExtResource("4_giytk")]([ExtResource("5_7j5an")])

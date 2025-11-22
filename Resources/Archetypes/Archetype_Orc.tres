@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=7 format=3 uid="uid://brr68cnx2terp"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://brr68cnx2terp"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_main"]
 [ext_resource type="Resource" uid="uid://cfy7osg66n1xw" path="res://Resources/Units/Orc.tres" id="2_stats"]
@@ -6,12 +6,24 @@
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_gffy3"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="5_dag70"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4vpk4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gffy3"]
 atlas = ExtResource("5_dag70")
+region = Rect2(320, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dag70"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gffy3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_main")
 character_name = "Orc Bruto"
 scene = ExtResource("3_scene")
-texture = SubResource("AtlasTexture_4vpk4")
+sprite_frames = SubResource("SpriteFrames_dag70")
 base_stats = ExtResource("2_stats")

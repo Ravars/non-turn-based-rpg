@@ -37,6 +37,7 @@ var loop_progress_timer: float = 0.0
 
 func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, p_current_health: float = -1.0):
 	self.archetype = p_archetype
+	self.characterStats = archetype.base_stats
 	self.current_lane_position = p_lane_position
 	self.name = archetype.character_name
 	self.skills = archetype.starting_skills.duplicate()
@@ -45,15 +46,15 @@ func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, 
 	else:
 		self.current_hp = p_current_health
 	$Label.text = str(current_hp)
-	# Cria uma área clicável programaticamente
+
+	$AnimatedSprite2D.sprite_frames = archetype.sprite_frames
+	$AnimatedSprite2D.play("default")
+
 	var clickable_area = Area2D.new()
 	var collision_shape = CollisionShape2D.new()
 	var rectangle = RectangleShape2D.new()
 	
-	if has_node("Sprite2D"):
-		rectangle.size = get_node("Sprite2D").texture.get_size()
-	else:
-		rectangle.size = Vector2(50, 100)
+	rectangle.size = $AnimatedSprite2D.sprite_frames.get_frame_texture("default", 0).get_size()
 	
 	collision_shape.shape = rectangle
 	clickable_area.add_child(collision_shape)

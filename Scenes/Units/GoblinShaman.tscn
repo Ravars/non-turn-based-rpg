@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://du1j1exi1spab"]
+[gd_scene load_steps=5 format=3 uid="uid://62crfa7sig1u"]
 
 [ext_resource type="Script" uid="uid://bo3vat64lvjk3" path="res://Scripts/Entities/unit.gd" id="1_16kkg"]
 [ext_resource type="Resource" uid="uid://csvopphswd4xe" path="res://Resources/Units/GoblinShaman.tres" id="2_g41ub"]

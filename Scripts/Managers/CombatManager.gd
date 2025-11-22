@@ -127,6 +127,8 @@ func get_valid_targets(caster: Unit, skill_data: SkillData) -> Array[Unit]:
 
 	return []
 
+var unit_scene = preload("res://Scenes/Units/Unit.tscn")
+
 func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[CharacterArchetype], setup_node: BattleSetup) -> void:
 	active_heroes.clear()
 	active_enemies.clear()
@@ -137,7 +139,7 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
 		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
 		var archetype = hero_data[i].archetype
-		var new_hero: Unit = archetype.scene.instantiate()
+		var new_hero: Unit = unit_scene.instantiate()
 		var lane_pos_enum
 		if position_in_lane == 0:
 			lane_pos_enum = Unit.LanePosition.FRONT
@@ -164,7 +166,7 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 			lane_pos_enum = Unit.LanePosition.FRONT
 		else:
 			lane_pos_enum = Unit.LanePosition.BACK
-		var new_enemy: Unit = enemy_data[i].scene.instantiate()
+		var new_enemy: Unit = unit_scene.instantiate()
 		new_enemy.is_enemy = true
 		new_enemy.initialize(archetype, lane_pos_enum)
 		new_enemy.add_to_group("enemies")

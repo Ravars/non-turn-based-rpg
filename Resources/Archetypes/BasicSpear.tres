@@ -1,21 +1,53 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://bxkxbgjh1ekam"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=12 format=3 uid="uid://bxkxbgjh1ekam"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_g0bl6"]
 [ext_resource type="Resource" uid="uid://cn5j6yg3g46k1" path="res://Resources/Units/Warrior_Spearman.tres" id="1_iivqr"]
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_iivqr"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_yr4n4"]
+[ext_resource type="Texture2D" uid="uid://bi68jf7qnxwk1" path="res://Assets/MiniSpearMan.png" id="4_ohxec"]
 [ext_resource type="Resource" uid="uid://76mk7th8ptlq" path="res://Resources/Skills/HealTarget.tres" id="5_iivqr"]
-[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="6_ohxec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_stunm"]
-atlas = ExtResource("6_ohxec")
-region = Rect2(192, 320, 32, 32)
+atlas = ExtResource("4_ohxec")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhwip"]
+atlas = ExtResource("4_ohxec")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cend"]
+atlas = ExtResource("4_ohxec")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx0i3"]
+atlas = ExtResource("4_ohxec")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w36sk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stunm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhwip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cend")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx0i3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_g0bl6")
 character_name = "Lanceiro"
 scene = ExtResource("2_iivqr")
-texture = SubResource("AtlasTexture_stunm")
+sprite_frames = SubResource("SpriteFrames_w36sk")
 base_stats = ExtResource("1_iivqr")
 starting_skills = Array[ExtResource("2_yr4n4")]([ExtResource("5_iivqr")])
 metadata/_custom_type_script = "uid://c43gnnfauc070"
