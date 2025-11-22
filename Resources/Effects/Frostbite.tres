@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_frostbite_effect"]
+
+[ext_resource type="Script" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+effect_name = "Frostbite"
+type = 3 # STAT_MODIFIER
+duration = 5.0
+value = -5.0
+target_stat = 1 # DEXTERITY
+is_percentage = false

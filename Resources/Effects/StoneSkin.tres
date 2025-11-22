@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_stone_skin_effect"]
+
+[ext_resource type="Script" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+effect_name = "Stone Skin"
+type = 3 # STAT_MODIFIER
+duration = 10.0
+value = 20.0
+target_stat = 2 # ARMOR
+is_percentage = false

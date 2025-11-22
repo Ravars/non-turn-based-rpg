@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_void_blast_skill"]
+
+[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Void Blast"
+cast_time = 3.0
+cooldown = 10.0
+damage = 15
+damage_type = 2 # POISON
+target_team = 0 # ENEMIES
+target_scope = 1 # ALL
+status_effects = []

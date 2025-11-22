@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_curse_effect"]
+
+[ext_resource type="Script" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+effect_name = "Curse"
+type = 3 # STAT_MODIFIER
+duration = 10.0
+value = -15.0
+target_stat = 3 # MAGIC_RESIST
+is_percentage = false

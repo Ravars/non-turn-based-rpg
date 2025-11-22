@@ -1,16 +1,54 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=7 format=3 uid="uid://bk2h6atmt0umj"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=13 format=3 uid="uid://bk2h6atmt0umj"]
 
 [ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Units/Mage.tres" id="1_6ae03"]
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_vmhcc"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_ao2n2"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_bx7w6"]
-[ext_resource type="PackedScene" uid="uid://7vh5n4px2cnv" path="res://Scenes/Units/Mage.tscn" id="2_lqbib"]
+[ext_resource type="Texture2D" uid="uid://d2uprb5wpvyeh" path="res://Assets/MiniMage.png" id="4_kcagc"]
 [ext_resource type="Resource" uid="uid://yauem314bilu" path="res://Resources/Skills/FireBolt.tres" id="5_ao2n2"]
 [ext_resource type="Resource" uid="uid://bk14aot6jtncu" path="res://Resources/Skills/FireBall.tres" id="6_kcagc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vis0"]
+atlas = ExtResource("4_kcagc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwxs6"]
+atlas = ExtResource("4_kcagc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32r13"]
+atlas = ExtResource("4_kcagc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kr5y"]
+atlas = ExtResource("4_kcagc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tup01"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vis0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwxs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32r13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kr5y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_vmhcc")
 character_name = "Mago Basico"
-scene = ExtResource("2_lqbib")
+scene = ExtResource("2_ao2n2")
+sprite_frames = SubResource("SpriteFrames_tup01")
 base_stats = ExtResource("1_6ae03")
 starting_skills = Array[ExtResource("2_bx7w6")]([ExtResource("5_ao2n2"), ExtResource("6_kcagc")])
 metadata/_custom_type_script = "uid://c43gnnfauc070"

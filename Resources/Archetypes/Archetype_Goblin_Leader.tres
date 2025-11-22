@@ -1,14 +1,20 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=6 format=3 uid="uid://c5cuc2cxamixu"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://c5cuc2cxamixu"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_main"]
 [ext_resource type="Resource" path="res://Resources/Units/Goblin_Leader.tres" id="2_stats"]
-[ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="3_scene"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="3_scene"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_giytk"]
 [ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="5_7j5an"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="6_7j5an"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gy74"]
+atlas = ExtResource("6_7j5an")
+region = Rect2(0, 576, 32, 32)
 
 [resource]
 script = ExtResource("1_main")
 character_name = "Líder Goblin"
 scene = ExtResource("3_scene")
+texture = SubResource("AtlasTexture_7gy74")
 base_stats = ExtResource("2_stats")
 starting_skills = Array[ExtResource("4_giytk")]([ExtResource("5_7j5an")])

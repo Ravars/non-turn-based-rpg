@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_rock_throw_skill"]
+
+[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Effects/Stun.tres" id="2_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Rock Throw"
+cast_time = 2.0
+cooldown = 7.0
+damage = 15
+damage_type = 0 # PHYSICAL
+target_team = 0 # ENEMIES
+target_scope = 0 # SINGLE
+status_effects = [ExtResource("2_xyz")]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_ice_elemental"]
+
+[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Skills/IceSkill.tres" id="2_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+character_name = "Ice Elemental"
+scene = null # Add scene path here
+base_stats = null # Add stats here
+starting_skills = [ExtResource("2_xyz")]

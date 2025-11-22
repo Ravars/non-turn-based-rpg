@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_wind_slash_skill"]
+
+[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Effects/DexterityDebuff.tres" id="2_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Wind Slash"
+cast_time = 0.5
+cooldown = 3.0
+damage = 5
+damage_type = 0 # PHYSICAL
+target_team = 0 # ENEMIES
+target_scope = 0 # SINGLE
+status_effects = [ExtResource("2_xyz")]

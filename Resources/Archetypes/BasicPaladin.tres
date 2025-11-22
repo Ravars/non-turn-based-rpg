@@ -1,16 +1,22 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=7 format=3 uid="uid://bxjyp2do4lqed"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://bxjyp2do4lqed"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_1ad4x"]
 [ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Warrior.tres" id="1_jv5i5"]
-[ext_resource type="PackedScene" uid="uid://bet4frdrva7or" path="res://Scenes/Units/Warrior.tscn" id="2_axnja"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_kafkc"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_mfkwo"]
 [ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="5_axnja"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="7_31hg4"]
 [ext_resource type="Resource" uid="uid://b1glorvcryp0a" path="res://Resources/Skills/HealMultipleTargets.tres" id="7_eh44g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eh44g"]
+atlas = ExtResource("7_31hg4")
+region = Rect2(96, 224, 32, 32)
 
 [resource]
 script = ExtResource("1_1ad4x")
 character_name = "Paladino"
-scene = ExtResource("2_axnja")
+scene = ExtResource("2_mfkwo")
+texture = SubResource("AtlasTexture_eh44g")
 base_stats = ExtResource("1_jv5i5")
 starting_skills = Array[ExtResource("2_kafkc")]([ExtResource("5_axnja"), ExtResource("7_eh44g")])
 metadata/_custom_type_script = "uid://c43gnnfauc070"

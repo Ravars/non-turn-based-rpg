@@ -1,15 +1,102 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=6 format=3 uid="uid://boxmb6la5ibyi"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=19 format=3 uid="uid://dimpx2u8b6kbg"]
 
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
 [ext_resource type="Resource" uid="uid://6ani4ruco48d" path="res://Resources/Units/Goblin.tres" id="1_n08hh"]
-[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_sq0bg"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_pbb3q"]
-[ext_resource type="PackedScene" uid="uid://ctjkrsxjkogxj" path="res://Scenes/Units/Goblin.tscn" id="2_qurno"]
-[ext_resource type="Resource" uid="uid://dmgfjn6xctexm" path="res://Resources/Skills/ArmorBreakSkill.tres" id="5_sj28x"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_qurno"]
+[ext_resource type="Texture2D" uid="uid://d2uprb5wpvyeh" path="res://Assets/MiniMage.png" id="3_ky50c"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="6_jkxma"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj28x"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un3ly"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npj88"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6352y"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xixxw"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wpwo"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2sux"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(192, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jxv4"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(224, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tls5m"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(256, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oelqs"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(288, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jafu2"]
+atlas = ExtResource("3_ky50c")
+region = Rect2(320, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj28x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un3ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npj88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6352y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xixxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wpwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2sux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jxv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tls5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oelqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jafu2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
-script = ExtResource("1_sq0bg")
-character_name = "Basic Goblin"
+script = ExtResource("1_abcde")
+character_name = "Goblin"
 scene = ExtResource("2_qurno")
+sprite_frames = SubResource("1")
 base_stats = ExtResource("1_n08hh")
-starting_skills = Array[ExtResource("2_pbb3q")]([ExtResource("5_sj28x")])
+starting_skills = Array[ExtResource("2_pbb3q")]([ExtResource("6_jkxma")])
 metadata/_custom_type_script = "uid://c43gnnfauc070"
