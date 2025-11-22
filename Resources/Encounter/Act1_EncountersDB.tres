@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="EncounterDB" load_steps=5 format=3 uid="uid://bkered38lpme7"]
+[gd_resource type="Resource" script_class="EncounterDB" load_steps=10 format=3 uid="uid://bkered38lpme7"]
 
 [ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_6gacv"]
 [ext_resource type="Script" uid="uid://b17mj0wx2ynj8" path="res://Scripts/Data/EncounterDB.gd" id="1_db"]
 [ext_resource type="Resource" uid="uid://chx7hiymxsffj" path="res://Resources/Encounter/Encounter_Goblin.tres" id="2_mne5c"]
 [ext_resource type="Resource" uid="uid://yshgny75aqvs" path="res://Resources/Encounter/Encounter_Triple_Goblins.tres" id="3_wungp"]
+[ext_resource type="Resource" uid="uid://unique_uid_for_elemental_encounter" path="res://Resources/Encounter/ElementalEncounter.tres" id="4_xyz"]
+[ext_resource type="Resource" uid="uid://unique_uid_for_golem_encounter" path="res://Resources/Encounter/GolemEncounter.tres" id="5_xyz"]
+[ext_resource type="Resource" uid="uid://unique_uid_for_wind_encounter" path="res://Resources/Encounter/WindEncounter.tres" id="6_xyz"]
+[ext_resource type="Resource" uid="uid://unique_uid_for_light_encounter" path="res://Resources/Encounter/LightEncounter.tres" id="7_xyz"]
+[ext_resource type="Resource" uid="uid://unique_uid_for_shadow_encounter" path="res://Resources/Encounter/ShadowEncounter.tres" id="8_xyz"]
 
 [resource]
 script = ExtResource("1_db")
-normal_encounters = Array[ExtResource("1_6gacv")]([ExtResource("2_mne5c"), ExtResource("3_wungp")])
+normal_encounters = Array[ExtResource("1_6gacv")]([ExtResource("2_mne5c"), ExtResource("3_wungp"), ExtResource("4_xyz"), ExtResource("5_xyz"), ExtResource("6_xyz"), ExtResource("7_xyz"), ExtResource("8_xyz")])

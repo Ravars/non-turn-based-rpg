@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://unique_uid_for_elemental_encounter"]
+
+[ext_resource type="Script" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/FireElementalArchetype.tres" id="2_xyz"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/IceElementalArchetype.tres" id="3_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+enemies = [ExtResource("2_xyz"), ExtResource("3_xyz")]

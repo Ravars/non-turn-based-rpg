@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_rock_golem_stats"]
+
+[ext_resource type="Script" path="res://Scripts/Data/CharacterStats.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+health = 120
+strength = 25
+intelligence = 0
+focus = 1
+armor = 25
+magic_resist = 10

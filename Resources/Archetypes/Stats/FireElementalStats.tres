@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_fire_elemental_stats"]
+
+[ext_resource type="Script" path="res://Scripts/Data/CharacterStats.gd" id="1_abcde"]
+
+[resource]
+script = ExtResource("1_abcde")
+health = 50
+strength = 0
+intelligence = 15
+focus = 1
+armor = 5
+magic_resist = 10

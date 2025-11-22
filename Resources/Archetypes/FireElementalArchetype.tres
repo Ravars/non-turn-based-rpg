@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://unique_uid_for_fire_elemental_archetype"]
+
+[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/Stats/FireElementalStats.tres" id="2_xyz"]
+[ext_resource type="Texture2D" path="res://Assets/MiniMage.png" id="3_xyz"]
+[ext_resource type="Resource" path="res://Resources/Skills/FireBolt.tres" id="4_xyz"]
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [ {
+"frames": [ ExtResource("3_xyz") ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[resource]
+script = ExtResource("1_abcde")
+character_name = "Fire Elemental"
+sprite_frames = SubResource("1")
+base_stats = ExtResource("2_xyz")
+starting_skills = [ExtResource("4_xyz")]
