@@ -1,22 +1,32 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://unique_uid_for_rock_golem_archetype"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=10 format=3 uid="uid://302d1mepx6ba"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_e3f45"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/RockGolemStats.tres" id="2_xyz"]
-[ext_resource type="Texture2D" path="res://Assets/MiniShieldMan.png" id="3_xyz"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_oe60a"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_oe60a"]
 [ext_resource type="Resource" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
 [ext_resource type="Resource" path="res://Resources/Skills/StoneSkinSkill.tres" id="5_xyz"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3f45"]
+atlas = ExtResource("3_oe60a")
+region = Rect2(32, 544, 32, 32)
+
 [sub_resource type="SpriteFrames" id="1"]
-animations = [ {
-"frames": [ ExtResource("3_xyz") ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3f45")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Rock Golem"
+scene = ExtResource("2_e3f45")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
-starting_skills = [ExtResource("4_xyz"), ExtResource("5_xyz")]
+starting_skills = Array[ExtResource("4_oe60a")]([ExtResource("4_xyz"), ExtResource("5_xyz")])

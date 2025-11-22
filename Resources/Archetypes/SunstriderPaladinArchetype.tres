@@ -1,22 +1,32 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://unique_uid_for_sunstrider_paladin_archetype"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=10 format=3 uid="uid://bf3w6fiut52ff"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_b11pe"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/SunstriderPaladinStats.tres" id="2_xyz"]
-[ext_resource type="Texture2D" path="res://Assets/MiniShieldMan.png" id="3_xyz"]
-[ext_resource type="Resource" path="res://Resources/Skills/DivineSmite.tres" id="4_xyz"]
-[ext_resource type="Resource" path="res://Resources/Skills/HealTarget.tres" id="5_xyz"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_m2tss"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_b11pe"]
+[ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="4_xyz"]
+[ext_resource type="Resource" uid="uid://76mk7th8ptlq" path="res://Resources/Skills/HealTarget.tres" id="5_xyz"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a66r"]
+atlas = ExtResource("3_m2tss")
+region = Rect2(224, 224, 32, 32)
 
 [sub_resource type="SpriteFrames" id="1"]
-animations = [ {
-"frames": [ ExtResource("3_xyz") ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7a66r")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Sunstrider Paladin"
+scene = ExtResource("2_b11pe")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
-starting_skills = [ExtResource("4_xyz"), ExtResource("5_xyz")]
+starting_skills = Array[ExtResource("4_b11pe")]([ExtResource("4_xyz"), ExtResource("5_xyz")])

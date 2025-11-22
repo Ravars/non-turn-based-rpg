@@ -1,21 +1,31 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://unique_uid_for_shadow_sorcerer_archetype"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://cd8dmkddljav5"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_hbtrq"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/ShadowSorcererStats.tres" id="2_xyz"]
-[ext_resource type="Texture2D" path="res://Assets/MiniMage.png" id="3_xyz"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_1juyv"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_1juyv"]
 [ext_resource type="Resource" path="res://Resources/Skills/ShadowBolt.tres" id="4_xyz"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbtrq"]
+atlas = ExtResource("3_1juyv")
+region = Rect2(160, 576, 32, 32)
+
 [sub_resource type="SpriteFrames" id="1"]
-animations = [ {
-"frames": [ ExtResource("3_xyz") ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbtrq")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Shadow Sorcerer"
+scene = ExtResource("2_hbtrq")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
-starting_skills = [ExtResource("4_xyz")]
+starting_skills = Array[ExtResource("4_1juyv")]([ExtResource("4_xyz")])

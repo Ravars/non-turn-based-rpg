@@ -1,21 +1,31 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://unique_uid_for_earth_elemental_archetype"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://cp5sxr5hxib5u"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_1i3q7"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/EarthElementalStats.tres" id="2_xyz"]
-[ext_resource type="Texture2D" path="res://Assets/MiniSpearMan.png" id="3_xyz"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_kg6mu"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_kg6mu"]
 [ext_resource type="Resource" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i3q7"]
+atlas = ExtResource("3_kg6mu")
+region = Rect2(32, 640, 32, 32)
+
 [sub_resource type="SpriteFrames" id="1"]
-animations = [ {
-"frames": [ ExtResource("3_xyz") ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1i3q7")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Earth Elemental"
+scene = ExtResource("2_1i3q7")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
-starting_skills = [ExtResource("4_xyz")]
+starting_skills = Array[ExtResource("4_kg6mu")]([ExtResource("4_xyz")])

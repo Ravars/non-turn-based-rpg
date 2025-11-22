@@ -1,9 +1,11 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://unique_uid_for_shadow_encounter"]
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3 uid="uid://0fv72ey02o2t"]
 
-[ext_resource type="Script" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_7cq1q"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/ShadowSorcererArchetype.tres" id="2_xyz"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/VoidreaverArchetype.tres" id="3_xyz"]
 
 [resource]
 script = ExtResource("1_abcde")
-enemies = [ExtResource("2_xyz"), ExtResource("3_xyz")]
+encounter_name = "Shadow"
+enemy_archetypes = Array[ExtResource("1_7cq1q")]([ExtResource("2_xyz"), ExtResource("3_xyz")])

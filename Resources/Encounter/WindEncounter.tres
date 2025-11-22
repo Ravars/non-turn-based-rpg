@@ -1,9 +1,10 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://unique_uid_for_wind_encounter"]
+[gd_resource type="Resource" script_class="EncounterData" load_steps=4 format=3 uid="uid://d23bew8oh0yb3"]
 
-[ext_resource type="Script" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
-[ext_resource type="Resource" path="res://Resources/Archetypes/WindSpiritArchetype.tres" id="2_xyz"]
-[ext_resource type="Resource" path="res://Resources/Archetypes/AirDjinnArchetype.tres" id="3_xyz"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_3hcxd"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
+[ext_resource type="Resource" uid="uid://chbcwsqgg38pt" path="res://Resources/Archetypes/AirDjinnArchetype.tres" id="3_xyz"]
 
 [resource]
 script = ExtResource("1_abcde")
-enemies = [ExtResource("2_xyz"), ExtResource("3_xyz")]
+encounter_name = "Wind"
+enemy_archetypes = Array[ExtResource("1_3hcxd")]([ExtResource("3_xyz")])

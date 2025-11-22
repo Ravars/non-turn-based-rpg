@@ -1,9 +1,11 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://unique_uid_for_light_encounter"]
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3 uid="uid://c41630innja8i"]
 
-[ext_resource type="Script" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_0hjve"]
+[ext_resource type="Script" uid="uid://bkccj684haiid" path="res://Scripts/Data/EncounterData.gd" id="1_abcde"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/LightswornAcolyteArchetype.tres" id="2_xyz"]
-[ext_resource type="Resource" path="res://Resources/Archetypes/SunstriderPaladinArchetype.tres" id="3_xyz"]
+[ext_resource type="Resource" path="res://Resources/Archetypes/WindSpiritArchetype.tres" id="3_ps8em"]
 
 [resource]
 script = ExtResource("1_abcde")
-enemies = [ExtResource("2_xyz"), ExtResource("3_xyz")]
+encounter_name = "Light"
+enemy_archetypes = Array[ExtResource("1_0hjve")]([ExtResource("2_xyz"), ExtResource("3_ps8em")])
