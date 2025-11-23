@@ -3,9 +3,9 @@ extends Node
 class_name MapGenerator
 
 const MAP_WIDTH = 3
-const MAP_HEIGHT = 5
+const MAP_HEIGHT = 8
 
-enum NodeType { START, COMBAT, ELITE_COMBAT, EVENT, SHOP, BOSS, RECRUITMENT, UPGRADE }
+enum NodeType { START, COMBAT, ELITE_COMBAT, REST, SHOP, BOSS, RECRUITMENT, UPGRADE }
 
 func generate_map() -> Array[Array]:
 	var map_data: Array[Array] = []
@@ -49,7 +49,7 @@ func _generate_node_data(y: int, is_boss: bool = false, is_start: bool = false) 
 		if rand < 0.4:
 			node_type = NodeType.COMBAT
 		elif rand < 0.6:
-			node_type = NodeType.EVENT
+			node_type = NodeType.REST
 		elif rand < 0.7:
 			node_type = NodeType.ELITE_COMBAT
 		elif rand < 0.8:

@@ -29,7 +29,7 @@ func generate_map_nodes():
 				node_positions[Vector2(x, y)] = map_node
 
 				if node_data.type == MapGenerator.NodeType.START:
-					map_node.modulate = Color.GREEN
+					map_node.modulate = Color.WHITE
 					GameManager.update_current_map_node_ref(map_node)
 				else:
 					map_node.map_node_clicked.connect(_on_map_node_pressed)
@@ -79,9 +79,8 @@ func _on_map_node_pressed(node_data: Dictionary, map_node: GraphNode, node_pos: 
 			get_tree().change_scene_to_file("res://Scenes/Events/RecruitmentEvent.tscn")
 		MapGenerator.NodeType.UPGRADE:
 			get_tree().change_scene_to_file("res://Scenes/Events/UpgradeEvent.tscn")
-		MapGenerator.NodeType.EVENT:
-			# Implement event logic
-			pass
+		MapGenerator.NodeType.REST:
+			get_tree().change_scene_to_file("res://Scenes/Events/RestEvent.tscn")
 		MapGenerator.NodeType.SHOP:
 			# Implement shop logic
 			pass
