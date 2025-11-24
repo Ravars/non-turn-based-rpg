@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=10 format=3 uid="uid://d1uugo8bjh5if"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://d1uugo8bjh5if"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_wkwq4"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/VoidreaverStats.tres" id="2_xyz"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_uwf0m"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_uwf0m"]
@@ -26,7 +25,6 @@ animations = [{
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Voidreaver"
-scene = ExtResource("2_wkwq4")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
 starting_skills = Array[ExtResource("4_uwf0m")]([ExtResource("4_xyz"), ExtResource("5_xyz")])

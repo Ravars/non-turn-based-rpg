@@ -14,4 +14,6 @@ icon = SubResource("AtlasTexture_eu5eq")
 type = 0
 duration = 2.0
 value = 0.0
+damage_type = 0
+target_stat = 0
 metadata/_custom_type_script = "uid://chslrfvmeqbqa"

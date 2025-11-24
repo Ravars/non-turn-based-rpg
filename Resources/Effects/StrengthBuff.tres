@@ -11,4 +11,5 @@ region = Rect2(128, 32, 32, 32)
 script = ExtResource("1_abcde")
 effect_name = "Strength Buff"
 icon = SubResource("AtlasTexture_jpmqx")
+duration = 4.0
 value = 10.0

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterStats" load_steps=2 format=3 uid="uid://dblb4kwet3u2c"]
+
+[ext_resource type="Script" uid="uid://l8uxdayn10hi" path="res://Scripts/Data/CharacterStats.gd" id="1_xq14g"]
+
+[resource]
+script = ExtResource("1_xq14g")
+health = 300
+strength = 10
+intelligence = 3
+faith = 15
+focus = 2
+armor = 25
+magic_resist = 5
+metadata/_custom_type_script = "uid://l8uxdayn10hi"

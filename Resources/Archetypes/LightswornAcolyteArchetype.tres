@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://d1fwivlv50mak"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://d1fwivlv50mak"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_oi047"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/LightswornAcolyteStats.tres" id="2_xyz"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_73q3h"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_73q3h"]
@@ -25,7 +24,6 @@ animations = [{
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Lightsworn Acolyte"
-scene = ExtResource("2_oi047")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
 starting_skills = Array[ExtResource("4_73q3h")]([ExtResource("4_xyz")])

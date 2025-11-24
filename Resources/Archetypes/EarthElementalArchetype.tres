@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://cp5sxr5hxib5u"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://cp5sxr5hxib5u"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_1i3q7"]
 [ext_resource type="Resource" path="res://Resources/Archetypes/Stats/EarthElementalStats.tres" id="2_xyz"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_kg6mu"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_kg6mu"]
-[ext_resource type="Resource" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
+[ext_resource type="Resource" uid="uid://cidmad7fuaoun" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1i3q7"]
 atlas = ExtResource("3_kg6mu")
@@ -25,7 +24,6 @@ animations = [{
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Earth Elemental"
-scene = ExtResource("2_1i3q7")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("2_xyz")
 starting_skills = Array[ExtResource("4_kg6mu")]([ExtResource("4_xyz")])

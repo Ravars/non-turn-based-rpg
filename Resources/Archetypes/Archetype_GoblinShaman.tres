@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://mwkxe57mvudj"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=11 format=3 uid="uid://mwkxe57mvudj"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_main"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_6xaw3"]
-[ext_resource type="Resource" uid="uid://csvopphswd4xe" path="res://Resources/Units/GoblinShaman.tres" id="2_stats"]
+[ext_resource type="Resource" uid="uid://csvopphswd4xe" path="res://Resources/Units/Enemy/GoblinShaman.tres" id="2_stats"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_6xaw3"]
 [ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="5_e1fia"]
+[ext_resource type="Resource" uid="uid://b1glorvcryp0a" path="res://Resources/Skills/HealMultipleTargets.tres" id="6_buckj"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="6_e1fia"]
+[ext_resource type="Resource" uid="uid://behlawl43awnx" path="res://Resources/Skills/StrengthBuffSkill.tres" id="7_ft6gm"]
+[ext_resource type="Resource" uid="uid://yauem314bilu" path="res://Resources/Skills/FireBolt.tres" id="8_ft6gm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1fia"]
 atlas = ExtResource("6_e1fia")
@@ -25,7 +27,6 @@ animations = [{
 [resource]
 script = ExtResource("1_main")
 character_name = "Xamã Goblin"
-scene = ExtResource("2_6xaw3")
 sprite_frames = SubResource("SpriteFrames_buckj")
 base_stats = ExtResource("2_stats")
-starting_skills = Array[ExtResource("4_6xaw3")]([ExtResource("5_e1fia")])
+starting_skills = Array[ExtResource("4_6xaw3")]([ExtResource("5_e1fia"), ExtResource("6_buckj"), ExtResource("7_ft6gm"), ExtResource("8_ft6gm")])

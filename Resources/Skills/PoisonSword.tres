@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_cc53l")
 skill_name = "Poison Sword"
-damage = 5
-damage_type = 2
+damage = 10
+cooldown = 2.0
 status_effects = Array[ExtResource("2_rjhyn")]([ExtResource("3_rjhyn")])
 metadata/_custom_type_script = "uid://deb6e1y03bnsd"

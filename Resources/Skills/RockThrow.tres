@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_abcde")
 skill_name = "Rock Throw"
-damage = 10
+damage = 20
 cast_time = 2.0
-cooldown = 7.0
+cooldown = 2.0
+target_scope = 3
+range_rule = 1

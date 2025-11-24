@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=9 format=3 uid="uid://dimpx2u8b6kbg"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=8 format=3 uid="uid://dimpx2u8b6kbg"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
-[ext_resource type="Resource" uid="uid://6ani4ruco48d" path="res://Resources/Units/Goblin.tres" id="1_n08hh"]
+[ext_resource type="Resource" uid="uid://6ani4ruco48d" path="res://Resources/Units/Enemy/Goblin.tres" id="1_n08hh"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_pbb3q"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_qurno"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="4_un3ly"]
 [ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="6_jkxma"]
 
@@ -25,7 +24,6 @@ animations = [{
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Goblin"
-scene = ExtResource("2_qurno")
 sprite_frames = SubResource("1")
 base_stats = ExtResource("1_n08hh")
 starting_skills = Array[ExtResource("2_pbb3q")]([ExtResource("6_jkxma")])

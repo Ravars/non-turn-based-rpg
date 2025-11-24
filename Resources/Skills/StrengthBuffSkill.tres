@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
 [ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_cl7gy"]
-[ext_resource type="Resource" uid="uid://c6surtfeg8ow0" path="res://Resources/Effects/StrengthBuff.tres" id="2_xyz"]
+[ext_resource type="Resource" uid="uid://bkpmlbvg2wob6" path="res://Resources/Effects/StrengthBuff.tres" id="2_xyz"]
 
 [resource]
 script = ExtResource("1_abcde")
 skill_name = "Strength Buff"
 damage = 0
 cast_time = 2.0
-cooldown = 12.0
+cooldown = 4.0
 status_effects = Array[ExtResource("2_cl7gy")]([ExtResource("2_xyz")])

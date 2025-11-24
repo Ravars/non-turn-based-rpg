@@ -1,15 +1,11 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_haste_skill"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://d4nfjbot8c737"]
 
-[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
-[ext_resource type="Resource" path="res://Resources/Effects/Haste.tres" id="2_xyz"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_nnl8s"]
 
 [resource]
 script = ExtResource("1_abcde")
 skill_name = "Haste"
+damage = 0
 cast_time = 2.0
 cooldown = 12.0
-damage = 0
-damage_type = 0 # PHYSICAL
-target_team = 2 # SELF
-target_scope = 0 # SINGLE
-status_effects = [ExtResource("2_xyz")]

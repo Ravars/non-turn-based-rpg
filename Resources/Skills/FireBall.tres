@@ -8,7 +8,7 @@
 script = ExtResource("1_gybf2")
 skill_name = "Fire Ball"
 damage = 15
-damage_type = 1
+damage_type = 2
 cast_time = 2.5
 cooldown = 8.0
 status_effects = Array[ExtResource("2_ymj8e")]([ExtResource("3_k8ya7")])

@@ -1,6 +1,7 @@
 extends Node2D
 
 enum DamageType {
+	NONE,
 	PHYSICAL,
 	FIRE,
 	POISON,
@@ -15,6 +16,7 @@ var active_heroes: Array[Unit] = []
 var active_enemies: Array[Unit] = []
 
 func _ready() -> void:
+	LimboConsole.register_command(DEBUG_HealAll, "heal", "Heal all heroes")
 	pass
 
 func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = []):
@@ -76,8 +78,22 @@ func get_automatic_targets(caster: Unit, skill: SkillData) -> Array[Unit]:
 
 func get_total_damage(caster: Unit, skill: SkillData) -> int:
 	var base_damage: int = skill.damage
-	var final_strength = caster.get_final_strength()
-	var total_damage = base_damage + (final_strength * 2)
+	var bonus_damage:int = 0
+	match skill.damage_type:
+		CombatManager.DamageType.PHYSICAL:
+			bonus_damage = caster.get_final_strength()
+		CombatManager.DamageType.FIRE:
+			bonus_damage = caster.get_final_intelligence()
+		CombatManager.DamageType.POISON:
+			bonus_damage = caster.get_final_intelligence()
+		CombatManager.DamageType.LIGHTNING:
+			bonus_damage = caster.get_final_intelligence()
+		CombatManager.DamageType.HOLY:
+			bonus_damage = caster.get_final_faith()
+		CombatManager.DamageType.HEAL:
+			bonus_damage = caster.get_final_intelligence()
+	
+	var total_damage = base_damage + bonus_damage
 	return total_damage
 
 func get_total_heal(caster: Unit, skill: SkillData) -> int:
@@ -175,16 +191,6 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
-	
-	#if not active_heroes.is_empty():
-		#var first_hero: Unit = active_heroes[0]
-		#if first_hero.skills.size() >= 3:
-			## var test_skills: Array[SkillData] = [first_hero.skills[0], first_hero.skills[1], first_hero.skills[2]]
-			## first_hero.setup_test_loop(test_skills)
-			#first_hero.add_skill_to_loop(first_hero.skills[0])
-			#first_hero.add_skill_to_loop(first_hero.skills[1])
-			#first_hero.add_skill_to_loop(first_hero.skills[0])
-			#first_hero.is_loop_active = true
 
 	battle_initialized.emit(active_heroes)
 
@@ -209,15 +215,6 @@ func on_unit_died(dead_unit: Unit):
 	elif active_enemies.is_empty():
 		print("COMBATE TERMINOU: Vitoria!")
 		GameManager.combat_ended.emit(true)
-	
-# func get_valid_targets_for(action: TimelineAction) -> Array[Unit]:
-# 	var caster = action.caster
-# 	var skill = action.skill_data
-# 	var valid_targets: Array[Unit] = []
-
-# 	var enemy_team = active_heroes if caster.is_enemy else active_enemies
-# 	if skill.range_rule == SkillData.RangeRule.MELEE:
-# 		if caster.current_lane_position != Unit.LanePosition.FRONT
 
 
 func has_front_line_units(potential_targets: Array[Unit]) -> bool:
@@ -225,3 +222,10 @@ func has_front_line_units(potential_targets: Array[Unit]) -> bool:
 		if not unit.is_dead and unit.current_lane_position == Unit.LanePosition.FRONT:
 			return true
 	return false
+
+
+func DEBUG_HealAll():
+	for hero_data in GameManager.player_team:
+		hero_data.current_hp = hero_data.archetype.base_stats.health
+	for hero in active_heroes:
+		hero.heal(999999)

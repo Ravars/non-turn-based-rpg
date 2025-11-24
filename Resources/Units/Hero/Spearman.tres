@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CharacterStats" load_steps=2 format=3 uid="uid://cn5j6yg3g46k1"]
 
-[ext_resource type="Script" uid="uid://l8uxdayn10hi" path="res://Scripts/Data/CharacterStats.gd" id="1_l3fr5"]
+[ext_resource type="Script" uid="uid://l8uxdayn10hi" path="res://Scripts/Data/CharacterStats.gd" id="1_smuuw"]
 
 [resource]
-script = ExtResource("1_l3fr5")
-health = 100
-strength = 3
+script = ExtResource("1_smuuw")
+health = 150
+strength = 5
 dexterity = 15
+armor = 5
 metadata/_custom_type_script = "uid://l8uxdayn10hi"

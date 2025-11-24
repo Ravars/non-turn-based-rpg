@@ -6,5 +6,6 @@
 script = ExtResource("1_ibpmp")
 health = 100
 mana = 10
-focus = 8
+intelligence = 15
+focus = 4
 metadata/_custom_type_script = "uid://l8uxdayn10hi"

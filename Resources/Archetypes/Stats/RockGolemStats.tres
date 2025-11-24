@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_abcde")
-health = 1800
+health = 600
 strength = 15
 intelligence = 0
-focus = 1
+focus = 4
 armor = 30

@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_n755o")
-health = 30
+health = 60
 mana = 20
-strength = 1
 dexterity = 10
+intelligence = 6
 metadata/_custom_type_script = "uid://l8uxdayn10hi"

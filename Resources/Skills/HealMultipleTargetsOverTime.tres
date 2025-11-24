@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_d7nc3")
 skill_name = "Heal All over time"
-damage = 0
+damage = 10
 cast_time = 2.0
 cooldown = 4.0
 status_effects = Array[ExtResource("2_ytbla")]([ExtResource("3_ytbla")])

@@ -13,4 +13,5 @@ effect_name = "Armadura Quebrada"
 icon = SubResource("AtlasTexture_p24cx")
 duration = 8.0
 value = -20.0
+damage_type = 0
 metadata/_custom_type_script = "uid://chslrfvmeqbqa"

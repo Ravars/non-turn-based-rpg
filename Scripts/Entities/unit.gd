@@ -188,6 +188,7 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 				if effect_data.tick_timer >= 1.0:
 					print("EFFECT! {0} tomou {1} de dano do efeito {2}".format({0: name, 1: effect.value, 2: effect.effect_name}))
 					take_damage(effect.value, effect.damage_type)
+					#TODO: Ao inves de dar o dano aqui, somar ele todo e executar no final do loop.
 					effect_data.tick_timer -= 1.0
 				pass
 			StatusEffect.EffectType.HEAL_OVER_TIME:
@@ -229,6 +230,10 @@ func get_final_stat(stat_to_get: StatusEffect.Stat) -> int:
 			base_value = float(characterStats.armor)
 		StatusEffect.Stat.MAGIC_RESIST:
 			base_value = float(characterStats.magic_resist)
+		StatusEffect.Stat.INTELLIGENCE:
+			base_value = float(characterStats.intelligence)
+		StatusEffect.Stat.FAITH:
+			base_value = float(characterStats.faith)
 
 	for effect: StatusEffect in active_status_effects:
 		if effect.type == StatusEffect.EffectType.STAT_MODIFIER and effect.target_stat == stat_to_get:
@@ -251,7 +256,10 @@ func get_final_magic_resist() -> int:
 	return get_final_stat(StatusEffect.Stat.MAGIC_RESIST)
 	
 func get_final_intelligence() -> int:
-	return characterStats.intelligence
+	return get_final_stat(StatusEffect.Stat.INTELLIGENCE)
+
+func get_final_faith() -> int:
+	return get_final_stat(StatusEffect.Stat.FAITH)
 
 enum LanePosition {
 	FRONT,
