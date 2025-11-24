@@ -14,15 +14,29 @@ offset_top = 40.0
 offset_right = 40.0
 offset_bottom = 72.0
 
-[node name="Label" type="Label" parent="."]
-offset_top = -24.0
+[node name="HP_Label" type="Label" parent="."]
+offset_top = -69.0
 offset_right = 40.0
-offset_bottom = -1.0
+offset_bottom = -46.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "100"
+
+[node name="Armor_Label" type="Label" parent="."]
+offset_top = -47.0
+offset_right = 40.0
+offset_bottom = -24.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+text = "100"
+
+[node name="ShieldBar" type="ProgressBar" parent="."]
+offset_top = -8.0
+offset_right = 40.0
+offset_bottom = 19.0
+show_percentage = false
 
 [node name="ActionIndicator" type="Sprite2D" parent="."]
 position = Vector2(16, -40)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(17, -3)
+position = Vector2(17, 13.000001)
 scale = Vector2(2.875, 2.875)

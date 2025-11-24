@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=14 format=3 uid="uid://decmcf6bstinw"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=13 format=3 uid="uid://decmcf6bstinw"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_84vs4"]
 [ext_resource type="Resource" uid="uid://dg380qfx8b781" path="res://Resources/Units/Hero/Warrior.tres" id="1_v5mjq"]
-[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_dn127"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_emgah"]
 [ext_resource type="Texture2D" uid="uid://pxrsrqy50bqe" path="res://Assets/MiniShieldMan.png" id="4_3yddl"]
 [ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="5_h8055"]
 [ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="6_uo177"]
-[ext_resource type="Resource" uid="uid://dmgfjn6xctexm" path="res://Resources/Skills/ArmorBreakSkill.tres" id="7_dn127"]
+[ext_resource type="Resource" uid="uid://bwn5yt3a07qo4" path="res://Resources/Skills/RemoveShieldSkill.tres" id="7_dn127"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50p4m"]
 atlas = ExtResource("4_3yddl")
@@ -48,7 +47,6 @@ animations = [{
 [resource]
 script = ExtResource("1_84vs4")
 character_name = "Basic Warrior"
-scene = ExtResource("2_dn127")
 sprite_frames = SubResource("SpriteFrames_3k8l5")
 base_stats = ExtResource("1_v5mjq")
 starting_skills = Array[ExtResource("2_emgah")]([ExtResource("5_h8055"), ExtResource("6_uo177"), ExtResource("7_dn127")])

@@ -11,6 +11,7 @@ const AIController = preload("res://Scripts/Controllers/EnemyAIController.gd")
 
 var max_hp: int = 100
 var current_hp: float = 100
+var current_shield: float = 0
 
 var timeline_id: int = 0
 var is_dead: bool = false
@@ -34,6 +35,11 @@ var is_loop_active: bool = false
 	
 var last_loop_progress: float = 0.0
 var loop_progress_timer: float = 0.0
+@onready var armor_label = $Armor_Label
+@onready var hp_label = $HP_Label
+
+func _ready() -> void:
+	update_ui()
 
 func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, p_current_health: float = -1.0):
 	self.archetype = p_archetype
@@ -45,7 +51,7 @@ func initialize(p_archetype: CharacterArchetype, p_lane_position: LanePosition, 
 		self.current_hp = archetype.base_stats.health
 	else:
 		self.current_hp = p_current_health
-	$Label.text = str(current_hp)
+	self.current_shield = archetype.base_stats.armor
 
 	$AnimatedSprite2D.sprite_frames = archetype.sprite_frames
 	$AnimatedSprite2D.play("default")
@@ -116,16 +122,33 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		get_viewport().set_input_as_handled()
 
 func take_damage(amount: float, damage_type: CombatManager.DamageType):
-	current_hp = max(0, current_hp-amount)
-	$Label.text = str(current_hp)
-	print("DAMAGE {0} sofreu {1} de dano, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
+	var damage_to_shield = min(current_shield, amount)
+	current_shield -= damage_to_shield
+	var remaining_damage = amount - damage_to_shield
+	
+	current_hp = max(0, current_hp - remaining_damage)
+	print("DAMAGE {0} sofreu {1} de dano, vida atual: {2}, shield atual: {3}".format({0: name, 1: amount, 2: current_hp, 3: current_shield}))
 	damage_taken.emit(amount, self.global_position, damage_type)
+	update_ui()
 	if current_hp <= 0:
 		_die()
 
+func add_shield(amount: float):
+	current_shield += amount
+	update_ui()
+
+func remove_shield(amount: float):
+	current_shield = max(0, current_shield - amount)
+	update_ui()
+
+func update_ui():
+	armor_label.text = str(current_shield)
+	hp_label.text = str(current_hp)
+
 func heal(amount: float):
+	if is_dead: return
 	current_hp = min(current_hp + amount, max_hp)
-	$Label.text = str(current_hp)
+	update_ui()
 	heal_received.emit(amount, self.global_position)
 	print("HEAL {0} recebeu {1} de cura, vida atual: {2}".format({0: name,1: amount, 2: current_hp}))
 	
@@ -167,6 +190,12 @@ func apply_status_effect(effect:StatusEffect):
 		is_stunned = true
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
+	# elif effect.type == StatusEffect.EffectType.STAT_MODIFIER:
+	# 	apply_stat_modifier(effect)
+	elif effect.type == StatusEffect.EffectType.ADD_SHIELD:
+		add_shield(effect.value)
+	elif effect.type == StatusEffect.EffectType.REMOVE_SHIELD:
+		remove_shield(effect.value)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
