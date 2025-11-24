@@ -7,8 +7,8 @@
 script = ExtResource("1_abcde")
 skill_name = "Wind Slash"
 cast_time = 0.5
-cooldown = 3.0
-damage = 5
+cooldown = 2.0
+damage = 7
 damage_type = 0 # PHYSICAL
 target_team = 0 # ENEMIES
 target_scope = 0 # SINGLE

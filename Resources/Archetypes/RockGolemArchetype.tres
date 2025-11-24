@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_e3f45"]
-[ext_resource type="Resource" path="res://Resources/Archetypes/Stats/RockGolemStats.tres" id="2_xyz"]
+[ext_resource type="Resource" uid="uid://6nvt46kar4l8" path="res://Resources/Archetypes/Stats/RockGolemStats.tres" id="2_xyz"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_oe60a"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_oe60a"]
-[ext_resource type="Resource" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
+[ext_resource type="Resource" uid="uid://cidmad7fuaoun" path="res://Resources/Skills/RockThrow.tres" id="4_xyz"]
 [ext_resource type="Resource" path="res://Resources/Skills/StoneSkinSkill.tres" id="5_xyz"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3f45"]

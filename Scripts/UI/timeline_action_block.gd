@@ -2,7 +2,6 @@ extends Panel
 class_name TimelineActionBlock
 
 signal removed(action: TimelineAction)
-signal target_changed(action: TimelineAction)
 signal target_change_requested(action: TimelineAction)
 signal show_target_line(start_pos: Vector2, end_pos: Vector2)
 signal hide_target_line()

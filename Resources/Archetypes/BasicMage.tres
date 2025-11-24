@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterArchetype" load_steps=13 format=3 uid="uid://bk2h6atmt0umj"]
 
-[ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Units/Mage.tres" id="1_6ae03"]
+[ext_resource type="Resource" uid="uid://hkp5l64e081x" path="res://Resources/Units/Hero/Mage.tres" id="1_6ae03"]
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_vmhcc"]
 [ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="2_ao2n2"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_bx7w6"]

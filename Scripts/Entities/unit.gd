@@ -167,8 +167,6 @@ func apply_status_effect(effect:StatusEffect):
 		is_stunned = true
 		action_indicator_image.texture = stun_texture
 		print("EFFECT {0} está ATORDOADO".format({0: name}))
-	elif effect.type == StatusEffect.EffectType.STAT_MODIFIER:
-		apply_stat_modifier(effect)
 
 func process_status_effect(_current_time: float, delta: float) -> void:
 	if is_dead or active_status_effects.is_empty(): return
@@ -208,10 +206,6 @@ func process_status_effect(_current_time: float, delta: float) -> void:
 		active_status_effects.erase(effect)
 		action_indicator_image.texture = null
 		print("EFFECT '{0}' expirou em {1}".format({"0": effect.effect_name, "1": name}))
-	
-func apply_stat_modifier(effect: StatusEffect):
-	# This function is now empty, the logic is handled in get_final_strength
-	pass
 
 func _on_effect_expired(effect: StatusEffect):
 	if effect.type == StatusEffect.EffectType.STUN:

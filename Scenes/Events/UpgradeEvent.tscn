@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://unique_uid_for_upgrade_event"]
+[gd_scene load_steps=2 format=3 uid="uid://bjddot7gu0pf"]
 
-[ext_resource type="Script" path="res://Scripts/Events/upgrade_event.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://pr2adbkvq7vl" path="res://Scripts/Events/upgrade_event.gd" id="1_abcde"]
 
 [node name="UpgradeEvent" type="Control"]
 layout_mode = 3

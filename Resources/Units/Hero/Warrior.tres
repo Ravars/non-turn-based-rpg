@@ -4,6 +4,10 @@
 
 [resource]
 script = ExtResource("1_hoq84")
-health = 100
+health = 200
 strength = 10
+intelligence = 5
+focus = 2
+armor = 25
+magic_resist = 5
 metadata/_custom_type_script = "uid://l8uxdayn10hi"

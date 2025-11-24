@@ -34,7 +34,7 @@ func populate_available_archetypes():
 		available_archetypes_container.add_child(card)
 		displayed_archetype_cards[archetype] = card
 
-func _on_archetype_card_gui_input(event: InputEvent, card: ArchetypeCard, archetype: CharacterArchetype):
+func _on_archetype_card_gui_input(event: InputEvent, _card: ArchetypeCard, archetype: CharacterArchetype):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_on_archetype_card_pressed(archetype)
 

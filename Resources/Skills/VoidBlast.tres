@@ -6,8 +6,8 @@
 script = ExtResource("1_abcde")
 skill_name = "Void Blast"
 cast_time = 3.0
-cooldown = 10.0
-damage = 15
+cooldown = 12.0
+damage = 10
 damage_type = 2 # POISON
 target_team = 0 # ENEMIES
 target_scope = 1 # ALL

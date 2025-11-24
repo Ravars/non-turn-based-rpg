@@ -1,15 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_armor_debuff_skill"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3 uid="uid://d238qxohlbsxr"]
 
-[ext_resource type="Script" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
-[ext_resource type="Resource" path="res://Resources/Effects/ArmorDebuff.tres" id="2_xyz"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_mq0pe"]
 
 [resource]
 script = ExtResource("1_abcde")
 skill_name = "Armor Debuff"
-cast_time = 1.0
-cooldown = 10.0
 damage = 5
-damage_type = 0 # PHYSICAL
-target_team = 0 # ENEMIES
-target_scope = 0 # SINGLE
-status_effects = [ExtResource("2_xyz")]
+cooldown = 6.0

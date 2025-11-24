@@ -1,11 +1,27 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://unique_uid_for_wind_spirit"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=7 format=3 uid="uid://nq6y5yvyjatm"]
 
-[ext_resource type="Script" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
-[ext_resource type="Resource" path="res://Resources/Skills/WindSlash.tres" id="2_xyz"]
+[ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="1_doxuq"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_bd3l8"]
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="3_im7kj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w4w0"]
+atlas = ExtResource("3_bd3l8")
+region = Rect2(320, 544, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bwr5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w4w0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_abcde")
 character_name = "Wind Spirit"
-scene = null # Add scene path here
-base_stats = null # Add stats here
-starting_skills = [ExtResource("2_xyz")]
+scene = ExtResource("1_doxuq")
+sprite_frames = SubResource("SpriteFrames_4bwr5")

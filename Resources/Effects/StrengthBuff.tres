@@ -1,12 +1,14 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://unique_uid_for_strength_buff_effect"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=4 format=3 uid="uid://bkpmlbvg2wob6"]
 
-[ext_resource type="Script" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="1_6aypj"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpmqx"]
+atlas = ExtResource("1_6aypj")
+region = Rect2(128, 32, 32, 32)
 
 [resource]
 script = ExtResource("1_abcde")
 effect_name = "Strength Buff"
-type = 3 # STAT_MODIFIER
-duration = 5.0
+icon = SubResource("AtlasTexture_jpmqx")
 value = 10.0
-target_stat = 0 # STRENGTH
-is_percentage = true
