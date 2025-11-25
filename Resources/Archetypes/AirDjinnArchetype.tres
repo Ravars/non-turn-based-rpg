@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="3_4ncjw"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="4_4ncjw"]
 [ext_resource type="Resource" path="res://Resources/Skills/WindSlash.tres" id="4_xyz"]
-[ext_resource type="Resource" path="res://Resources/Skills/HasteSkill.tres" id="5_xyz"]
+[ext_resource type="Resource" uid="uid://d4nfjbot8c737" path="res://Resources/Skills/HasteSkill.tres" id="5_xyz"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykten"]
 atlas = ExtResource("3_4ncjw")

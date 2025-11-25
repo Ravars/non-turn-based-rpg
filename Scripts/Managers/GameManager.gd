@@ -12,9 +12,12 @@ var gold: int = 0
 signal run_started
 signal combat_ended(was_victory: bool)
 
+var ignore_cooldown: bool = false
+
 func _ready():
 	combat_ended.connect(_on_combat_ended)
 	get_tree().change_scene_to_file("res://Scenes/TeamSelectionScreen.tscn")
+	LimboConsole.register_command(DEBUG_set_cooldown, "game ignore_cd", "Define se igora ou nao o cooldown das skills")
 
 var current_player_pos := Vector2i.ZERO
 
@@ -111,3 +114,6 @@ func add_skill_to_hero(new_skill: SkillData, target_hero_data: PlayerCharacterDa
 		return
 	target_hero_data.archetype.starting_skills.append(new_skill)
 	print("Habilidade {0} adicionada ao {1}!".format({0: new_skill.skill_name, 1: target_hero_data.archetype.character_name}))
+
+func DEBUG_set_cooldown(ignore: bool):
+	ignore_cooldown = ignore

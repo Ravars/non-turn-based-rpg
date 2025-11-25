@@ -325,7 +325,10 @@ func recalculate_execution_plan():
 		for timer_skill in current_cooldown_keys:
 			cooldown_timers[timer_skill] -= cast_duration
 		# 4. Define o cooldown para a skill que acabamos de "conjurar"
-		cooldown_timers[skill_to_cast] = skill_to_cast.cooldown
+		if GameManager.ignore_cooldown:
+			cooldown_timers[skill_to_cast] = 0
+		else:	
+			cooldown_timers[skill_to_cast] = skill_to_cast.cooldown
 	
 	var final_idle_time = 0.0
 	for skill in cooldown_timers:

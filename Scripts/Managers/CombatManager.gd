@@ -16,7 +16,7 @@ var active_heroes: Array[Unit] = []
 var active_enemies: Array[Unit] = []
 
 func _ready() -> void:
-	LimboConsole.register_command(DEBUG_HealAll, "heal", "Heal all heroes")
+	LimboConsole.register_command(DEBUG_HealAll, "hack heal", "Heal all heroes")
 	pass
 
 func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = []):

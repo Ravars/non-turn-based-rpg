@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://b1glorvcryp0a" path="res://Resources/Skills/HealMultipleTargets.tres" id="6_buckj"]
 [ext_resource type="Texture2D" uid="uid://cak1pltltcqns" path="res://Assets/#1 - Transparent Icons.png" id="6_e1fia"]
 [ext_resource type="Resource" uid="uid://behlawl43awnx" path="res://Resources/Skills/StrengthBuffSkill.tres" id="7_ft6gm"]
-[ext_resource type="Resource" path="res://Resources/Skills/RemoveShieldSkill.tres" id="8_ft6gm"]
+[ext_resource type="Resource" uid="uid://bwn5yt3a07qo4" path="res://Resources/Skills/RemoveShieldSkill.tres" id="8_ft6gm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1fia"]
 atlas = ExtResource("6_e1fia")
