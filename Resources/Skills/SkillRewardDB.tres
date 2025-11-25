@@ -1,12 +1,27 @@
-[gd_resource type="Resource" script_class="SkillRewardDB" load_steps=6 format=3 uid="uid://bpjvush4jsf4g"]
+[gd_resource type="Resource" script_class="SkillRewardDB" load_steps=21 format=3 uid="uid://bpjvush4jsf4g"]
 
 [ext_resource type="Script" uid="uid://e036xn4fxj3g" path="res://Scripts/Data/SkillRewardDB.gd" id="1_jhqd2"]
 [ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="2_l5qv5"]
 [ext_resource type="Resource" uid="uid://dmgfjn6xctexm" path="res://Resources/Skills/ArmorBreakSkill.tres" id="3_wes82"]
 [ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="4_04dlv"]
 [ext_resource type="Resource" uid="uid://xyw5bcy281i7" path="res://Resources/Skills/PoisonSword.tres" id="5_gl5gy"]
+[ext_resource type="Resource" uid="uid://cravwpd82dnb8" path="res://Resources/Skills/AddShieldSkill.tres" id="6_qoh2n"]
+[ext_resource type="Resource" uid="uid://bk14aot6jtncu" path="res://Resources/Skills/FireBall.tres" id="7_qfcxe"]
+[ext_resource type="Resource" uid="uid://yauem314bilu" path="res://Resources/Skills/FireBolt.tres" id="8_xx600"]
+[ext_resource type="Resource" uid="uid://b1glorvcryp0a" path="res://Resources/Skills/HealMultipleTargets.tres" id="9_naxge"]
+[ext_resource type="Resource" uid="uid://dwerbwke603m" path="res://Resources/Skills/HealMultipleTargetsOverTime.tres" id="10_agn0j"]
+[ext_resource type="Resource" uid="uid://76mk7th8ptlq" path="res://Resources/Skills/HealTarget.tres" id="11_5yhgu"]
+[ext_resource type="Resource" uid="uid://n3jghudkx032" path="res://Resources/Skills/IceSkill.tres" id="12_rftgx"]
+[ext_resource type="Resource" uid="uid://ca1htadccy417" path="res://Resources/Skills/LineBreaker.tres" id="13_aw03n"]
+[ext_resource type="Resource" uid="uid://gejnytn2ksu6" path="res://Resources/Skills/LineBreakerBackLine.tres" id="14_qsnuk"]
+[ext_resource type="Resource" uid="uid://cidmad7fuaoun" path="res://Resources/Skills/RockThrow.tres" id="15_5spr1"]
+[ext_resource type="Resource" path="res://Resources/Skills/ShadowBolt.tres" id="16_7buta"]
+[ext_resource type="Resource" uid="uid://0o544yhnkuqp" path="res://Resources/Skills/ShieldAttack.tres" id="17_d7bf1"]
+[ext_resource type="Resource" uid="uid://cnvbsyktnbxg1" path="res://Resources/Skills/StunAttack.tres" id="18_dn52f"]
+[ext_resource type="Resource" uid="uid://c2bipukebnffg" path="res://Resources/Skills/SwordAttack.tres" id="19_5rssp"]
+[ext_resource type="Resource" path="res://Resources/Skills/WindSlash.tres" id="20_rh4gg"]
 
 [resource]
 script = ExtResource("1_jhqd2")
-skill_pool = Array[ExtResource("2_l5qv5")]([ExtResource("3_wes82"), ExtResource("4_04dlv"), ExtResource("5_gl5gy")])
+skill_pool = Array[ExtResource("2_l5qv5")]([ExtResource("3_wes82"), ExtResource("4_04dlv"), ExtResource("5_gl5gy"), ExtResource("6_qoh2n"), ExtResource("3_wes82"), ExtResource("7_qfcxe"), ExtResource("8_xx600"), ExtResource("9_naxge"), ExtResource("10_agn0j"), ExtResource("11_5yhgu"), ExtResource("12_rftgx"), ExtResource("13_aw03n"), ExtResource("14_qsnuk"), ExtResource("5_gl5gy"), ExtResource("15_5spr1"), ExtResource("16_7buta"), ExtResource("17_d7bf1"), ExtResource("18_dn52f"), ExtResource("19_5rssp"), ExtResource("20_rh4gg")])
 metadata/_custom_type_script = "uid://e036xn4fxj3g"
