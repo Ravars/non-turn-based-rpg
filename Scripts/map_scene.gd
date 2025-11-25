@@ -9,10 +9,19 @@ var encounter_db: EncounterDB
 var node_positions = {} # Store node positions to draw connections
 
 func _ready():
+	var team_formation_button = Button.new()
+	team_formation_button.text = "Team Formation"
+	team_formation_button.pressed.connect(_on_team_formation_button_pressed)
+	add_child(team_formation_button)
+
 	encounter_db = load("res://Resources/Encounter/Act1_EncountersDB.tres")
 	map_data = GameManager.map_data
 	generate_map_nodes()
 	graph_edit.arrange_nodes()
+
+func _on_team_formation_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/UI/TeamFormationScreen.tscn")
+
 
 func generate_map_nodes():
 	node_positions.clear()
@@ -31,7 +40,7 @@ func generate_map_nodes():
 				if node_data.type == MapGenerator.NodeType.START:
 					map_node.modulate = Color.WHITE
 					GameManager.update_current_map_node_ref(map_node)
-				else:
+				elif not GameManager.visited_nodes.has(node_pos):
 					map_node.map_node_clicked.connect(_on_map_node_pressed)
 				
 				if node_pos == GameManager.current_player_pos:

@@ -149,28 +149,56 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 	active_heroes.clear()
 	active_enemies.clear()
 	
-	for i in range(hero_data.size()):
-		var position_in_lane = i % 2
-		var spawn_point = setup_node.player_spawn_points[position_in_lane]
-		var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
-		var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
-		var archetype = hero_data[i].archetype
-		var new_hero: Unit = unit_scene.instantiate()
-		var lane_pos_enum
-		if position_in_lane == 0:
-			lane_pos_enum = Unit.LanePosition.FRONT
-		else:
-			lane_pos_enum = Unit.LanePosition.BACK
+	if GameManager.front_lane_heroes.is_empty() and GameManager.back_lane_heroes.is_empty():
+		# Default logic if formation is not set
+		for i in range(hero_data.size()):
+			var position_in_lane = i % 2
+			var spawn_point = setup_node.player_spawn_points[position_in_lane]
+			var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
+			var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
+			var archetype = hero_data[i].archetype
+			var new_hero: Unit = unit_scene.instantiate()
+			var lane_pos_enum
+			if position_in_lane == 0:
+				lane_pos_enum = Unit.LanePosition.FRONT
+			else:
+				lane_pos_enum = Unit.LanePosition.BACK
 
+			new_hero.initialize(archetype, lane_pos_enum, hero_data[i].current_hp)
+			spawn_point.add_child(new_hero)
+			new_hero.add_to_group("heroes")
+			new_hero.global_position = spawn_point.global_position + offset
+			active_heroes.append(new_hero)
+			new_hero.is_loop_active = true
+			setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
+	else:
+		# Use formation data
+		for hero_datum in GameManager.front_lane_heroes:
+			var spawn_point = setup_node.player_spawn_points[0]
+			var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
+			var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
+			var new_hero: Unit = unit_scene.instantiate()
+			new_hero.initialize(hero_datum.archetype, Unit.LanePosition.FRONT, hero_datum.current_hp)
+			spawn_point.add_child(new_hero)
+			new_hero.add_to_group("heroes")
+			new_hero.global_position = spawn_point.global_position + offset
+			active_heroes.append(new_hero)
+			new_hero.is_loop_active = true
+			setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
+			
+		for hero_datum in GameManager.back_lane_heroes:
+			var spawn_point = setup_node.player_spawn_points[1]
+			var occupant_count = setup_node.hero_lane_occupancy.get(spawn_point, 0)
+			var offset = Vector2(occupant_count * setup_node.lane_offset, 0)
+			var new_hero: Unit = unit_scene.instantiate()
+			new_hero.initialize(hero_datum.archetype, Unit.LanePosition.BACK, hero_datum.current_hp)
+			spawn_point.add_child(new_hero)
+			new_hero.add_to_group("heroes")
+			new_hero.global_position = spawn_point.global_position + offset
+			active_heroes.append(new_hero)
+			new_hero.is_loop_active = true
+			setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
 
-		new_hero.initialize(archetype, lane_pos_enum, hero_data[i].current_hp)
-		spawn_point.add_child(new_hero)
-		new_hero.add_to_group("heroes")
-		new_hero.global_position = spawn_point.global_position + offset
-		active_heroes.append(new_hero)
-		new_hero.is_loop_active = true
-		setup_node.hero_lane_occupancy[spawn_point] = occupant_count + 1
-		
 	for i in range(enemy_data.size()):
 		var position_in_lane = i % 2
 		var spawn_point = setup_node.enemie_spawn_points[position_in_lane]
@@ -191,7 +219,7 @@ func initialize_battle(hero_data: Array[PlayerCharacterData], enemy_data: Array[
 		
 		active_enemies.append(new_enemy)
 		setup_node.enemy_lane_occupancy[spawn_point] = occupant_count + 1
-
+	
 	battle_initialized.emit(active_heroes)
 
 func get_random_hero_target():

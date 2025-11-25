@@ -20,11 +20,16 @@ var current_player_pos := Vector2i.ZERO
 
 var current_map_node_ref: GraphNode = null
 
+var front_lane_heroes: Array[PlayerCharacterData] = []
+var back_lane_heroes: Array[PlayerCharacterData] = []
+
 var visited_nodes: Array[Vector2i] = []
 
 func start_new_run(chosen_archetypes: Array[CharacterArchetype]):
 	print("GAME MANAGER: Iniciando nova partida")
 	player_team.clear();
+	front_lane_heroes.clear()
+	back_lane_heroes.clear()
 
 	for archetype in chosen_archetypes:
 		var character_data = PlayerCharacterData.new()
@@ -44,6 +49,10 @@ func start_new_run(chosen_archetypes: Array[CharacterArchetype]):
 	visited_nodes.clear()
 	run_started.emit()
 	get_tree().change_scene_to_file("res://Scenes/MapScene.tscn")
+
+func set_team_formation(_front_lane_heroes: Array[PlayerCharacterData], _back_lane_heroes: Array[PlayerCharacterData]):
+	front_lane_heroes = _front_lane_heroes
+	back_lane_heroes = _back_lane_heroes
 
 func update_player_pos(new_pos: Vector2i):
 	current_player_pos = new_pos
