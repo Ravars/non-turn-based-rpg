@@ -67,7 +67,7 @@ func add_visited_node(node_pos: Vector2i):
 func start_combat(enemy_archetypes: Array[CharacterArchetype]):
 	print("GAME MANAGER: Preparando para iniciar o combate.")
 	next_encounter_enemies = enemy_archetypes
-	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/TeamFormationScreen.tscn")
 
 func _on_combat_ended(was_victory: bool):
 	if was_victory:

@@ -55,4 +55,4 @@ func _on_done_button_pressed():
 			
 	GameManager.set_team_formation(front_lane_heroes, back_lane_heroes)
 	
-	get_tree().change_scene_to_file("res://Scenes/MapScene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
