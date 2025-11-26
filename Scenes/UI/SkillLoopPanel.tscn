@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://resqdfk32fh0"]
 
-[ext_resource type="Script" uid="uid://bx6ilubf1nj36" path="res://Scripts/UI/skill_loop_panel.gd" id="1_3ne2n"]
+[ext_resource type="Script" path="res://Scripts/UI/skill_loop_panel.gd" id="1_3ne2n"]
 
 [node name="SkillLoopPanel" type="Control"]
 layout_mode = 3

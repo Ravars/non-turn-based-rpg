@@ -51,6 +51,14 @@ text = "Play"
 layout_mode = 2
 text = "Pause"
 
+[node name="ToggleSkillLoopPanelButton" type="Button" parent="ColorRect3/VBoxContainer"]
+layout_mode = 2
+text = "Toggle Skill Loop"
+
+[node name="ToggleCharacterStatsPanelButton" type="Button" parent="ColorRect3/VBoxContainer"]
+layout_mode = 2
+text = "Toggle Stats"
+
 [node name="ColorRect4" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 454.0

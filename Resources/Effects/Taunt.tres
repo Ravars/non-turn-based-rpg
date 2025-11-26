@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=4 format=3 uid="uid://debgcx78ikmjr"]
+
+[ext_resource type="Texture2D" uid="uid://seyyab3bjf81" path="res://Assets/game-icons.net.png" id="1_3n3xk"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="1_abcde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxoxe"]
+atlas = ExtResource("1_3n3xk")
+region = Rect2(1536, 2784, 48, 48)
+
+[resource]
+script = ExtResource("1_abcde")
+effect_name = "Taunt"
+icon = SubResource("AtlasTexture_bxoxe")
+duration = 4.0
+value = 0.0
+type = 6

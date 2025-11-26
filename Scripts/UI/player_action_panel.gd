@@ -11,13 +11,18 @@ func _ready():
 	CombatManager.battle_initialized.connect(instantiate_button)
 	$ColorRect3/VBoxContainer/PlayButton.connect("pressed", Callable(self, "_on_play_button_pressed"))
 	$ColorRect3/VBoxContainer/PauseButton.connect("pressed", Callable(self, "_on_pause_button_pressed"))
+	$ColorRect3/VBoxContainer/ToggleSkillLoopPanelButton.connect("pressed", Callable(self, "_on_toggle_skill_loop_panel_pressed"))
+	$ColorRect3/VBoxContainer/ToggleCharacterStatsPanelButton.connect("pressed", Callable(self, "_on_toggle_character_stats_panel_pressed"))
 	$"ColorRect4/VBoxContainer/0_1xButton".connect("pressed", Callable(self, "_on_01x_button_pressed"))
 	$"ColorRect4/VBoxContainer/0_5xButton".connect("pressed", Callable(self, "_on_05x_button_pressed"))
 	$"ColorRect4/VBoxContainer/1xButton".connect("pressed", Callable(self, "_on_1x_button_pressed"))
 	$"ColorRect4/VBoxContainer/2xButton".connect("pressed", Callable(self, "_on_2x_button_pressed"))
-	#LoopManager.target_selection_changed.connect(_on_target_selection_changed)
-	# Conecta ao sinal da lane (isso precisa ser feito depois que as lanes são criadas)
-	# Vamos mover essa lógica para _on_battle_initialized
+
+func _on_toggle_skill_loop_panel_pressed():
+	skill_loop_panel.visible = not skill_loop_panel.visible
+
+func _on_toggle_character_stats_panel_pressed():
+	character_stats_panel.visible = not character_stats_panel.visible
 
 func instantiate_button(characters: Array[Unit]) -> void:
 	print("Instantiate UI Buttons")
@@ -40,7 +45,7 @@ func instantiate_button(characters: Array[Unit]) -> void:
 
 func _on_button_press(unidade: Unit):
 	skill_loop_panel.display_for_hero(unidade)
-	character_stats_panel.display_stats(unidade.archetype)
+	character_stats_panel.display_stats(unidade)
 
 func _on_play_button_pressed():
 	if LoopManager.is_selecting_target:

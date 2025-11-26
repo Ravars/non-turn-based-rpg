@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqh6gcep2kdbf"]
+[gd_scene load_steps=6 format=3 uid="uid://dqh6gcep2kdbf"]
 
 [ext_resource type="Script" uid="uid://d3in6eiwf6of7" path="res://Scripts/team_selection_screen.gd" id="1_3xiah"]
 [ext_resource type="PackedScene" uid="uid://df161rj25jbt7" path="res://Scenes/UI/ArchetypeCard.tscn" id="2_s56xw"]
 [ext_resource type="PackedScene" uid="uid://crbcax52qcwco" path="res://Scenes/UI/CharacterStatsPanel.tscn" id="3_123ab"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/SkillTooltip.tscn" id="4_456cd"]
+[ext_resource type="PackedScene" uid="uid://0hbufdhuxkku" path="res://Scenes/Units/Unit.tscn" id="5_xyz"]
 
 [node name="TeamSelectionScreen" type="Control"]
 layout_mode = 3
@@ -16,6 +17,7 @@ script = ExtResource("1_3xiah")
 archetype_card_scene = ExtResource("2_s56xw")
 character_stats_panel_scene = ExtResource("3_123ab")
 skill_tooltip_scene = ExtResource("4_456cd")
+unit_scene = ExtResource("5_xyz")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

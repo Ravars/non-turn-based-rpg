@@ -12,7 +12,7 @@ extends Control
 var TEAM_LIMIT = 3
 var selected_archetypes: Array[CharacterArchetype] = []
 var displayed_archetype_cards: Dictionary = {} # Stores archetype -> card instance
-var character_stats_panel: Control
+var character_stats_panel: CharacterStatsPanel
 var current_hovered_skill_tooltip: Control = null
 
 func _ready():
@@ -58,8 +58,14 @@ func _on_archetype_removed(archetype: CharacterArchetype):
 		displayed_archetype_cards[archetype].set_selected(false)
 		update_confirm_button_state()
 
+@export var unit_scene: PackedScene
+
 func _on_archetype_card_pressed(archetype: CharacterArchetype):
-	character_stats_panel.display_stats(archetype)
+	var temp_unit = unit_scene.instantiate()
+	temp_unit.initialize(archetype, Unit.LanePosition.FRONT)
+	character_stats_panel.display_stats(temp_unit)
+	temp_unit.queue_free()
+
 
 func update_selected_team_display():
 	for child in selected_archetypes_container.get_children():

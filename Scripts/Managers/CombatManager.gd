@@ -29,7 +29,7 @@ func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = [])
 		targets_to_hit = get_automatic_targets(caster, skill)
 
 	if targets_to_hit.is_empty():
-		print("Ação cancelada. Nenhum alvo válido encontrado na execução.")
+		print("%s - Ação cancelada. Nenhum alvo válido encontrado na execução." % [caster.name])
 		return
 
 	print("%s EXECUTING ACTION: %s uses %s on %s" % ["ENEMY" if caster.is_enemy else "HERO",caster.name, skill.skill_name, ", ".join(targets_to_hit.map(func(t): return t.name))])
@@ -59,16 +59,40 @@ func execute_action(caster: Unit, skill: SkillData, p_targets: Array[Unit] = [])
 			target.apply_status_effect(effect)
 
 func get_automatic_targets(caster: Unit, skill: SkillData) -> Array[Unit]:
-	var potential_targets = get_valid_targets(caster, skill)
+	var potential_targets: Array[Unit] = get_valid_targets(caster, skill)
 	
 	if potential_targets.is_empty():
 		return []
+
+	if skill.target_team == SkillData.TargetTeam.ENEMIES:
+		var taunting_targets: Array[Unit] = []
+		for target in potential_targets:
+			for effect in target.active_status_effects:
+				if effect.type == StatusEffect.EffectType.TAUNT:
+					taunting_targets.append(target)
+					break
+		
+		if not taunting_targets.is_empty():
+			potential_targets = taunting_targets
+		else:
+			var non_stealthed_targets: Array[Unit] = []
+			for target in potential_targets:
+				var is_stealthed = false
+				for effect in target.active_status_effects:
+					if effect.type == StatusEffect.EffectType.STEALTH:
+						is_stealthed = true
+						break
+				if not is_stealthed:
+					non_stealthed_targets.append(target)
+			
+			if not non_stealthed_targets.is_empty():
+				potential_targets = non_stealthed_targets
 
 	match skill.target_scope:
 		SkillData.TargetScope.SINGLE:
 			# Prioritize lowest HP for damage, highest HP for heal
 			if skill.heal > 0:
-				potential_targets.sort_custom(func(a, b): return a.current_hp > b.current_hp)
+				potential_targets.sort_custom(func(a, b): return a.current_hp < b.current_hp)
 			else:
 				potential_targets.sort_custom(func(a, b): return a.current_hp < b.current_hp)
 			return [potential_targets[0]]

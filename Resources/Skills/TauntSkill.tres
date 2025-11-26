@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://b8avdtafwr0dy"]
+
+[ext_resource type="Script" uid="uid://deb6e1y03bnsd" path="res://Scripts/Data/SkillData.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://chslrfvmeqbqa" path="res://Scripts/Data/StatusEffect.gd" id="2_trxry"]
+[ext_resource type="Resource" uid="uid://debgcx78ikmjr" path="res://Resources/Effects/Taunt.tres" id="2_xyz"]
+
+[resource]
+script = ExtResource("1_abcde")
+skill_name = "Taunt"
+damage = 0
+damage_type = 0
+cast_time = 0.5
+cooldown = 10.0
+status_effects = Array[ExtResource("2_trxry")]([ExtResource("2_xyz")])
+target_team = 2

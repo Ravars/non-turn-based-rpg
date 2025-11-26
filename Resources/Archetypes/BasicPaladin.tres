@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=10 format=3 uid="uid://bxjyp2do4lqed"]
+[gd_resource type="Resource" script_class="CharacterArchetype" load_steps=11 format=3 uid="uid://bxjyp2do4lqed"]
 
 [ext_resource type="Script" uid="uid://c43gnnfauc070" path="res://Scripts/Data/CharacterArchetype.gd" id="1_1ad4x"]
 [ext_resource type="Resource" uid="uid://dblb4kwet3u2c" path="res://Resources/Units/Hero/Paladin.tres" id="1_mfkwo"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c34hfgd1njese" path="res://Resources/Skills/DivineSmite.tres" id="5_axnja"]
 [ext_resource type="Resource" uid="uid://cravwpd82dnb8" path="res://Resources/Skills/AddShieldSkill.tres" id="7_31hg4"]
 [ext_resource type="Resource" uid="uid://b1glorvcryp0a" path="res://Resources/Skills/HealMultipleTargets.tres" id="7_eh44g"]
+[ext_resource type="Resource" uid="uid://b8avdtafwr0dy" path="res://Resources/Skills/TauntSkill.tres" id="8_eh44g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eh44g"]
 atlas = ExtResource("4_31hg4")
@@ -28,5 +29,5 @@ script = ExtResource("1_1ad4x")
 character_name = "Paladino"
 sprite_frames = SubResource("SpriteFrames_pey3f")
 base_stats = ExtResource("1_mfkwo")
-starting_skills = Array[ExtResource("2_kafkc")]([ExtResource("5_axnja"), ExtResource("7_eh44g"), ExtResource("7_31hg4")])
+starting_skills = Array[ExtResource("2_kafkc")]([ExtResource("5_axnja"), ExtResource("7_eh44g"), ExtResource("7_31hg4"), ExtResource("8_eh44g")])
 metadata/_custom_type_script = "uid://c43gnnfauc070"
